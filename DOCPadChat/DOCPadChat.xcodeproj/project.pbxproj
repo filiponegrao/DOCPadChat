@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */; };
+		80A7D9C91CFE4E5800BE52EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C81CFE4E5800BE52EB /* ViewController.swift */; };
+		80A7D9CC1CFE4E5800BE52EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */; };
+		80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */; };
+		80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */; };
+		80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */; };
+		80A7D9DF1CFE4E5800BE52EB /* DOCPadChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */; };
+		80A7D9EA1CFE4E5800BE52EB /* DOCPadChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		80A7D9DB1CFE4E5800BE52EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80A7D9BB1CFE4E5800BE52EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 80A7D9C21CFE4E5800BE52EB;
+			remoteInfo = DOCPadChat;
+		};
+		80A7D9E61CFE4E5800BE52EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 80A7D9BB1CFE4E5800BE52EB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 80A7D9C21CFE4E5800BE52EB;
+			remoteInfo = DOCPadChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCPadChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		80A7D9C81CFE4E5800BE52EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		80A7D9CB1CFE4E5800BE52EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DOCPadChat.xcdatamodel; sourceTree = "<group>"; };
+		80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		80A7D9D31CFE4E5800BE52EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		80A7D9D51CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80A7D9DA1CFE4E5800BE52EB /* DOCPadChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOCPadChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCPadChatTests.swift; sourceTree = "<group>"; };
+		80A7D9E01CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80A7D9E51CFE4E5800BE52EB /* DOCPadChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOCPadChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCPadChatUITests.swift; sourceTree = "<group>"; };
+		80A7D9EB1CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		80A7D9C01CFE4E5800BE52EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9D71CFE4E5800BE52EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9E21CFE4E5800BE52EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		80A7D9BA1CFE4E5800BE52EB = {
+			isa = PBXGroup;
+			children = (
+				80A7D9C51CFE4E5800BE52EB /* DOCPadChat */,
+				80A7D9DD1CFE4E5800BE52EB /* DOCPadChatTests */,
+				80A7D9E81CFE4E5800BE52EB /* DOCPadChatUITests */,
+				80A7D9C41CFE4E5800BE52EB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		80A7D9C41CFE4E5800BE52EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */,
+				80A7D9DA1CFE4E5800BE52EB /* DOCPadChatTests.xctest */,
+				80A7D9E51CFE4E5800BE52EB /* DOCPadChatUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		80A7D9C51CFE4E5800BE52EB /* DOCPadChat */ = {
+			isa = PBXGroup;
+			children = (
+				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
+				80A7D9C81CFE4E5800BE52EB /* ViewController.swift */,
+				80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */,
+				80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */,
+				80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */,
+				80A7D9D51CFE4E5800BE52EB /* Info.plist */,
+				80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */,
+			);
+			path = DOCPadChat;
+			sourceTree = "<group>";
+		};
+		80A7D9DD1CFE4E5800BE52EB /* DOCPadChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */,
+				80A7D9E01CFE4E5800BE52EB /* Info.plist */,
+			);
+			path = DOCPadChatTests;
+			sourceTree = "<group>";
+		};
+		80A7D9E81CFE4E5800BE52EB /* DOCPadChatUITests */ = {
+			isa = PBXGroup;
+			children = (
+				80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */,
+				80A7D9EB1CFE4E5800BE52EB /* Info.plist */,
+			);
+			path = DOCPadChatUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		80A7D9C21CFE4E5800BE52EB /* DOCPadChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80A7D9EE1CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChat" */;
+			buildPhases = (
+				80A7D9BF1CFE4E5800BE52EB /* Sources */,
+				80A7D9C01CFE4E5800BE52EB /* Frameworks */,
+				80A7D9C11CFE4E5800BE52EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DOCPadChat;
+			productName = DOCPadChat;
+			productReference = 80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		80A7D9D91CFE4E5800BE52EB /* DOCPadChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80A7D9F11CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatTests" */;
+			buildPhases = (
+				80A7D9D61CFE4E5800BE52EB /* Sources */,
+				80A7D9D71CFE4E5800BE52EB /* Frameworks */,
+				80A7D9D81CFE4E5800BE52EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				80A7D9DC1CFE4E5800BE52EB /* PBXTargetDependency */,
+			);
+			name = DOCPadChatTests;
+			productName = DOCPadChatTests;
+			productReference = 80A7D9DA1CFE4E5800BE52EB /* DOCPadChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		80A7D9E41CFE4E5800BE52EB /* DOCPadChatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80A7D9F41CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatUITests" */;
+			buildPhases = (
+				80A7D9E11CFE4E5800BE52EB /* Sources */,
+				80A7D9E21CFE4E5800BE52EB /* Frameworks */,
+				80A7D9E31CFE4E5800BE52EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				80A7D9E71CFE4E5800BE52EB /* PBXTargetDependency */,
+			);
+			name = DOCPadChatUITests;
+			productName = DOCPadChatUITests;
+			productReference = 80A7D9E51CFE4E5800BE52EB /* DOCPadChatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		80A7D9BB1CFE4E5800BE52EB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Filipo Negrao";
+				TargetAttributes = {
+					80A7D9C21CFE4E5800BE52EB = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					80A7D9D91CFE4E5800BE52EB = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 80A7D9C21CFE4E5800BE52EB;
+					};
+					80A7D9E41CFE4E5800BE52EB = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 80A7D9C21CFE4E5800BE52EB;
+					};
+				};
+			};
+			buildConfigurationList = 80A7D9BE1CFE4E5800BE52EB /* Build configuration list for PBXProject "DOCPadChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 80A7D9BA1CFE4E5800BE52EB;
+			productRefGroup = 80A7D9C41CFE4E5800BE52EB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				80A7D9C21CFE4E5800BE52EB /* DOCPadChat */,
+				80A7D9D91CFE4E5800BE52EB /* DOCPadChatTests */,
+				80A7D9E41CFE4E5800BE52EB /* DOCPadChatUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		80A7D9C11CFE4E5800BE52EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */,
+				80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */,
+				80A7D9CC1CFE4E5800BE52EB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9D81CFE4E5800BE52EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9E31CFE4E5800BE52EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		80A7D9BF1CFE4E5800BE52EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80A7D9C91CFE4E5800BE52EB /* ViewController.swift in Sources */,
+				80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */,
+				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9D61CFE4E5800BE52EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80A7D9DF1CFE4E5800BE52EB /* DOCPadChatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80A7D9E11CFE4E5800BE52EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80A7D9EA1CFE4E5800BE52EB /* DOCPadChatUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		80A7D9DC1CFE4E5800BE52EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 80A7D9C21CFE4E5800BE52EB /* DOCPadChat */;
+			targetProxy = 80A7D9DB1CFE4E5800BE52EB /* PBXContainerItemProxy */;
+		};
+		80A7D9E71CFE4E5800BE52EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 80A7D9C21CFE4E5800BE52EB /* DOCPadChat */;
+			targetProxy = 80A7D9E61CFE4E5800BE52EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80A7D9CB1CFE4E5800BE52EB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80A7D9D31CFE4E5800BE52EB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		80A7D9EC1CFE4E5800BE52EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		80A7D9ED1CFE4E5800BE52EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		80A7D9EF1CFE4E5800BE52EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DOCPadChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		80A7D9F01CFE4E5800BE52EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DOCPadChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		80A7D9F21CFE4E5800BE52EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = DOCPadChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DOCPadChat.app/DOCPadChat";
+			};
+			name = Debug;
+		};
+		80A7D9F31CFE4E5800BE52EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = DOCPadChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DOCPadChat.app/DOCPadChat";
+			};
+			name = Release;
+		};
+		80A7D9F51CFE4E5800BE52EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DOCPadChatUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = DOCPadChat;
+			};
+			name = Debug;
+		};
+		80A7D9F61CFE4E5800BE52EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = DOCPadChatUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = DOCPadChat;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80A7D9BE1CFE4E5800BE52EB /* Build configuration list for PBXProject "DOCPadChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80A7D9EC1CFE4E5800BE52EB /* Debug */,
+				80A7D9ED1CFE4E5800BE52EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		80A7D9EE1CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80A7D9EF1CFE4E5800BE52EB /* Debug */,
+				80A7D9F01CFE4E5800BE52EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		80A7D9F11CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80A7D9F21CFE4E5800BE52EB /* Debug */,
+				80A7D9F31CFE4E5800BE52EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		80A7D9F41CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80A7D9F51CFE4E5800BE52EB /* Debug */,
+				80A7D9F61CFE4E5800BE52EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */,
+			);
+			currentVersion = 80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */;
+			path = DOCPadChat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 80A7D9BB1CFE4E5800BE52EB /* Project object */;
+}
