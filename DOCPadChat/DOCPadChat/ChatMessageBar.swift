@@ -10,17 +10,28 @@ import Foundation
 import UIKit
 
 
-class ChatMessageBar : UIView
+@objc protocol ChatMessageBarDelegate
 {
-    private let height : CGFloat = 80;
+    func messageBarPhotoClicked(messageBar: ChatMessageBar)
     
-    private var textView : UITextView!
+    func messageBarAudioClicked(messageBar: ChatMessageBar)
+    
+    func messageBarSendClicked(messageBar: ChatMessageBar)
+}
+
+class ChatMessageBar : UIView, ChatTextViewDelegate
+{
+    private let height : CGFloat = 60;
+    
+    var textView : ChatTextView!
     
     private var sendButton : UIButton!
     
     private var audioButton : UIButton!
     
     private var photoButton : UIButton!
+    
+    var delegate : ChatMessageBarDelegate?
     
     init(width: CGFloat)
     {
@@ -32,16 +43,28 @@ class ChatMessageBar : UIView
         self.photoButton = UIButton(frame: CGRectMake(0, 0, self.height, self.height))
         self.photoButton.setTitle("Photo", forState: .Normal)
         self.photoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.photoButton.addTarget(self, action: #selector(self.handleClickPhoto), forControlEvents: .TouchUpInside)
         self.addSubview(self.photoButton)
     
         
         self.audioButton = UIButton(frame: CGRectMake(width - self.height, 0, self.height, self.height))
         self.audioButton.setTitle("Gravar", forState: .Normal)
         self.audioButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.audioButton.addTarget(self, action: #selector(self.handleClickAudio), forControlEvents: .TouchUpInside)
         self.addSubview(self.audioButton)
         
-        self.textView = UITextView(frame: CGRectMake(self.photoButton.bounds.width, self.height/4, width - self.audioButton.frame.size.width - self.audioButton.frame.size.width, 40))
-        self.textView.backgroundColor = UIColor.whiteColor()
+        self.sendButton = UIButton(frame: self.audioButton.frame)
+        self.sendButton.setTitle("Enviar", forState: .Normal)
+        self.sendButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.sendButton.addTarget(self, action: #selector(self.handleClickSend), forControlEvents: .TouchUpInside)
+        self.sendButton.hidden = true
+        self.addSubview(self.sendButton)
+        
+        self.textView = ChatTextView(frame: CGRectMake(self.photoButton.bounds.width, self.height/4, width - self.audioButton.frame.size.width - self.audioButton.frame.size.width, self.height/2))
+        self.textView.backgroundColor = UIColor.clearColor()
+        self.textView.textColor = UIColor.whiteColor()
+        self.textView.setPlaceHolder("Message...")
+        self.textView.chatDelegate = self
         self.addSubview(self.textView)
         
     }
@@ -50,6 +73,113 @@ class ChatMessageBar : UIView
     {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    /**************************************/
+    /************ ANIMATIONS **************/
+    /**************************************/
+    
+    func increaseHeight(height: CGFloat)
+    {
+        UIView.animateWithDuration(0.3, animations: { 
+            
+            self.frame.size.height += height
+            self.frame.origin.y -= height
+            
+        }) { (success: Bool) in
+            
+        }
+    }
+    
+    func decreaseHeight(difference: CGFloat)
+    {
+        UIView.animateWithDuration(0.3, animations: {
+            
+            self.frame.size.height -= difference
+            self.frame.origin.y += difference
+            
+        }) { (success: Bool) in
+            
+        }
+    }
+    
+    func textModeOn()
+    {
+        UIView.animateWithDuration(0.3, animations: { 
+            
+            self.audioButton.alpha = 0
+            self.sendButton.alpha = 1
+            
+        }) { (success: Bool) in
+            
+            self.audioButton.hidden = true
+            self.sendButton.hidden = false
+        }
+    }
+    
+    func textModeOff()
+    {
+        UIView.animateWithDuration(0.3, animations: {
+            
+            self.audioButton.alpha = 1
+            self.sendButton.alpha = 0
+            
+        }) { (success: Bool) in
+            
+            self.audioButton.hidden = false
+            self.sendButton.hidden = true
+        }
+    }
+    
+    
+    /**************************************/
+    /**************************************/
+
+    
+    func handleClickAudio()
+    {
+        self.delegate?.messageBarAudioClicked(self)
+    }
+    
+    func handleClickPhoto()
+    {
+        self.delegate?.messageBarPhotoClicked(self)
+    }
+    
+    func handleClickSend()
+    {
+        self.delegate?.messageBarSendClicked(self)
+    }
+    
+
+    /**************************************/
+    /******** TEXT VIEW DELEGATES *********/
+    /**************************************/
+    
+    func textView(textView: ChatTextView, heightDecreased plus: CGFloat)
+    {
+        self.decreaseHeight(plus)
+    }
+    
+    func textView(textView: ChatTextView, heightIncreased plus: CGFloat)
+    {
+        self.increaseHeight(plus)
+    }
+    
+    func textView(textView: ChatTextView, placeholderOff text: String)
+    {
+        self.textModeOn()
+    }
+    
+    func textView(textView: ChatTextView, placeholderOn placeholder: String)
+    {
+        self.textModeOff()
+    }
+    
+    /**************************************/
+    /**************************************/
+
+    
     
     
 }

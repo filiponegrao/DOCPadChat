@@ -13,6 +13,7 @@
 		8008B7D31CFF71A200C4FAE4 /* ChatMessageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */; };
 		8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */; };
 		8008B7D81CFF74D900C4FAE4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D71CFF74D900C4FAE4 /* Colors.swift */; };
+		8008B7DA1CFF7D3300C4FAE4 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D91CFF7D3300C4FAE4 /* ChatTextView.swift */; };
 		80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */; };
 		80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */; };
 		80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageBar.swift; sourceTree = "<group>"; };
 		8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		8008B7D71CFF74D900C4FAE4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		8008B7D91CFF7D3300C4FAE4 /* ChatTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCPadChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DOCPadChat.xcdatamodel; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */,
+				8008B7D91CFF7D3300C4FAE4 /* ChatTextView.swift */,
 			);
 			name = MessageBar;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8008B7DA1CFF7D3300C4FAE4 /* ChatTextView.swift in Sources */,
 				80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */,
 				F61DBCE71CFF8BFA0040A287 /* SentMediaCell.swift in Sources */,
 				F61DBCEA1CFF92450040A287 /* SentImageView.swift in Sources */,
