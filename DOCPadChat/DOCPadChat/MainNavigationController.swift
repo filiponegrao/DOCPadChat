@@ -13,15 +13,18 @@ import UIKit
 class MainNavigationController : UINavigationController
 {
     private var chatController : ChatController!
+    private var sentMediaController : SentMediaController!
     
     init()
     {
         super.init(nibName: nil, bundle: nil)
         
         self.chatController = ChatController()
+        self.sentMediaController = SentMediaController()
         
-        self.viewControllers = [self.chatController]
+//        self.viewControllers = [self.chatController]
         
+        self.viewControllers = [self.sentMediaController]
         
         //Navigation customizations
         
