@@ -16,7 +16,7 @@ import UIKit
     
     func messageBarAudioClicked(messageBar: ChatMessageBar)
     
-    func messageBarSendClicked(messageBar: ChatMessageBar)
+    func messageBarSendClicked(messageBar: ChatMessageBar, text: String)
 }
 
 class ChatMessageBar : UIView, ChatTextViewDelegate
@@ -48,6 +48,7 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
         
         self.audioButton = UIButton(frame: CGRectMake(width - self.height, 0, self.height, self.height))
+//        self.audioButton.setImage(UIImage(named: "micButton"), forState: .Normal)
         self.audioButton.setTitle("Gravar", forState: .Normal)
         self.audioButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.audioButton.addTarget(self, action: #selector(self.handleClickAudio), forControlEvents: .TouchUpInside)
@@ -148,7 +149,7 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
     func handleClickSend()
     {
-        self.delegate?.messageBarSendClicked(self)
+        self.delegate?.messageBarSendClicked(self, text: self.textView.text)
     }
     
 
