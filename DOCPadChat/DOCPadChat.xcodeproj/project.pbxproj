@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */; };
+		8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */; };
+		8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */; };
+		8008B7D31CFF71A200C4FAE4 /* ChatMessageBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */; };
+		8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */; };
+		8008B7D81CFF74D900C4FAE4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D71CFF74D900C4FAE4 /* Colors.swift */; };
 		80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */; };
-		80A7D9C91CFE4E5800BE52EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C81CFE4E5800BE52EB /* ViewController.swift */; };
-		80A7D9CC1CFE4E5800BE52EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */; };
 		80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */; };
 		80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */; };
 		80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */; };
@@ -35,10 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulFunctions.swift; sourceTree = "<group>"; };
+		8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageBar.swift; sourceTree = "<group>"; };
+		8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		8008B7D71CFF74D900C4FAE4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCPadChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		80A7D9C81CFE4E5800BE52EB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		80A7D9CB1CFE4E5800BE52EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DOCPadChat.xcdatamodel; sourceTree = "<group>"; };
 		80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80A7D9D31CFE4E5800BE52EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +84,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8008B7CE1CFF6F6200C4FAE4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */,
+				8008B7D41CFF71A600C4FAE4 /* MessageBar */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8008B7CF1CFF6F6900C4FAE4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */,
+				8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		8008B7D41CFF71A600C4FAE4 /* MessageBar */ = {
+			isa = PBXGroup;
+			children = (
+				8008B7D21CFF71A200C4FAE4 /* ChatMessageBar.swift */,
+			);
+			name = MessageBar;
+			sourceTree = "<group>";
+		};
 		80A7D9BA1CFE4E5800BE52EB = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +133,11 @@
 		80A7D9C51CFE4E5800BE52EB /* DOCPadChat */ = {
 			isa = PBXGroup;
 			children = (
+				8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */,
+				8008B7D71CFF74D900C4FAE4 /* Colors.swift */,
 				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
-				80A7D9C81CFE4E5800BE52EB /* ViewController.swift */,
-				80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */,
+				8008B7CF1CFF6F6900C4FAE4 /* Controller */,
+				8008B7CE1CFF6F6200C4FAE4 /* View */,
 				80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */,
 				80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */,
 				80A7D9D51CFE4E5800BE52EB /* Info.plist */,
@@ -234,7 +270,6 @@
 			files = (
 				80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */,
 				80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */,
-				80A7D9CC1CFE4E5800BE52EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +294,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80A7D9C91CFE4E5800BE52EB /* ViewController.swift in Sources */,
 				80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */,
+				8008B7D81CFF74D900C4FAE4 /* Colors.swift in Sources */,
+				8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
+				8008B7D31CFF71A200C4FAE4 /* ChatMessageBar.swift in Sources */,
+				8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */,
+				8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */,
+				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +337,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		80A7D9CA1CFE4E5800BE52EB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				80A7D9CB1CFE4E5800BE52EB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -486,6 +518,7 @@
 				80A7D9F01CFE4E5800BE52EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80A7D9F11CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +527,7 @@
 				80A7D9F31CFE4E5800BE52EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80A7D9F41CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChatUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +536,7 @@
 				80A7D9F61CFE4E5800BE52EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
