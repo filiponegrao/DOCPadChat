@@ -14,14 +14,11 @@ class ChatController : UIViewController
     
     private var chatView : ChatView!
     
-    
-    
     init()
     {
         super.init(nibName: nil, bundle: nil)
         
         self.chatView = ChatView(frame: CGRectMake(0,0,screenWidth,screenHeight))
-        
         
         self.view = self.chatView
     }

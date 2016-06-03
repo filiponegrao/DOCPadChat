@@ -22,7 +22,7 @@ class MainNavigationController : UINavigationController
         self.chatController = ChatController()
         self.sentMediaController = SentMediaController()
         
-//        self.viewControllers = [self.chatController]
+        //self.viewControllers = [self.chatController]
         
         self.viewControllers = [self.sentMediaController]
         

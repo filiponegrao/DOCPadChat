@@ -10,7 +10,7 @@ import UIKit
 
 class SentImageView: UIView
 {
-    var viewController : SentMediaController!
+    weak var viewController : SentMediaController!
     
     var image : UIImage!
     
@@ -22,7 +22,9 @@ class SentImageView: UIView
     
     var closeButton : UIButton!
     
-    var blackScreen : UIView!
+    var whiteScreen : UIView!
+    
+    var blurView : UIVisualEffectView!
     
     init(image: UIImage, requester: SentMediaController)
     {
@@ -31,10 +33,16 @@ class SentImageView: UIView
         self.image = image
         self.viewController = requester
         
-        self.blackScreen = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        self.blackScreen.backgroundColor = UIColor.blackColor()
-        self.blackScreen.alpha = 0.9
-        self.addSubview(self.blackScreen)
+        self.whiteScreen = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        self.whiteScreen.backgroundColor = UIColor.whiteColor()
+        self.whiteScreen.alpha = 0.7
+        self.addSubview(self.whiteScreen)
+        
+        self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        self.blurView.frame = self.whiteScreen.bounds
+        self.blurView.alpha = 0.7
+        self.addSubview(self.blurView)
+
         
         self.selectedMedia = UIImageView(frame: CGRectMake(screenWidth/14, screenHeight/6, screenWidth - (screenWidth/14 * 2), screenHeight/8 * 5))
         self.selectedMedia.image = self.image
@@ -44,6 +52,7 @@ class SentImageView: UIView
         self.closeButton = UIButton(frame: CGRectMake(0, 25, 80, 44))
         self.closeButton.setImage(UIImage(named: "close"), forState: .Normal)
         self.closeButton.setTitle("Fechar", forState: .Normal)
+        self.closeButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.closeButton.addTarget(self, action: "back", forControlEvents: UIControlEvents.TouchUpInside)
         self.closeButton.alpha = 1
         self.addSubview(self.closeButton)
@@ -52,6 +61,7 @@ class SentImageView: UIView
         self.sendButton.layer.cornerRadius = self.sendButton.frame.size.height/2
         self.sendButton.clipsToBounds = true
         self.sendButton.setTitle("Enviar", forState: .Normal)
+        self.sendButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.sendButton.contentMode = .ScaleAspectFill
         self.sendButton.addTarget(self, action: "sendPhoto", forControlEvents: .TouchUpInside)
         self.addSubview(self.sendButton)
@@ -60,6 +70,7 @@ class SentImageView: UIView
         self.deleteButton.layer.cornerRadius = self.deleteButton.frame.size.height/2
         self.deleteButton.clipsToBounds = true
         self.deleteButton.setTitle("Apagar", forState: .Normal)
+        self.deleteButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.deleteButton.addTarget(self, action: "deletePhoto", forControlEvents: .TouchUpInside)
         self.addSubview(self.deleteButton)
 

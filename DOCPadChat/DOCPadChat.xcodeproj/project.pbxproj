@@ -24,6 +24,7 @@
 		F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */; };
 		F61DBCE71CFF8BFA0040A287 /* SentMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */; };
 		F61DBCEA1CFF92450040A287 /* SentImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE91CFF92450040A287 /* SentImageView.swift */; };
+		F66D23121D010D9500B7F466 /* ReceivedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D23111D010D9500B7F466 /* ReceivedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaView.swift; sourceTree = "<group>"; };
 		F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaCell.swift; sourceTree = "<group>"; };
 		F61DBCE91CFF92450040A287 /* SentImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentImageView.swift; sourceTree = "<group>"; };
+		F66D23111D010D9500B7F466 /* ReceivedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +102,9 @@
 				F61DBCE81CFF8C020040A287 /* Cells */,
 				8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */,
 				F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */,
-				8008B7D41CFF71A600C4FAE4 /* MessageBar */,
 				F61DBCE91CFF92450040A287 /* SentImageView.swift */,
+				F66D23111D010D9500B7F466 /* ReceivedImageView.swift */,
+				8008B7D41CFF71A600C4FAE4 /* MessageBar */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */,
 				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
 				F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */,
+				F66D23121D010D9500B7F466 /* ReceivedImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

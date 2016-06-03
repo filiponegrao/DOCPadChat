@@ -14,8 +14,7 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     private var sentView : SentMediaView!
     
-    var image = UIImage(named: "docpad") //temp
-
+    var image = UIImage(named: "gamba") //temp
 
     override func viewDidLoad()
     {
