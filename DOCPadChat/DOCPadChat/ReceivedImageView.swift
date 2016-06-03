@@ -31,13 +31,13 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
         self.receivedImage = UIImageView(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         self.receivedImage.image = image
         
-        self.scrollView = UIScrollView(frame: self.bounds)
+        self.scrollView = UIScrollView(frame: CGRectMake(0, 65, screenWidth, screenHeight - 65))
         self.scrollView.backgroundColor = UIColor.whiteColor()
-        self.scrollView.layer.borderColor = UIColor.blueColor().CGColor
-        self.scrollView.layer.borderWidth = 4.0
         self.scrollView.delegate = self
         self.scrollView.addSubview(self.receivedImage)
         self.scrollView.contentSize = self.image.size
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.scrollView.showsHorizontalScrollIndicator = false
         self.addSubview(self.scrollView)
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReceivedImageView.scrollViewDoubleTapped(_:)))
