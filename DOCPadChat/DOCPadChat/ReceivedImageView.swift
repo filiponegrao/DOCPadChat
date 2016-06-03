@@ -10,6 +10,8 @@ import UIKit
 
 class ReceivedImageView: UIView, UIScrollViewDelegate
 {
+    var controller : ChatController!
+    
     var image : UIImage!
     
     var receivedImage : UIImageView!
@@ -20,13 +22,26 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
     
     var scrollView : UIScrollView!
 
-    init(image: UIImage, frame: CGRect)
+    init(image: UIImage, frame: CGRect, requester : ChatController)
     {
         super.init(frame: frame)
         
         self.image = image
+        self.controller = requester
         
         self.backgroundColor = UIColor.whiteColor()
+        
+        self.backButton = UIButton(frame: CGRectMake(0, 20, 70, 50))
+        self.backButton.setTitle("Voltar", forState: .Normal)
+        self.backButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+        self.backButton.addTarget(self, action: #selector(self.back), forControlEvents: .TouchUpInside)
+        self.addSubview(self.backButton)
+        
+        self.editButton = UIButton(frame: CGRectMake(screenWidth - 70, 20, 70, 50))
+        self.editButton.setTitle("Editar", forState: .Normal)
+        self.editButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+        self.editButton.addTarget(self, action: #selector(self.openEdition), forControlEvents: .TouchUpInside)
+        self.addSubview(self.editButton)
         
         self.receivedImage = UIImageView(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         self.receivedImage.image = image
@@ -152,5 +167,15 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func back()
+    {
+        removeFromSuperview()
+    }
+    
+    func openEdition()
+    {
+        
     }
 }
