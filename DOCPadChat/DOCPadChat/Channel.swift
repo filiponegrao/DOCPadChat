@@ -83,13 +83,13 @@ class Channel: NSManagedObject {
         return nil
     }
     
-    func addSessionToSingleChannel(session: Session)
+    func addSessionToSingleChannel(session: Session) -> Bool
     {
-        if self.type != ChannelType.Single.rawValue { return }
+        if self.type != ChannelType.Single.rawValue { return false }
         
         if var currentSessions = self.sessions?.allObjects as? [Session]
         {
-            if currentSessions.count != 0 { return }
+            if currentSessions.count != 0 { return false }
             
             currentSessions.append(session)
             
@@ -97,15 +97,22 @@ class Channel: NSManagedObject {
             do
             {
                 try self.managedObjectContext?.save()
+                return true
                 
             }
-            catch {"Nao foi possivel adicionar \(session.nickname) ao Canal"}
+            catch
+            {
+                "Nao foi possivel adicionar \(session.nickname) ao Canal"
+                return false
+            }
         }
+        
+        return false
     }
     
-    func addSessionsToGroupChannel(sessions: [Session])
+    func addSessionsToGroupChannel(sessions: [Session]) -> Bool
     {
-        if self.type == ChannelType.Single.rawValue { return }
+        if self.type == ChannelType.Single.rawValue { return false }
         
         if var currentSessions = self.sessions?.allObjects as? [Session]
         {
@@ -121,9 +128,16 @@ class Channel: NSManagedObject {
             do
             {
                 try self.managedObjectContext?.save()
+                return true
             }
-            catch { "Nao foi possivel adicionar as sessoes ao grupo \(self.name)" }
+            catch
+            {
+                "Nao foi possivel adicionar as sessoes ao grupo \(self.name)"
+                return false
+            }
         }
+        
+        return false
     }
     
     func isAlreadyMember(session: Session) -> Bool

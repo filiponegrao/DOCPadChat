@@ -20,6 +20,8 @@
 		80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E561D02521900AA0AC9 /* DAOSession.swift */; };
 		80180E5C1D0257FC00AA0AC9 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E5A1D0257FC00AA0AC9 /* Channel.swift */; };
 		80180E5E1D02613500AA0AC9 /* DAOChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E5D1D02613500AA0AC9 /* DAOChannel.swift */; };
+		80180E611D02708F00AA0AC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E601D02708F00AA0AC9 /* Extensions.swift */; };
+		80180E631D02765F00AA0AC9 /* ChatApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E621D02765F00AA0AC9 /* ChatApplication.swift */; };
 		80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */; };
 		80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */; };
 		80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */; };
@@ -66,6 +68,8 @@
 		80180E561D02521900AA0AC9 /* DAOSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOSession.swift; sourceTree = "<group>"; };
 		80180E5A1D0257FC00AA0AC9 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		80180E5D1D02613500AA0AC9 /* DAOChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOChannel.swift; sourceTree = "<group>"; };
+		80180E601D02708F00AA0AC9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		80180E621D02765F00AA0AC9 /* ChatApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatApplication.swift; sourceTree = "<group>"; };
 		80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCPadChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DOCPadChat.xcdatamodel; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 		8008B7CF1CFF6F6900C4FAE4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				80180E621D02765F00AA0AC9 /* ChatApplication.swift */,
 				8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */,
 				8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */,
 				F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */,
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */,
+				80180E601D02708F00AA0AC9 /* Extensions.swift */,
 				8008B7D71CFF74D900C4FAE4 /* Colors.swift */,
 				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
 				80F2C3871CFFC29B008EDE2B /* Model */,
@@ -384,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80180E611D02708F00AA0AC9 /* Extensions.swift in Sources */,
 				8008B7DA1CFF7D3300C4FAE4 /* ChatTextView.swift in Sources */,
 				80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */,
 				F61DBCE71CFF8BFA0040A287 /* SentMediaCell.swift in Sources */,
@@ -395,6 +402,7 @@
 				8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */,
 				80180E4C1D02379000AA0AC9 /* File.swift in Sources */,
 				80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */,
+				80180E631D02765F00AA0AC9 /* ChatApplication.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
 				80F2C3851CFFC28A008EDE2B /* User.swift in Sources */,
 				80180E551D02509800AA0AC9 /* Session.swift in Sources */,
@@ -405,6 +413,7 @@
 				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
 				F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */,
 				80F2C3841CFFC28A008EDE2B /* DAOUser.swift in Sources */,
+				F66D23121D010D9500B7F466 /* ReceivedImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
