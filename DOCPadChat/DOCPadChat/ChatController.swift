@@ -32,14 +32,10 @@ class ChatController : UIViewController
         
         self.view = self.chatView
         
-        self.leftButton = UIBarButtonItem(title: "Voltar", style: .Plain, target: self, action: #selector(self.back))
-        self.leftButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem = self.leftButton
-        
-        self.rightButton = UIBarButtonItem(title: "Galeria", style: .Plain, target: self, action: #selector(self.openGallery))
+        self.rightButton = UIBarButtonItem(barButtonSystemItem: .Bookmarks, target: self, action: #selector(self.openGallery))
         self.rightButton.tintColor = UIColor.whiteColor()
         self.navigationItem.rightBarButtonItem = self.rightButton
-        self.rightButton.enabled = true
+        
         
         self.button = UIButton(frame: CGRectMake(screenWidth/2, screenHeight/2, 50, 50))
         self.button.setTitle("IMG", forState: .Normal)
@@ -66,7 +62,8 @@ class ChatController : UIViewController
     func openGallery()
     {
         let sentMediaController = SentMediaController()
-        self.navigationController?.pushViewController(sentMediaController, animated: false)
+        
+        self.navigationController?.pushViewController(sentMediaController, animated: true)
     }
     
     func openImage()

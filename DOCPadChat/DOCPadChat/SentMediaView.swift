@@ -10,11 +10,13 @@ import UIKit
 
 class SentMediaView: UIView
 {
-
     var collection : UICollectionView!
     
-    override init(frame: CGRect)
+    weak private var controller : SentMediaController!
+    
+    init(frame: CGRect, controller : SentMediaController)
     {
+        self.controller = controller
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.clearColor()
@@ -26,17 +28,26 @@ class SentMediaView: UIView
         layout.minimumLineSpacing = 5 //espaçamento entre uma celula de baixo com a de cima
         layout.headerReferenceSize = CGSizeZero
         
+        let nav = self.controller.navigationController!.navigationBar
+        
+        let navLimit = nav.frame.origin.y + nav.frame.size.height
+        
         self.collection = UICollectionView(frame: CGRectMake(0, 0, screenWidth, screenHeight - 70) , collectionViewLayout: layout)
         self.collection.backgroundColor = UIColor.clearColor()
         self.collection.contentInset = UIEdgeInsetsMake(-65, 0, 0, 0)
         self.collection.showsVerticalScrollIndicator = false
         self.addSubview(self.collection)
+        
+        
+        //Navigation
+        
+        let right = UIBarButtonItem(title: "Apagar tudo", style: .Plain, target: controller, action: #selector(self.controller.deleteAll))
+        self.controller.navigationItem.rightBarButtonItem = right
+        
     }
     
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
-
-
 }

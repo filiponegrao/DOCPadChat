@@ -30,6 +30,7 @@ class MainNavigationController : UINavigationController
         //Navigation customizations
         
         self.navigationBar.barTintColor = blueColor;
+        self.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationBar.barStyle = .Default
     }
     

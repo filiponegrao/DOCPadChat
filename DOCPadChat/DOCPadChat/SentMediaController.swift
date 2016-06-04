@@ -28,21 +28,12 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
         
         self.navBar = MainNavigationController()
         
-        self.sentView = SentMediaView(frame: CGRectMake(0, 70, screenWidth, screenHeight - 70))
+        self.sentView = SentMediaView(frame: CGRectMake(0, 70, screenWidth, screenHeight - 70), controller: self)
         self.sentView.collection.delegate = self
         self.sentView.collection.dataSource = self
         self.sentView.collection.registerClass(SentMediaCell.self, forCellWithReuseIdentifier: "Cell")
         
         self.view.addSubview(self.sentView)
-        
-        self.leftButton = UIBarButtonItem(title: "Voltar", style: .Plain, target: self, action: #selector(self.back))
-        self.leftButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem = self.leftButton
-        
-        self.rightButton = UIBarButtonItem(title: "Apagar tudo", style: .Plain, target: self, action: #selector(self.deleteAll))
-        self.rightButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.rightBarButtonItem = self.rightButton
-
     }
 
     override func didReceiveMemoryWarning()
@@ -78,11 +69,6 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     /*********************************/
     /********** FIM DELEGATE *********/
     /*********************************/
-    
-    func back()
-    {
-        self.navigationController?.popViewControllerAnimated(false)
-    }
     
     func deleteAll()
     {
