@@ -14,8 +14,11 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     private var sentView : SentMediaView!
     
-    var image = UIImage(named: "docpad") //temp
-
+    var image = UIImage(named: "gamba") //temp
+    
+    var leftButton : UIBarButtonItem!
+    
+    var rightButton : UIBarButtonItem!
 
     override func viewDidLoad()
     {
@@ -31,6 +34,14 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
         self.sentView.collection.registerClass(SentMediaCell.self, forCellWithReuseIdentifier: "Cell")
         
         self.view.addSubview(self.sentView)
+        
+        self.leftButton = UIBarButtonItem(title: "Voltar", style: .Plain, target: self, action: #selector(self.back))
+        self.leftButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = self.leftButton
+        
+        self.rightButton = UIBarButtonItem(title: "Apagar tudo", style: .Plain, target: self, action: #selector(self.deleteAll))
+        self.rightButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.rightBarButtonItem = self.rightButton
 
     }
 
@@ -67,4 +78,14 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     /*********************************/
     /********** FIM DELEGATE *********/
     /*********************************/
+    
+    func back()
+    {
+        self.navigationController?.popViewControllerAnimated(false)
+    }
+    
+    func deleteAll()
+    {
+        
+    }
 }

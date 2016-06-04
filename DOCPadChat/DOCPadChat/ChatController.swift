@@ -14,7 +14,15 @@ class ChatController : UIViewController
     
     private var chatView : ChatView!
     
+    private var receivedImageView : ReceivedImageView!
     
+    var leftButton : UIBarButtonItem!
+    
+    var rightButton : UIBarButtonItem!
+    
+    var button : UIButton!
+    
+    var image = UIImage(named: "teste") //temp
     
     init()
     {
@@ -22,12 +30,48 @@ class ChatController : UIViewController
         
         self.chatView = ChatView(frame: CGRectMake(0,0,screenWidth,screenHeight))
         
-        
         self.view = self.chatView
+        
+        self.leftButton = UIBarButtonItem(title: "Voltar", style: .Plain, target: self, action: #selector(self.back))
+        self.leftButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = self.leftButton
+        
+        self.rightButton = UIBarButtonItem(title: "Galeria", style: .Plain, target: self, action: #selector(self.openGallery))
+        self.rightButton.tintColor = UIColor.whiteColor()
+        self.navigationItem.rightBarButtonItem = self.rightButton
+        self.rightButton.enabled = true
+        
+        self.button = UIButton(frame: CGRectMake(screenWidth/2, screenHeight/2, 50, 50))
+        self.button.setTitle("IMG", forState: .Normal)
+        self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        self.button.addTarget(self, action: #selector(self.openImage), forControlEvents: .TouchUpInside)
+        self.view.addSubview(self.button)
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+    
     }
     
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func back()
+    {
+        
+    }
+    
+    func openGallery()
+    {
+        let sentMediaController = SentMediaController()
+        self.navigationController?.pushViewController(sentMediaController, animated: false)
+    }
+    
+    func openImage()
+    {
+        self.receivedImageView = ReceivedImageView(image: self.image!, frame: self.view.frame, requester: self)
+        self.navigationController!.view.addSubview(self.receivedImageView)
     }
 }

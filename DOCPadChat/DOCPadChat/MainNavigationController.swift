@@ -13,6 +13,7 @@ import UIKit
 class MainNavigationController : UINavigationController
 {
     private var chatController : ChatController!
+    
     private var sentMediaController : SentMediaController!
     
     init()
@@ -36,5 +37,4 @@ class MainNavigationController : UINavigationController
     {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

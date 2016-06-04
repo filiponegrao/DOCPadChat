@@ -12,7 +12,7 @@ import UIKit
 class ChatView : UIView
 {
     private var messageBar : ChatMessageBar!
-    
+        
     override init(frame: CGRect)
     {
         super.init(frame: frame)
