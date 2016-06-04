@@ -21,6 +21,10 @@ class ChatView : UIView
         
         self.messageBar = ChatMessageBar(width: screenWidth)
         self.addSubview(self.messageBar)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleKeyboardUp(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleKeyboardDown(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -32,4 +36,27 @@ class ChatView : UIView
     {
        self.messageBar.textView.endEditing(true)
     }
+    
+    /*********************************/
+    /********** ANIMATIONS ***********/
+    /*********************************/
+    
+    func handleKeyboardUp(notification: NSNotification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+        {
+            self.messageBar.frame.origin.y = screenHeight - keyboardSize.height - self.messageBar.frame.size.height
+        }
+    }
+    
+    func handleKeyboardDown(notification: NSNotification)
+    {
+        self.messageBar.frame.origin.y = screenHeight - self.messageBar.frame.size.height
+    }
+    
+    
+    /*********************************/
+    /*********************************/
+
+
 }

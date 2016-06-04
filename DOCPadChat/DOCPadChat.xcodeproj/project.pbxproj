@@ -14,12 +14,20 @@
 		8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */; };
 		8008B7D81CFF74D900C4FAE4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D71CFF74D900C4FAE4 /* Colors.swift */; };
 		8008B7DA1CFF7D3300C4FAE4 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D91CFF7D3300C4FAE4 /* ChatTextView.swift */; };
+		80180E481D02371400AA0AC9 /* DAOFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E471D02371400AA0AC9 /* DAOFile.swift */; };
+		80180E4C1D02379000AA0AC9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E4A1D02379000AA0AC9 /* File.swift */; };
+		80180E551D02509800AA0AC9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E531D02509800AA0AC9 /* Session.swift */; };
+		80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E561D02521900AA0AC9 /* DAOSession.swift */; };
+		80180E5C1D0257FC00AA0AC9 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E5A1D0257FC00AA0AC9 /* Channel.swift */; };
+		80180E5E1D02613500AA0AC9 /* DAOChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E5D1D02613500AA0AC9 /* DAOChannel.swift */; };
 		80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */; };
 		80A7D9CF1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9CD1CFE4E5800BE52EB /* DOCPadChat.xcdatamodeld */; };
 		80A7D9D11CFE4E5800BE52EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */; };
 		80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */; };
 		80A7D9DF1CFE4E5800BE52EB /* DOCPadChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */; };
 		80A7D9EA1CFE4E5800BE52EB /* DOCPadChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */; };
+		80F2C3841CFFC28A008EDE2B /* DAOUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C3821CFFC28A008EDE2B /* DAOUser.swift */; };
+		80F2C3851CFFC28A008EDE2B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F2C3831CFFC28A008EDE2B /* User.swift */; };
 		F61DBCE31CFF7DC70040A287 /* SentMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */; };
 		F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */; };
 		F61DBCE71CFF8BFA0040A287 /* SentMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */; };
@@ -51,6 +59,12 @@
 		8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		8008B7D71CFF74D900C4FAE4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		8008B7D91CFF7D3300C4FAE4 /* ChatTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
+		80180E471D02371400AA0AC9 /* DAOFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOFile.swift; sourceTree = "<group>"; };
+		80180E4A1D02379000AA0AC9 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		80180E531D02509800AA0AC9 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		80180E561D02521900AA0AC9 /* DAOSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOSession.swift; sourceTree = "<group>"; };
+		80180E5A1D0257FC00AA0AC9 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		80180E5D1D02613500AA0AC9 /* DAOChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOChannel.swift; sourceTree = "<group>"; };
 		80A7D9C31CFE4E5800BE52EB /* DOCPadChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCPadChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80A7D9CE1CFE4E5800BE52EB /* DOCPadChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DOCPadChat.xcdatamodel; sourceTree = "<group>"; };
@@ -63,6 +77,8 @@
 		80A7D9E51CFE4E5800BE52EB /* DOCPadChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOCPadChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCPadChatUITests.swift; sourceTree = "<group>"; };
 		80A7D9EB1CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80F2C3821CFFC28A008EDE2B /* DAOUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOUser.swift; sourceTree = "<group>"; };
+		80F2C3831CFFC28A008EDE2B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaController.swift; sourceTree = "<group>"; };
 		F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaView.swift; sourceTree = "<group>"; };
 		F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaCell.swift; sourceTree = "<group>"; };
@@ -125,6 +141,33 @@
 			name = MessageBar;
 			sourceTree = "<group>";
 		};
+		80180E4D1D0237AC00AA0AC9 /* FILE */ = {
+			isa = PBXGroup;
+			children = (
+				80180E471D02371400AA0AC9 /* DAOFile.swift */,
+				80180E4A1D02379000AA0AC9 /* File.swift */,
+			);
+			name = FILE;
+			sourceTree = "<group>";
+		};
+		80180E581D02540200AA0AC9 /* SESSION */ = {
+			isa = PBXGroup;
+			children = (
+				80180E531D02509800AA0AC9 /* Session.swift */,
+				80180E561D02521900AA0AC9 /* DAOSession.swift */,
+			);
+			name = SESSION;
+			sourceTree = "<group>";
+		};
+		80180E5F1D02613A00AA0AC9 /* CHANNEL */ = {
+			isa = PBXGroup;
+			children = (
+				80180E5A1D0257FC00AA0AC9 /* Channel.swift */,
+				80180E5D1D02613500AA0AC9 /* DAOChannel.swift */,
+			);
+			name = CHANNEL;
+			sourceTree = "<group>";
+		};
 		80A7D9BA1CFE4E5800BE52EB = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +194,7 @@
 				8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */,
 				8008B7D71CFF74D900C4FAE4 /* Colors.swift */,
 				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
+				80F2C3871CFFC29B008EDE2B /* Model */,
 				8008B7CF1CFF6F6900C4FAE4 /* Controller */,
 				8008B7CE1CFF6F6200C4FAE4 /* View */,
 				80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */,
@@ -177,6 +221,26 @@
 				80A7D9EB1CFE4E5800BE52EB /* Info.plist */,
 			);
 			path = DOCPadChatUITests;
+			sourceTree = "<group>";
+		};
+		80F2C3861CFFC28F008EDE2B /* USER */ = {
+			isa = PBXGroup;
+			children = (
+				80F2C3821CFFC28A008EDE2B /* DAOUser.swift */,
+				80F2C3831CFFC28A008EDE2B /* User.swift */,
+			);
+			name = USER;
+			sourceTree = "<group>";
+		};
+		80F2C3871CFFC29B008EDE2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				80180E5F1D02613A00AA0AC9 /* CHANNEL */,
+				80180E4D1D0237AC00AA0AC9 /* FILE */,
+				80F2C3861CFFC28F008EDE2B /* USER */,
+				80180E581D02540200AA0AC9 /* SESSION */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		F61DBCE81CFF8C020040A287 /* Cells */ = {
@@ -322,14 +386,22 @@
 				F61DBCE71CFF8BFA0040A287 /* SentMediaCell.swift in Sources */,
 				F61DBCEA1CFF92450040A287 /* SentImageView.swift in Sources */,
 				F61DBCE31CFF7DC70040A287 /* SentMediaController.swift in Sources */,
+				80180E5E1D02613500AA0AC9 /* DAOChannel.swift in Sources */,
 				8008B7D81CFF74D900C4FAE4 /* Colors.swift in Sources */,
+				80180E5C1D0257FC00AA0AC9 /* Channel.swift in Sources */,
 				8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */,
+				80180E4C1D02379000AA0AC9 /* File.swift in Sources */,
+				80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
+				80F2C3851CFFC28A008EDE2B /* User.swift in Sources */,
+				80180E551D02509800AA0AC9 /* Session.swift in Sources */,
 				8008B7D31CFF71A200C4FAE4 /* ChatMessageBar.swift in Sources */,
 				8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */,
 				8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */,
+				80180E481D02371400AA0AC9 /* DAOFile.swift in Sources */,
 				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
 				F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */,
+				80F2C3841CFFC28A008EDE2B /* DAOUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
