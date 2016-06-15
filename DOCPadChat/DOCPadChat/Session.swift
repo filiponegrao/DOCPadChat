@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 public enum SessionStatus : String
 {
@@ -19,7 +20,7 @@ extension Session {
     @NSManaged var createdAt: NSDate!
     @NSManaged var id: NSNumber!
     @NSManaged var nickname: String!
-    @NSManaged var profileImage: NSData?
+    @NSManaged var profileImage: NSData!
     @NSManaged var status: String!
     @NSManaged var updatedAt: NSDate!
     
@@ -27,7 +28,10 @@ extension Session {
 
 class Session: NSManagedObject {
 
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, nickname: String, profileImage: NSData?) -> Session
+    /**
+     * Cria uma Sessao com foto.
+     */
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, nickname: String, profileImage: NSData) -> Session
     {
         
         let session = NSEntityDescription.insertNewObjectForEntityForName("Session", inManagedObjectContext: moc) as! Session
@@ -36,6 +40,25 @@ class Session: NSManagedObject {
         session.status = SessionStatus.Friend.rawValue
         session.createdAt = NSDate()
         session.updatedAt = NSDate()
+        session.profileImage = profileImage
+        
+        return session
+    }
+    
+    /**
+     * Cria uma sessao sem foto.
+     * Nesse caso é atribuida à Sessao ua imagem padrao.
+     */
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, nickname: String) -> Session
+    {
+        
+        let session = NSEntityDescription.insertNewObjectForEntityForName("Session", inManagedObjectContext: moc) as! Session
+        session.id = id
+        session.nickname = nickname
+        session.status = SessionStatus.Friend.rawValue
+        session.createdAt = NSDate()
+        session.updatedAt = NSDate()
+        session.profileImage = UIImage(named: "channelTemplate")!.highestQualityJPEGNSData
         
         return session
     }
@@ -60,6 +83,38 @@ class Session: NSManagedObject {
         self.updatedAt = decoder.decodeObjectForKey("updatedAt") as! NSDate
         self.profileImage = decoder.decodeObjectForKey("profileImage") as? NSData
         self.status = decoder.decodeObjectForKey("status") as! String
+    }
+    
+    func setImage(moc: NSManagedObjectContext, image: UIImage) -> Bool
+    {
+        self.profileImage = image.highestQualityJPEGNSData
+        
+        do
+        {
+            try moc.save()
+            return true;
+        }
+        catch
+        {
+            print("Erro ao tentar atribuir uma imagem a um contato")
+            return false
+        }
+    }
+    
+    func setImage(moc: NSManagedObjectContext, imageData image: NSData) -> Bool
+    {
+        self.profileImage = image
+        
+        do
+        {
+            try moc.save()
+            return true
+        }
+        catch
+        {
+            print("Erro ao tentar atribuir uma imagem a um contato")
+            return false
+        }
     }
     
 }

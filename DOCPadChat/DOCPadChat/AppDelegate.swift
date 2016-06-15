@@ -14,19 +14,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var navigationController : MainNavigationController!
+    var testeController : TesteViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
     
         
-        self.navigationController = MainNavigationController()
+        self.testeController = TesteViewController()
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = self.navigationController
+        self.window?.rootViewController = self.testeController
         self.window?.makeKeyAndVisible()
         
-        
+        ChatApplication.sharedInstance.createMainUser(02, username: "Filipo Negrao", profileImage: nil)
+        ChatApplication.sharedInstance.testing()
+                
         return true
     }
 

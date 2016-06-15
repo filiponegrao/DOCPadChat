@@ -23,8 +23,10 @@ class DAOChannel : NSObject
         return data
     }
     
-    
-    func newChannel(id: Int, type: ChannelType, author: Int, name: String) -> Channel?
+    /**
+     * Novo canal entre duas pessoas.
+     */
+    func newChannel(id: Int, session: Session) -> Channel?
     {
         let query = NSFetchRequest(entityName: "Channel")
         
@@ -38,7 +40,7 @@ class DAOChannel : NSObject
             
             if results.count != 0 { return nil }
             
-            let channel = Channel.createInManagedObjectContext(self.managedObjectContext, id: id, createdAt: NSDate(), image: UIImage(named: "channelTemplate")!.highestQualityJPEGNSData, author: author, name: name, type: type)
+            let channel = Channel.createInManagedObjectContext(self.managedObjectContext, id: id, session: session)
             
             self.save()
             
@@ -50,43 +52,14 @@ class DAOChannel : NSObject
         }
     }
     
-    func addSessionChannel(channel: Channel, session: Session) -> Bool
-    {
-        if let user = DAOUser.sharedInstance.getCurrentUser()
-        {
-            if session.id == user.id
-            {
-                return false
-            }
-        }
-        
-        if channel.type == ChannelType.Single.rawValue
-        {
-            if channel.addSessionToSingleChannel(session)
-            {
-                return true
-            }
-            else { return false }
-        }
-        else if channel.type == ChannelType.Group.rawValue
-        {
-            if channel.addSessionsToGroupChannel([session])
-            {
-                return true
-            }
-            else { return false }
-        }
-        
-        return false
-    }
-    
-
-    
-    func addSessionToGroup(group: Int, session: Session) -> Bool
+    /**
+     * Novo canal de grupo.
+     */
+    func newChannel(id: Int, sessions: [Session], name: String, author: Int) -> Channel?
     {
         let query = NSFetchRequest(entityName: "Channel")
         
-        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: group))
+        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
         
         query.predicate = predicate
         
@@ -94,22 +67,17 @@ class DAOChannel : NSObject
         {
             let results = try self.managedObjectContext.executeFetchRequest(query) as! [Channel]
             
-            if results.count == 0 { return false }
+            if results.count != 0 { return nil }
             
-            if let channel = results.first
-            {
-                if channel.addSessionsToGroupChannel([session])
-                {
-                    return true
-                }
-                else { return false }
-            }
+            let channel = Channel.createInManagedObjectContext(self.managedObjectContext, id: id, name: name, author: author, sessions: sessions)
             
-            return false
+            self.save()
+            
+            return channel
         }
         catch
         {
-            return false
+            return nil
         }
     }
     
@@ -141,7 +109,11 @@ class DAOChannel : NSObject
         }
     }
 
-    func getChannelFromSession(session: Int) -> Channel?
+    /**
+     * Recupera um canal do tipo conversa entre duas pessoas,
+     * dado o numero de sessao do outro contato.
+     */
+    func getSingleChannelFromSession(session: Int) -> Channel?
     {
         for c in self.getChannels()
         {
@@ -195,6 +167,23 @@ class DAOChannel : NSObject
         {
             return nil
         }
+    }
+    
+    func addSessionToChannel(id: Int, session: Session) -> Bool
+    {
+        if let channel = DAOChannel.sharedInstance.getChannel(id)
+        {
+            if channel.type == ChannelType.Single.rawValue
+            {
+                return channel.addSessionToSingleChannel(session, moc: self.managedObjectContext)
+            }
+            else if channel.type == ChannelType.Group.rawValue
+            {
+                return channel.addSessionsToGroupChannel([session], moc: self.managedObjectContext)
+            }
+        }
+        
+        return false
     }
     
     func save()

@@ -150,6 +150,7 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     func handleClickSend()
     {
         self.delegate?.messageBarSendClicked(self, text: self.textView.text)
+        self.textView.text = ""
     }
     
 

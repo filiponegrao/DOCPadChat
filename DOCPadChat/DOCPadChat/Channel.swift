@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 public enum ChannelType : String
@@ -31,30 +32,59 @@ extension Channel {
 }
 
 class Channel: NSManagedObject {
-
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, createdAt: NSDate, image: NSData?, author: Int, name: String, type: ChannelType) -> Channel
+    
+    /**
+     * Conversa entre duas pessoas
+     *
+     * Funcao responsavel por criar um canal entre duas pessoas.
+     * Representa uma conversa
+     */
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, session: Session) -> Channel
     {
         let channel = NSEntityDescription.insertNewObjectForEntityForName("Channel", inManagedObjectContext: moc) as! Channel
         
-        channel.author = author;
-        channel.createdAt = createdAt;
-        channel.id = id;
-        channel.sessions = NSSet.init(array: [Session]())
-        channel.type = type.rawValue;
-        channel.updatedAt = NSDate();
+        channel.author = 0
+        channel.createdAt = NSDate()
+        channel.id = id
+        channel.image = session.profileImage
+        if(session.profileImage == nil) { print("vish, ta nulo") }
         
-        if type == ChannelType.Single
-        {
-            channel.name = "Enpty Chat"
-        }
-        else
-        {
-            channel.name = name
-        }
+        channel.name = session.nickname
+        channel.type = ChannelType.Single.rawValue
+        channel.updatedAt = NSDate()
+        
+        let sessions = NSSet.init(array: [session])
+        channel.sessions = sessions
         
         return channel
     }
     
+    /**
+     * Conversa em grupo
+     *
+     * Funcao responsavel por criar um canal entre varias pessoas.
+     */
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, name: String, author: Int, sessions: [Session]) -> Channel
+    {
+        let channel = NSEntityDescription.insertNewObjectForEntityForName("Channel", inManagedObjectContext: moc) as! Channel
+        
+        channel.author = author
+        channel.id = id
+        channel.image = UIImage(named: "channelTemplate")!.highestQualityJPEGNSData
+        channel.name = name
+        channel.type = ChannelType.Group.rawValue
+        channel.createdAt = NSDate()
+        channel.updatedAt = NSDate()
+        
+        let sessionsarray = NSSet.init(array: sessions)
+        channel.sessions = sessionsarray
+        
+        return channel
+    }
+    
+    /**
+     * Retorna a sessão de um canal do tipo conversa.
+     */
     func getSessionFromSingleChannel() -> Session?
     {
         if self.type == ChannelType.Single.rawValue
@@ -68,6 +98,9 @@ class Channel: NSManagedObject {
         return nil
     }
     
+    /**
+     * Retorna todas as sessoes de um canal do tipo grupo.
+     */
     func getSessionsFromGroupChannel() -> [Session]?
     {
         if self.type == ChannelType.Group.rawValue
@@ -83,7 +116,12 @@ class Channel: NSManagedObject {
         return nil
     }
     
-    func addSessionToSingleChannel(session: Session) -> Bool
+    /**
+     * Adiciona uma sessao a um canal do tipo conversa.
+     * Se o canal estiver vazio aceita a adição, caso contrario,
+     * rejeita.
+     */
+    func addSessionToSingleChannel(session: Session, moc: NSManagedObjectContext) -> Bool
     {
         if self.type != ChannelType.Single.rawValue { return false }
         
@@ -96,7 +134,7 @@ class Channel: NSManagedObject {
             self.sessions = NSSet.init(array: [currentSessions])
             do
             {
-                try self.managedObjectContext?.save()
+                try moc.save()
                 return true
                 
             }
@@ -110,7 +148,10 @@ class Channel: NSManagedObject {
         return false
     }
     
-    func addSessionsToGroupChannel(sessions: [Session]) -> Bool
+    /**
+     * Adiciona sessoes a um canal do tipo Grupo.
+     */
+    func addSessionsToGroupChannel(sessions: [Session], moc: NSManagedObjectContext) -> Bool
     {
         if self.type == ChannelType.Single.rawValue { return false }
         
@@ -127,7 +168,7 @@ class Channel: NSManagedObject {
             self.sessions = NSSet.init(array: currentSessions)
             do
             {
-                try self.managedObjectContext?.save()
+                try moc.save()
                 return true
             }
             catch

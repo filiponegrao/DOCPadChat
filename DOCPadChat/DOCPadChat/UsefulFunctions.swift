@@ -30,129 +30,20 @@ class UseFulFunctions
         dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC");
         return dateFormatter.dateFromString(str) as NSDate!
     }
-}
-
-
-
-
-
-//Extensao de datas, NSDate
-extension NSDate {
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
-        //Declare Variables
-        var isGreater = false
-        
-        //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
-            isGreater = true
-        }
-        
-        //Return Result
-        return isGreater
-    }
     
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
-        //Declare Variables
-        var isLess = false
+    /** Retorna somente as horas e minutos */
+    class func getStringDateFromDate(date: NSDate) -> String
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .LongStyle
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
+        dateFormatter.dateFormat = "HH:mm"
+        let date = dateFormatter.stringFromDate(date)
         
-        //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
-            isLess = true
-        }
-        
-        //Return Result
-        return isLess
-    }
-    
-    func equalToDate(dateToCompare: NSDate) -> Bool {
-        //Declare Variables
-        var isEqualTo = false
-        
-        //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
-            isEqualTo = true
-        }
-        
-        //Return Result
-        return isEqualTo
-    }
-    
-    func addDays(daysToAdd: Int) -> NSDate {
-        let secondsInDays: NSTimeInterval = Double(daysToAdd) * 60 * 60 * 24
-        let dateWithDaysAdded: NSDate = self.dateByAddingTimeInterval(secondsInDays)
-        
-        //Return Result
-        return dateWithDaysAdded
-    }
-    
-    func addHours(hoursToAdd: Int) -> NSDate {
-        let secondsInHours: NSTimeInterval = Double(hoursToAdd) * 60 * 60
-        let dateWithHoursAdded: NSDate = self.dateByAddingTimeInterval(secondsInHours)
-        
-        //Return Result
-        return dateWithHoursAdded
+        return date
     }
 }
 
-extension String {
-    
-    var lastPathComponent: String {
-        
-        get {
-            return (self as NSString).lastPathComponent
-        }
-    }
-    var pathExtension: String {
-        
-        get {
-            
-            return (self as NSString).pathExtension
-        }
-    }
-    var stringByDeletingLastPathComponent: String {
-        
-        get {
-            
-            return (self as NSString).stringByDeletingLastPathComponent
-        }
-    }
-    var stringByDeletingPathExtension: String {
-        
-        get {
-            
-            return (self as NSString).stringByDeletingPathExtension
-        }
-    }
-    var pathComponents: [String] {
-        
-        get {
-            
-            return (self as NSString).pathComponents
-        }
-    }
-    
-    func stringByAppendingPathComponent(path: String) -> String {
-        
-        let nsSt = self as NSString
-        
-        return nsSt.stringByAppendingPathComponent(path)
-    }
-    
-    func stringByAppendingPathExtension(ext: String) -> String? {
-        
-        let nsSt = self as NSString
-        
-        return nsSt.stringByAppendingPathExtension(ext)
-    }
-    
-    func replace(string:String, replacement:String) -> String {
-        return self.stringByReplacingOccurrencesOfString(string, withString: replacement, options: NSStringCompareOptions.LiteralSearch, range: nil)
-    }
-    
-    func removeWhitespace() -> String {
-        return self.replace(" ", replacement: "")
-    }
-}
 
 
 

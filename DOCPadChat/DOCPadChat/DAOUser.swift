@@ -16,14 +16,11 @@ private let data : DAOUser = DAOUser()
 class DAOUser : NSObject
 {
     private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-
-    private var currentUser : User?
     
-    override init() {
-        
+    
+    override init()
+    {
         super.init()
-        
-        self.currentUser = self.getFirstUser()
     }
     
     class var sharedInstance : DAOUser {
@@ -32,7 +29,7 @@ class DAOUser : NSObject
     }
     
     
-    func createUser(id: Int, username: String, email: String, password: String, gender: String?, country: String?, city: String?)
+    func createUser(id: Int, username: String, email: String?, password: String?, gender: String?, country: String?, city: String?, profileImage: UIImage?) -> User?
     {
         //Deleta todos os usuarios possiveis
         do { let results = try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "User")) as! [User]
@@ -47,37 +44,24 @@ class DAOUser : NSObject
             
         }
 
-        let user = User.createInManagedObjectContext(self.managedObjectContext, id: id, username: username, email: email, password: password, gender: gender, country: country, city: city)
+        let user = User.createInManagedObjectContext(self.managedObjectContext, id: id, username: username, email: email, password: password, gender: gender, country: country, city: city, profileImage: profileImage?.highestQualityJPEGNSData)
         
-        self.currentUser = user
         self.save()
-    }
-    
-    
-    func getCurrentUser() -> User?
-    {
-        if self.currentUser == nil
-        {
-            self.currentUser = self.getFirstUser()
-        }
         
-        return self.currentUser
+        return user
     }
     
     func getFirstUser() -> User?
     {
-        do { let results = try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "User")) as! [User]
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "User")) as! [User]
             
-            if(results.count > 0)
-            {
-                return results.first!
-            }
-            else { return nil }
+            return results.first
         
         } catch {
             
             return nil
-            
         }
     }
     
@@ -90,13 +74,36 @@ class DAOUser : NSObject
         }
     }
     
-    func deleteCurrentUser()
+    func deleteUser(id: Int) -> Bool
     {
-        if(self.currentUser != nil)
+        if let user = self.getUser(id)
         {
-            self.managedObjectContext.deleteObject(self.currentUser!)
+            self.managedObjectContext.deleteObject(user)
             self.save()
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    func getUser(id: Int) -> User?
+    {
+        let query = NSFetchRequest(entityName: "User")
+        
+        query.predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(query) as! [User]
+            
+            return results.first
+        }
+        catch
+        {
+            return nil
         }
     }
+    
 }
 

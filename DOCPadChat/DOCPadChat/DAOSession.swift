@@ -23,14 +23,45 @@ class DAOSession : NSObject
     }
     
     /**
-     * New Session
+     * New Session withou Picture
      *
      * Método responsavel por criar uma Sessao localmente.
      * Uma Sessao representa um contato para conversação.
      *
      * Se criada com sucesso, a sessao é retornada.
      */
-    func newSession(id: Int, nickname: String, profileImage: NSData?) -> Session?
+    func newSession(id: Int, nickname: String) -> Session?
+    {
+        let query = NSFetchRequest(entityName: "Session")
+        
+        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
+        
+        query.predicate = predicate
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(query) as! [Session]
+            
+            if results.count != 0 { return nil }
+            
+            let session = Session.createInManagedObjectContext(self.managedObjectContext, id: id, nickname: nickname)
+            
+            self.save()
+            
+            return session
+        }
+        catch { return nil }
+    }
+    
+    /**
+     * New Session with Picture
+     *
+     * Método responsavel por criar uma Sessao localmente.
+     * Uma Sessao representa um contato para conversação.
+     *
+     * Se criada com sucesso, a sessao é retornada.
+     */
+    func newSession(id: Int, nickname: String, profileImage: NSData) -> Session?
     {
         let query = NSFetchRequest(entityName: "Session")
         
@@ -103,6 +134,15 @@ class DAOSession : NSObject
         catch { return nil }
     }
     
+    func changeSessionImage(id: Int, image: UIImage) -> Bool
+    {
+        if let session = self.getSession(id)
+        {
+            session.setImage(self.managedObjectContext, image: image)
+            return true
+        }
+        return false
+    }
     
     func save()
     {

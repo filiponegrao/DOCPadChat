@@ -9,10 +9,17 @@
 import Foundation
 import UIKit
 
-class ChatController : UIViewController
+class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource
 {
+    /******* Chat Variables *********/
+
+    private var channel : Channel!
+    
+    private var messages: [Message] = [Message]()
     
     private var chatView : ChatView!
+    
+    /********************************/
     
     private var receivedImageView : ReceivedImageView!
     
@@ -22,53 +29,179 @@ class ChatController : UIViewController
     
     var button : UIButton!
     
-    var image = UIImage(named: "teste") //temp
     
-    init()
+    init(channel: Channel)
     {
         super.init(nibName: nil, bundle: nil)
         
-        self.chatView = ChatView(frame: CGRectMake(0,0,screenWidth,screenHeight))
-        
-        self.view = self.chatView
-        
-        self.rightButton = UIBarButtonItem(barButtonSystemItem: .Bookmarks, target: self, action: #selector(self.openGallery))
-        self.rightButton.tintColor = UIColor.whiteColor()
-        self.navigationItem.rightBarButtonItem = self.rightButton
-        
-        
-        self.button = UIButton(frame: CGRectMake(screenWidth/2, screenHeight/2, 50, 50))
-        self.button.setTitle("IMG", forState: .Normal)
-        self.button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        self.button.addTarget(self, action: #selector(self.openImage), forControlEvents: .TouchUpInside)
-        self.view.addSubview(self.button)
+        self.channel = channel
     }
-    
+
     override func viewDidLayoutSubviews()
     {
     
     }
+    
+    /********************************/
+    /***** Refresh Controllers ******/
+    /********************************/
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
+        
+        self.chatView.collectionView.reloadData()
+        self.chatView.updateView(self.channel)
+    }
+    
+    func refreshChat(channel: Channel)
+    {
+        self.channel = channel
+        self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
+        self.chatView.collectionView.reloadData()
+        
+        self.chatView.updateView(self.channel)
+    }
+    
     
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func back()
+    /********************************/
+    /******** Chat Methods **********/
+    /********************************/
+    
+
+    
+    /********************************/
+    /********************************/
+
+    override func viewDidLoad()
+    {
+        self.chatView = ChatView(frame: CGRectMake(0,0,screenWidth,screenHeight), controller: self)
+        
+        self.view = self.chatView
+        
+        //Notifications
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleNewMessage(_:)), name: Event.message_new.rawValue, object: nil)
+        
+    }
+    
+    override func viewDidAppear(animated: Bool)
     {
         
     }
     
+    override func viewDidDisappear(animated: Bool)
+    {
+        
+    }
+    
+    
+    /********************************/
+    /******** Tools Methods *********/
+    /********************************/
+    
     func openGallery()
     {
         let sentMediaController = SentMediaController()
-        
         self.navigationController?.pushViewController(sentMediaController, animated: true)
     }
     
     func openImage()
     {
-        self.receivedImageView = ReceivedImageView(image: self.image!, frame: self.view.frame, requester: self)
-        self.navigationController!.view.addSubview(self.receivedImageView)
+//        self.receivedImageView = ReceivedImageView(image: self.image!, frame: self.view.frame, requester: self)
+//        self.navigationController!.view.addSubview(self.receivedImageView)
     }
+    
+    /********************************/
+    /********************************/
+    
+    /********************************/
+    /** Collection View Delegate ****/
+    /********************************/
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    {
+        let message = self.messages[indexPath.item]
+        
+        if message.type == MessageType.Text.rawValue
+        {
+            let height = ChatTextCell.getHeightForCell(forMessage: message)
+            
+            return CGSizeMake(screenWidth, height)
+        }
+        
+        return CGSizeMake(screenWidth, 60)
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
+    {
+        return 1;
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.messages.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        self.view.endEditing(true)
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let message = self.messages[indexPath.item]
+        
+        let type = message.type
+        
+        if type == MessageType.Text.rawValue
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellText", forIndexPath: indexPath) as! ChatTextCell
+            
+            
+            cell.configureCell(message)
+            
+            return cell
+        }
+        
+        return collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+    }
+    
+    
+    /********************************/
+    /***** Conversation Methods *****/
+    /********************************/
+
+    func handleNewMessage(notification: NSNotification)
+    {
+        if let userinfo = notification.userInfo
+        {
+            let channel = userinfo["channel"] as! Int
+            let message = userinfo["message"] as! Message
+            
+            if channel != Int(self.channel.id) { return }
+            
+            self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
+
+            if let index = self.messages.indexOf(message)
+            {
+                self.chatView.collectionView.insertItemsAtIndexPaths([NSIndexPath.init(forItem: index, inSection: 0)])
+            }
+            else
+            {
+                self.chatView.collectionView.reloadData()
+            }
+            
+        }
+    }
+
+    
+    /********************************/
+    /********************************/
+    
 }

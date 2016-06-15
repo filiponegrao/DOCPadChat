@@ -10,22 +10,19 @@ import Foundation
 import UIKit
 
 
-class MainNavigationController : UINavigationController
+class ChatNavigationController : UINavigationController
 {
     private var chatController : ChatController!
     
-    private var sentMediaController : SentMediaController!
+    private var channel : Channel!
     
-    init()
+    init(channel: Channel)
     {
         super.init(nibName: nil, bundle: nil)
         
-        self.chatController = ChatController()
-        self.sentMediaController = SentMediaController()
+        self.chatController = ChatController(channel: channel)
         
         self.viewControllers = [self.chatController]
-        
-//        self.viewControllers = [self.sentMediaController]
         
         //Navigation customizations
         
