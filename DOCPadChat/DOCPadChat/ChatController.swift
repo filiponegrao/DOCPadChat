@@ -63,7 +63,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.chatView.updateView(self.channel)
     }
     
-    
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
@@ -163,6 +162,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellText", forIndexPath: indexPath) as! ChatTextCell
             
+//            if(indexPath.item % 2 == 0) { cell.backgroundColor = UIColor.redColor() }
+//            else { cell.backgroundColor = UIColor.blueColor() }
             
             cell.configureCell(message)
             

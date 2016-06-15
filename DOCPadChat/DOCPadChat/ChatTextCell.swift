@@ -27,39 +27,59 @@ class ChatTextCell: UICollectionViewCell
         self.textLabel.font = defaultFont
         self.textLabel.textColor = defaultTextColor
         self.textLabel.userInteractionEnabled = false
+        self.textLabel.contentInset = UIEdgeInsetsMake(0, 5, 0, 0)
+        self.textLabel.layer.borderWidth = 0.3
+        self.textLabel.layer.borderColor = UIColor.grayColor().CGColor
         
-        self.dateLabel = UILabel(frame: CGRectMake(0,0,100,80))
+        self.dateLabel = UILabel(frame: CGRectMake(0,0,40,20))
         self.dateLabel.text = "28/09"
-        self.dateLabel.font = UIFont(name: "Gill Sans", size: 13)
+        self.dateLabel.font = UIFont(name: "Helvetica", size: 14)
         self.dateLabel.textColor = GMColor.grey500Color()
+//        self.dateLabel.layer.borderWidth = 1
     }
     
     func configureCell(message: Message)
     {
-        print("eu eu eu eu")
         if let id = ChatApplication.sharedInstance.getId()
         {
             //Usuario corrente enviou a mensagem
             if message.sender == id
             {
+                self.dateLabel?.removeFromSuperview()
+                self.dateLabel.text = UseFulFunctions.getStringDateFromDate(message.sentDate)
+                let dateorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH*2 + self.dateLabel.frame.width)
+                self.dateLabel.frame.origin.x = dateorigin
+                self.dateLabel.frame.origin.y = self.textLabel.frame.origin.y + self.textLabel.frame.height - self.dateLabel.frame.height
+                self.addSubview(self.dateLabel)
+                
+                
                 self.textLabel?.removeFromSuperview()
                 self.textLabel.text = message.text
                 self.textLabel.frame.size = CGSizeMake(maxTextCellWidth, 60)
-                self.textLabel.frame.size = CGSizeMake(self.textLabel.contentSize.width, self.textLabel.contentSize.height)
+                self.textLabel.frame.size = CGSizeMake(self.textLabel.contentSize.width + cellMarginH*2, self.textLabel.contentSize.height)
                 self.textLabel.sizeToFit()
+                self.textLabel.frame.size.height += 20
+                self.textLabel.frame.size.width += cellMarginH
                 let textorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH)
                 self.textLabel.frame.origin.x = textorigin
                 self.textLabel.frame.origin.y = cellMarginV
                 self.addSubview(self.textLabel)
                 
+                if(self.textLabel.frame.width < 40 + cellMarginH)
+                {
+                    let dif = (40+cellMarginH) - (self.textLabel.frame.width)
+                    self.textLabel.frame.origin.x -= dif
+                    self.textLabel.frame.size.width += dif
+                }
+                
+                //Ajeitando posicoes
+                
+                self.bringSubviewToFront(self.dateLabel)
 
-                self.dateLabel?.removeFromSuperview()
-                self.dateLabel.text = UseFulFunctions.getStringDateFromDate(message.sentDate)
-                self.dateLabel.sizeToFit()
-                let dateorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH*2 + self.dateLabel.frame.width)
-                self.dateLabel.frame.origin.x = dateorigin
-                self.dateLabel.frame.origin.y = self.textLabel.frame.origin.y + self.textLabel.frame.height - self.dateLabel.frame.height
-                self.addSubview(self.dateLabel)
+                self.dateLabel.frame.origin.y = self.frame.size.height - cellMarginV*2 - self.dateLabel.frame.height
+                self.dateLabel.frame.origin.x = screenWidth - self.dateLabel.frame.size.width - cellMarginH
+                
+              
 
             }
             //Usuario corrente nao enviou a mensagem
@@ -77,7 +97,7 @@ class ChatTextCell: UICollectionViewCell
         textview.font = defaultFont
         textview.text = message.text
         
-        return (textview.contentSize.height + cellMarginV*2)
+        return (textview.contentSize.height) + cellMarginV*2 + 20
     }
     
     required init?(coder aDecoder: NSCoder) {

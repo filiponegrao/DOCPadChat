@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 let defaultFont = UIFont.init(name: "Helvetica", size: 16)!
-let defaultTextColor = UIColor.grayColor()
+let defaultTextColor = GMColor.grey800Color()
 
 let maxTextCellWidth : CGFloat = screenWidth - screenWidth/5
 

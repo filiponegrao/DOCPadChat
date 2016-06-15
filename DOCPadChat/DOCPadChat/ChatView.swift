@@ -59,7 +59,7 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.imageView.image = UIImage(named: "channelTemplate")
         self.imageView.layer.cornerRadius = self.imageView.frame.size.width/2
         self.imageView.layer.borderWidth = 1
-        self.imageView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.imageView.layer.borderColor = UIColor.whiteColor().CGColor
         self.imageView.clipsToBounds = true
         
         self.controller.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.imageView)
@@ -122,6 +122,18 @@ class ChatView : UIView, ChatMessageBarDelegate
         {
             self.messageBar.frame.origin.y = screenHeight - keyboardSize.height - self.messageBar.frame.size.height
             self.collectionView.frame.size.height = self.collectionHeight - keyboardSize.height
+            
+            if(self.collectionView.contentSize.height > self.collectionView.frame.size.height)
+            {
+                if(self.collectionView.contentSize.height < self.collectionHeight)
+                {
+                    self.collectionView.contentOffset.y += self.collectionView.contentSize.height - keyboardSize.height
+                }
+                else
+                {
+                    self.collectionView.contentOffset.y += keyboardSize.height
+                }
+            }
         }
     }
     
