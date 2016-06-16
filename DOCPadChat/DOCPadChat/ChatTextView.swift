@@ -34,15 +34,19 @@ class ChatTextView : UITextView, UITextViewDelegate
     
     weak var chatDelegate : ChatTextViewDelegate?
     
+    private var mainSize: CGSize!
+    
     init(frame: CGRect)
     {
         super.init(frame: frame , textContainer: nil)
         
         self.delegate = self
-//        self.layer.borderWidth = 1
+        
         self.heightDefault = frame.size.height
         self.heightLimit = frame.size.height*2
         self.heightPlus = frame.size.height/2
+        
+        self.mainSize = CGSizeMake(frame.width, frame.height)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -63,6 +67,7 @@ class ChatTextView : UITextView, UITextViewDelegate
         self.textColor = UIColor.whiteColor()
         
         self.chatDelegate?.textView(self, placeholderOn: self.text)
+        
     }
     
     func placeHolderOff()
@@ -77,6 +82,16 @@ class ChatTextView : UITextView, UITextViewDelegate
         }
     }
     
+    func defaultSize()
+    {
+        UIView.animateWithDuration(0.3, animations: { 
+            
+            self.frame.size.height = self.heightDefault
+            
+        }) { (success: Bool) in
+            
+        }
+    }
     
     func increaseHeight()
     {
@@ -129,9 +144,13 @@ class ChatTextView : UITextView, UITextViewDelegate
         {
             self.decreaseHeight()
         }
-        else if (self.contentSize.height < self.frame.size.height && self.frame.size.height > self.heightDefault)
+        else if (self.contentSize.height < self.frame.size.height && self.frame.size.height > (self.heightDefault+heightPlus))
         {
             self.decreaseHeight()
+        }
+        else
+        {
+            self.defaultSize()
         }
     }
     

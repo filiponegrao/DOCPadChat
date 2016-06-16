@@ -17,6 +17,10 @@ import UIKit
     func messageBarAudioClicked(messageBar: ChatMessageBar)
     
     func messageBarSendClicked(messageBar: ChatMessageBar, text: String)
+    
+    func messageBarIncreasedSize(messageBar: ChatMessageBar, plus: CGFloat)
+    
+    func messageBarDecreasedSize(messageBar: ChatMessageBar, plus: CGFloat)
 }
 
 class ChatMessageBar : UIView, ChatTextViewDelegate
@@ -41,16 +45,17 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
         
         
         self.photoButton = UIButton(frame: CGRectMake(0, 0, self.height, self.height))
-        self.photoButton.setTitle("Photo", forState: .Normal)
-        self.photoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//        self.photoButton.setTitle("Photo", forState: .Normal)
+//        self.photoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.photoButton.setImage(UIImage(named: "buttonCamera"), forState: .Normal)
         self.photoButton.addTarget(self, action: #selector(self.handleClickPhoto), forControlEvents: .TouchUpInside)
         self.addSubview(self.photoButton)
     
         
         self.audioButton = UIButton(frame: CGRectMake(width - self.height, 0, self.height, self.height))
-//        self.audioButton.setImage(UIImage(named: "micButton"), forState: .Normal)
-        self.audioButton.setTitle("Gravar", forState: .Normal)
-        self.audioButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.audioButton.setImage(UIImage(named: "buttonMic"), forState: .Normal)
+//        self.audioButton.setTitle("Gravar", forState: .Normal)
+//        self.audioButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.audioButton.addTarget(self, action: #selector(self.handleClickAudio), forControlEvents: .TouchUpInside)
         self.addSubview(self.audioButton)
         
@@ -66,6 +71,10 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
         self.textView.textColor = UIColor.whiteColor()
         self.textView.setPlaceHolder("Message...")
         self.textView.chatDelegate = self
+        
+        
+        self.textView.layer.borderWidth = 1
+        
         self.addSubview(self.textView)
         
     }
@@ -79,30 +88,6 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     /**************************************/
     /************ ANIMATIONS **************/
     /**************************************/
-    
-    func increaseHeight(height: CGFloat)
-    {
-        UIView.animateWithDuration(0.3, animations: { 
-            
-            self.frame.size.height += height
-            self.frame.origin.y -= height
-            
-        }) { (success: Bool) in
-            
-        }
-    }
-    
-    func decreaseHeight(difference: CGFloat)
-    {
-        UIView.animateWithDuration(0.3, animations: {
-            
-            self.frame.size.height -= difference
-            self.frame.origin.y += difference
-            
-        }) { (success: Bool) in
-            
-        }
-    }
     
     func textModeOn()
     {
@@ -160,12 +145,28 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
     func textView(textView: ChatTextView, heightDecreased plus: CGFloat)
     {
-        self.decreaseHeight(plus)
+        self.delegate?.messageBarDecreasedSize(self, plus: plus)
+        
+        UIView.animateWithDuration(0.3, animations: { 
+            self.frame.origin.y += plus
+            self.frame.size.width -= plus
+            
+        }) { (success: Bool) in
+            
+        }
     }
     
     func textView(textView: ChatTextView, heightIncreased plus: CGFloat)
     {
-        self.increaseHeight(plus)
+        self.delegate?.messageBarIncreasedSize(self, plus: plus)
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.frame.origin.y -= plus
+            self.frame.size.width += plus
+            
+        }) { (success: Bool) in
+            
+        }
     }
     
     func textView(textView: ChatTextView, placeholderOff text: String)

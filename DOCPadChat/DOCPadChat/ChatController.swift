@@ -29,6 +29,10 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     var button : UIButton!
     
+    func currentChannel() -> Channel
+    {
+        return self.channel
+    }
     
     init(channel: Channel)
     {
@@ -199,6 +203,11 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             }
             
         }
+    }
+    
+    func sendTextMessage(id: Int, target: Int, text: String)
+    {
+        ChatApplication.sharedInstance.sendMessage(id, target: target, text: text)
     }
 
     

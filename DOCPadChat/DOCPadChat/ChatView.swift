@@ -38,11 +38,14 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.controller = controller
         super.init(frame: frame)
         
+        
         self.backgroundColor = UIColor.whiteColor()
         
         self.messageBar = ChatMessageBar(width: screenWidth)
         self.messageBar.delegate = self
         self.addSubview(self.messageBar)
+        
+        
         
         let height : CGFloat = self.controller.navigationController!.navigationBar.frame.size.height
 
@@ -182,10 +185,33 @@ class ChatView : UIView, ChatMessageBarDelegate
     {
         if(text != "")
         {
-            ChatApplication.sharedInstance.sendMessage(000212, sender: 02, target: 01, text: text)
+            self.controller.sendTextMessage(0012134, target: Int(self.controller.currentChannel().id), text: text)
         }
         
     }
+    
+    func messageBarIncreasedSize(messageBar: ChatMessageBar, plus: CGFloat)
+    {
+        UIView.animateWithDuration(0.3, animations: { 
+            
+            self.collectionView.frame.size.height -= plus
+            self.collectionView.contentOffset.y += plus
+            
+        }) { (success: Bool) in
+            
+        }
+    }
+    
+    func messageBarDecreasedSize(messageBar: ChatMessageBar, plus: CGFloat)
+    {
+        UIView.animateWithDuration(0.3, animations: {
+            
+            self.collectionView.frame.size.height += plus
+            self.collectionView.contentOffset.y -= plus
+            
+        }) { (success: Bool) in
+            
+        }    }
     
     /*********************************/
     /*********************************/

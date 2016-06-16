@@ -131,9 +131,9 @@ class ChatApplication : NSObject
         }
     }
     
-    func sendMessage(id: Int, sender: Int, target: Int, text: String)
+    func sendMessage(id: Int, target: Int, text: String)
     {
-        self.newMessage(id, sender: sender, target: target, type: MessageType.Text, sentDate: NSDate(), text: text)
+        self.newMessage(id, sender: self.id, target: target, type: MessageType.Text, sentDate: NSDate(), text: text)
     }
     
     /*********************************/
