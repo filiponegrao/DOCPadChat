@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6262C5F857986ED93005C262 /* Pods_DOCPadChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701C5E665FE629F7100C8134 /* Pods_DOCPadChat.framework */; };
 		8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */; };
 		8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */; };
 		8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */; };
@@ -21,6 +22,10 @@
 		8012ED541D10A00F00652FE8 /* GMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED531D10A00F00652FE8 /* GMColor.swift */; };
 		8012ED561D10A1CF00652FE8 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED551D10A1CF00652FE8 /* RegexParser.swift */; };
 		8012ED591D10AEE300652FE8 /* ViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED581D10AEE300652FE8 /* ViewOptions.swift */; };
+		8012ED651D12F9CC00652FE8 /* DoctorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED641D12F9CC00652FE8 /* DoctorModel.swift */; };
+		8012ED711D12FD6500652FE8 /* XMPPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED701D12FD6500652FE8 /* XMPPManager.swift */; };
+		8012ED731D12FE6400652FE8 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED721D12FE6400652FE8 /* MessageModel.swift */; };
+		8012ED751D13759600652FE8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8012ED741D13759600652FE8 /* UserModel.swift */; };
 		80180E481D02371400AA0AC9 /* DAOFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E471D02371400AA0AC9 /* DAOFile.swift */; };
 		80180E4C1D02379000AA0AC9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E4A1D02379000AA0AC9 /* File.swift */; };
 		80180E551D02509800AA0AC9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80180E531D02509800AA0AC9 /* Session.swift */; };
@@ -67,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2891FA5DFC905E399E625E48 /* Pods-DOCPadChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DOCPadChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-DOCPadChat/Pods-DOCPadChat.release.xcconfig"; sourceTree = "<group>"; };
+		701C5E665FE629F7100C8134 /* Pods_DOCPadChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DOCPadChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8008B7D01CFF701A00C4FAE4 /* UsefulFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulFunctions.swift; sourceTree = "<group>"; };
@@ -81,6 +88,11 @@
 		8012ED531D10A00F00652FE8 /* GMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMColor.swift; sourceTree = "<group>"; };
 		8012ED551D10A1CF00652FE8 /* RegexParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
 		8012ED581D10AEE300652FE8 /* ViewOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOptions.swift; sourceTree = "<group>"; };
+		8012ED641D12F9CC00652FE8 /* DoctorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorModel.swift; sourceTree = "<group>"; };
+		8012ED6D1D12FB8800652FE8 /* DOCPadChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DOCPadChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		8012ED701D12FD6500652FE8 /* XMPPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPManager.swift; sourceTree = "<group>"; };
+		8012ED721D12FE6400652FE8 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		8012ED741D13759600652FE8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		80180E471D02371400AA0AC9 /* DAOFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOFile.swift; sourceTree = "<group>"; };
 		80180E4A1D02379000AA0AC9 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		80180E531D02509800AA0AC9 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -108,6 +120,7 @@
 		80E6D0511D03819B00ECDBC7 /* ChatNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatNotifications.swift; sourceTree = "<group>"; };
 		80F2C3821CFFC28A008EDE2B /* DAOUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOUser.swift; sourceTree = "<group>"; };
 		80F2C3831CFFC28A008EDE2B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C28C26F04A85FA70BB44B512 /* Pods-DOCPadChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DOCPadChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DOCPadChat/Pods-DOCPadChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaController.swift; sourceTree = "<group>"; };
 		F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaView.swift; sourceTree = "<group>"; };
 		F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMediaCell.swift; sourceTree = "<group>"; };
@@ -120,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6262C5F857986ED93005C262 /* Pods_DOCPadChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +177,7 @@
 				80E6D0531D0381A100ECDBC7 /* Chat Controller Tools */,
 				8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */,
 				F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */,
+				8012ED6D1D12FB8800652FE8 /* DOCPadChat-Bridging-Header.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -199,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				80180E531D02509800AA0AC9 /* Session.swift */,
+				8012ED641D12F9CC00652FE8 /* DoctorModel.swift */,
 				80180E561D02521900AA0AC9 /* DAOSession.swift */,
 			);
 			name = SESSION;
@@ -220,6 +236,8 @@
 				80A7D9DD1CFE4E5800BE52EB /* DOCPadChatTests */,
 				80A7D9E81CFE4E5800BE52EB /* DOCPadChatUITests */,
 				80A7D9C41CFE4E5800BE52EB /* Products */,
+				A88C8B21C08355EDCAC77725 /* Pods */,
+				DBA358734CBEDAF0805DC1CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -275,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				80E6D0471D03686B00ECDBC7 /* Message.swift */,
+				8012ED721D12FE6400652FE8 /* MessageModel.swift */,
 				80E6D04B1D036D1B00ECDBC7 /* DAOMessage.swift */,
 			);
 			name = MESSAGE;
@@ -283,6 +302,7 @@
 		80E6D0531D0381A100ECDBC7 /* Chat Controller Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8012ED701D12FD6500652FE8 /* XMPPManager.swift */,
 				80E6D0511D03819B00ECDBC7 /* ChatNotifications.swift */,
 				80E6D04F1D03819400ECDBC7 /* ChatEvents.swift */,
 				80180E621D02765F00AA0AC9 /* ChatApplication.swift */,
@@ -302,6 +322,7 @@
 		80F2C3871CFFC29B008EDE2B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8012ED741D13759600652FE8 /* UserModel.swift */,
 				80180E5F1D02613A00AA0AC9 /* CHANNEL */,
 				80180E4D1D0237AC00AA0AC9 /* FILE */,
 				80F2C3861CFFC28F008EDE2B /* USER */,
@@ -309,6 +330,23 @@
 				80E6D04A1D036D0800ECDBC7 /* MESSAGE */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		A88C8B21C08355EDCAC77725 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C28C26F04A85FA70BB44B512 /* Pods-DOCPadChat.debug.xcconfig */,
+				2891FA5DFC905E399E625E48 /* Pods-DOCPadChat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DBA358734CBEDAF0805DC1CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				701C5E665FE629F7100C8134 /* Pods_DOCPadChat.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F61DBCE81CFF8C020040A287 /* Cells */ = {
@@ -327,9 +365,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80A7D9EE1CFE4E5800BE52EB /* Build configuration list for PBXNativeTarget "DOCPadChat" */;
 			buildPhases = (
+				D3E11D3806D54B09220FA919 /* Check Pods Manifest.lock */,
 				80A7D9BF1CFE4E5800BE52EB /* Sources */,
 				80A7D9C01CFE4E5800BE52EB /* Frameworks */,
 				80A7D9C11CFE4E5800BE52EB /* Resources */,
+				907FCB7B0C4E4CF5DF8D688B /* Embed Pods Frameworks */,
+				4FA91BE2337F765880E90B12 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -445,6 +486,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4FA91BE2337F765880E90B12 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DOCPadChat/Pods-DOCPadChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		907FCB7B0C4E4CF5DF8D688B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DOCPadChat/Pods-DOCPadChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3E11D3806D54B09220FA919 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		80A7D9BF1CFE4E5800BE52EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -468,7 +557,9 @@
 				8012ED541D10A00F00652FE8 /* GMColor.swift in Sources */,
 				8008B7CD1CFF6F2C00C4FAE4 /* ChatView.swift in Sources */,
 				80180E4C1D02379000AA0AC9 /* File.swift in Sources */,
+				8012ED751D13759600652FE8 /* UserModel.swift in Sources */,
 				80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */,
+				8012ED731D12FE6400652FE8 /* MessageModel.swift in Sources */,
 				80180E631D02765F00AA0AC9 /* ChatApplication.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
 				80E6D04E1D037D9100ECDBC7 /* Simulation.swift in Sources */,
@@ -480,9 +571,11 @@
 				8008B7D61CFF741300C4FAE4 /* MainNavigationController.swift in Sources */,
 				8008B7D11CFF701A00C4FAE4 /* UsefulFunctions.swift in Sources */,
 				80180E481D02371400AA0AC9 /* DAOFile.swift in Sources */,
+				8012ED651D12F9CC00652FE8 /* DoctorModel.swift in Sources */,
 				80E6D0521D03819B00ECDBC7 /* ChatNotifications.swift in Sources */,
 				8012ED561D10A1CF00652FE8 /* RegexParser.swift in Sources */,
 				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
+				8012ED711D12FD6500652FE8 /* XMPPManager.swift in Sources */,
 				F61DBCE51CFF7DDB0040A287 /* SentMediaView.swift in Sources */,
 				80F2C3841CFFC28A008EDE2B /* DAOUser.swift in Sources */,
 				F66D23121D010D9500B7F466 /* ReceivedImageView.swift in Sources */,
@@ -617,23 +710,30 @@
 		};
 		80A7D9EF1CFE4E5800BE52EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C28C26F04A85FA70BB44B512 /* Pods-DOCPadChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DOCPadChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DOCPadChat/DOCPadChat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		80A7D9F01CFE4E5800BE52EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2891FA5DFC905E399E625E48 /* Pods-DOCPadChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = DOCPadChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DOCPadChat/DOCPadChat-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -9,6 +9,12 @@
 import Foundation
 import CoreData
 
+public enum MessageStatus : String
+{
+    case Sent = "sent"
+    
+    case Seen = "seen"
+}
 
 public enum MessageType : String
 {
@@ -21,28 +27,29 @@ public enum MessageType : String
     case Image = "image"
 }
 
-extension Message {
-    
-    @NSManaged var id: NSNumber!
-    @NSManaged var sender: NSNumber!
+extension Message
+{
+    @NSManaged var id: String!
+    @NSManaged var sender: String!
     @NSManaged var sentDate: NSDate!
     @NSManaged var status: String!
-    @NSManaged var target: NSNumber!
+    @NSManaged var target: String!
     @NSManaged var text: String?
     @NSManaged var type: String!
     @NSManaged var file: File?
-    
 }
 
 class Message: NSManagedObject
 {
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, sender: Int, target: Int, text: String, type: MessageType, sentDate: NSDate) -> Message
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: String, sender: String, target: String, text: String, type: MessageType, sentDate: NSDate) -> Message
     {
         
         let message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: moc) as! Message
 
+        message.id = id
         message.sender = sender
         message.target = target
+        message.status = MessageStatus.Sent.rawValue
         message.type = type.rawValue
         message.sentDate = sentDate
         message.text = text

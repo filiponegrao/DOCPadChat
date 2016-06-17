@@ -12,6 +12,10 @@ class TesteViewController: UIViewController {
 
     private var button : UIButton!
     
+    private var login : UITextField!
+    
+    private var friend : UITextField!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -26,17 +30,41 @@ class TesteViewController: UIViewController {
         self.button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.view.addSubview(self.button)
         
+        self.login = UITextField(frame: CGRectMake(0,0,screenWidth/2, 44))
+        self.login.placeholder = "Login"
+        self.login.center = CGPointMake(screenWidth/2, screenHeight/5)
+        self.login.autocorrectionType = .No
+        self.login.autocapitalizationType = .None
+        self.view.addSubview(self.login)
+        
+        self.friend = UITextField(frame: CGRectMake(self.login.frame.origin.x, self.login.bounds.height, screenWidth/2, 44))
+        self.friend.placeholder = "Friend"
+        self.friend.autocorrectionType = .No
+        self.friend.autocapitalizationType = .None
+        self.view.addSubview(self.friend)
+        
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     func openChat()
-    {        
-        ChatApplication.sharedInstance.startChatWith(self, channelId: 01, navigationController: false, animated: true)
+    {
+        let ip = "52.67.65.109"
+        
+        let username = self.login.text!
+        
+        let friend = self.friend.text!
+        
+        let model = UserModel(id: "\(friend)@\(ip)", name: friend)
+        
+        ChatApplication.sharedInstance.serverConfigure(username, username: username, profileImage: nil)
+        
+        ChatApplication.sharedInstance.startChatWith(self, userModel: model, navigationController: false, animated: true, completion: nil)
     }
     
 }

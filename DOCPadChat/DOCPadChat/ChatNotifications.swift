@@ -149,17 +149,17 @@ class ChatNotifications : NSObject
     
     //Messages
     
-    class func messageNew(message: Message, channel: Int) -> NSNotification
+    class func messageNew(message: Message, sender: String) -> NSNotification
     {
-        return NSNotification(name: Event.message_new.rawValue, object: nil, userInfo: ["message": message, "channel": channel])
+        return NSNotification(name: Event.message_new.rawValue, object: nil, userInfo: ["message": message, "sender": sender])
     }
     
-    class func messageSeen(message: Int, channel: Int, session: Int) -> NSNotification
+    class func messageSeen(message: String, channel: String, session: Int) -> NSNotification
     {
         return NSNotification(name: Event.message_seen.rawValue, object: nil, userInfo: ["message": message, "channel": channel, "session": session])
     }
     
-    class func messageDeleted(message: Int, channel: Int, index: Int) -> NSNotification
+    class func messageDeleted(message: String, channel: String, index: Int) -> NSNotification
     {
         return NSNotification(name: Event.message_deleted.rawValue, object: nil, userInfo: ["message": message, "channel": channel, "index": index])
     }

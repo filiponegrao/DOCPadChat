@@ -22,12 +22,12 @@ class DAOMessage : NSObject
     }
     
 
-    func newMessage(id: Int, sender: Int, target: Int, type: MessageType, sentDate: NSDate, text: String) -> Message?
+    func newMessage(id: String, sender: String, target: String, type: MessageType, sentDate: NSDate, text: String) -> Message?
     {
         
         let query = NSFetchRequest(entityName: "Message")
         
-        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
+        let predicate = NSPredicate(format: "id == %@", id)
         
         query.predicate = predicate
         
@@ -49,11 +49,11 @@ class DAOMessage : NSObject
         }
     }
     
-    func getMessage(id: Int) -> Message?
+    func getMessage(id: String) -> Message?
     {
         let query = NSFetchRequest(entityName: "Message")
         
-        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
+        let predicate = NSPredicate(format: "id == %@", id)
         
         query.predicate = predicate
         
@@ -69,13 +69,13 @@ class DAOMessage : NSObject
         }
     }
     
-    func getMessagesFromChannel(channel: Int) -> [Message]
+    func getMessagesFromChannel(channel: String) -> [Message]
     {
         let mssgs = [Message]()
         
         let query = NSFetchRequest(entityName: "Message")
         
-        let predicate = NSPredicate(format: "target == %@", NSNumber.init(integer: channel))
+        let predicate = NSPredicate(format: "target == %@", channel)
         
         query.predicate = predicate
         
@@ -91,13 +91,13 @@ class DAOMessage : NSObject
         }
     }
     
-    func getRecentMessagesFromChannel(channel: Int) -> [Message]
+    func getRecentMessagesFromChannel(channel: String) -> [Message]
     {
         var mssgs = [Message]()
         
         let query = NSFetchRequest(entityName: "Message")
         
-        let predicate = NSPredicate(format: "target == %@", NSNumber.init(integer: channel))
+        let predicate = NSPredicate(format: "target == %@", channel)
         
         query.predicate = predicate
         
@@ -125,13 +125,24 @@ class DAOMessage : NSObject
         }
     }
     
-    func getOldMessagesFromChannel(channel: Int) -> [Message]
+    func getMessagesFrom(id: String) -> [Message]
+    {
+        let messages = [Message]()
+        
+        do { return try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "Message")) as! [Message] }
+            
+        catch {}
+        
+        return messages
+    }
+    
+    func getOldMessagesFromChannel(channel: String) -> [Message]
     {
         var mssgs = [Message]()
         
         let query = NSFetchRequest(entityName: "Message")
         
-        let predicate = NSPredicate(format: "target == %@", NSNumber.init(integer: channel))
+        let predicate = NSPredicate(format: "target == %@", channel)
         
         query.predicate = predicate
         
@@ -164,11 +175,11 @@ class DAOMessage : NSObject
      * da mensagem em questao referente às outras mensagens
      * do mesmo canal.
      */
-    func deleteMessage(id: Int) -> Int?
+    func deleteMessage(id: String) -> Int?
     {
         if let message = self.getMessage(id)
         {
-            let messages = self.getMessagesFromChannel(Int(message.target))
+            let messages = self.getMessagesFromChannel(message.target)
             
             let index = messages.indexOf(message)!
             

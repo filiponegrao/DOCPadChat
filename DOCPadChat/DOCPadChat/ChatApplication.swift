@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import XMPPFramework
 
 
 /**
@@ -25,17 +26,23 @@ public enum ConnectioStatus : String
 
 private let data : ChatApplication = ChatApplication()
 
-class ChatApplication : NSObject
+class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDelegate, XMPPManagerRosterDelegate
 {
+    /** Server information */
+    
+    let ip : String = "52.67.65.109"
+
+    let port : Int = 5222
+    
     private var connectionStatus : ConnectioStatus!
     
     /** Informacoes do usuario corrente */
     
-    private var id : Int!
+    private var id : String!
     
     private var username : String!
     
-    private var profileImage : UIImage!
+    private var profileImage : UIImage?
     
     /** Fim das informacoes do usuario corrente */
     
@@ -48,15 +55,11 @@ class ChatApplication : NSObject
     override init()
     {
         super.init()
-        
-        if let user = DAOUser.sharedInstance.getFirstUser()
-        {
-            self.id = Int(user.id)
-            self.username = user.username
-        }
+        self.registerXMPPDelegate()
+ 
     }
     
-    func getId() -> Int?
+    func getId() -> String?
     {
         return self.id
     }
@@ -78,111 +81,116 @@ class ChatApplication : NSObject
         }
     }
     
-    func createMainUser(id: Int, username: String, email: String?, password: String?, gender: String?, country: String?, city: String?, profileImage: UIImage) -> Bool
+    func registerXMPPDelegate()
     {
-        if let user = DAOUser.sharedInstance.createUser(id, username: username, email: email, password: password, gender: gender, country: country, city: city, profileImage: profileImage)
-        {
-            self.id = id
-            self.username = username
-            return true
-        }
-        
-        return false
+        XMPPManager.sharedInstance.setXMPPDelegates()
+        XMPPManager.sharedInstance.xmppManagerLoginDelegate = self
+        XMPPManager.sharedInstance.xmppManagerRosterDelegate = self
+        XMPPManager.sharedInstance.xmppManagerStreamDelegate = self
     }
     
-    func createMainUser(id: Int, username: String, profileImage: UIImage?) -> Bool
+    func serverConfigure(id: String, username: String, profileImage: UIImage?)
     {
-        if let user = DAOUser.sharedInstance.createUser(id, username: username, email: nil, password: nil, gender: nil, country: nil, city: nil, profileImage: profileImage)
-        {
-            self.id = id
-            self.username = username
-            return true
-        }
-        
-        return false
+        self.id = id
+        self.username = username
+        self.profileImage = profileImage
     }
     
-    func setMainUser(id: Int) -> Bool
+    func serverConnect()
     {
-        if let user = DAOUser.sharedInstance.getUser(id)
+        if(self.username != nil)
         {
-            self.id = Int(user.id)
-            self.username = user.username
-            return true
-        }
-        
-        return false
-    }
-    
-
-    /*********************************/
-    /****** TESGIN FUNCTIONS *********/
-    /*********************************/
-    
-    func testing()
-    {
-        if let session = DAOSession.sharedInstance.newSession(01, nickname: "Robot", profileImage: UIImage(named: "robot")!.highestQualityJPEGNSData)
-        {
-            if let channel = DAOChannel.sharedInstance.newChannel(01, session: session)
-            {
-                return
-            }
-            print("Ja existe")
+            let address = "\(self.id)@\(self.ip)"
+            print(address)
+            XMPPManager.sharedInstance.loginToXMPPServer(address, password: "1234")
         }
     }
     
-    func sendMessage(id: Int, target: Int, text: String)
+    func serverDisconnect()
     {
-        self.newMessage(id, sender: self.id, target: target, type: MessageType.Text, sentDate: NSDate(), text: text)
+        XMPPManager.sharedInstance.disconnect()
     }
     
     /*********************************/
+    /******** XMPP DELEGATES *********/
     /*********************************/
-
     
-    func startChatWith(askingController: UIViewController, channel: Channel, navigationController: Bool, animated: Bool)
+    func didConnectToServer(bool: Bool, errorMessage: String?)
     {
-        
-        if (self.id == nil || self.username == nil) { return }
-        
-        let controller = ChatNavigationController(channel: channel)
+        print("Connectado!")
+        let presence = XMPPPresence(type: "Available")
+        XMPPManager.sharedInstance.xmppStream?.sendElement(presence)
+    }
+    
+    func failedToAuthenticate(error: String)
+    {
+        print("Failed to authenticate")
+    }
+    
+    func startChatWith(askingController: UIViewController, userModel: UserModel, navigationController: Bool, animated: Bool, completion : (()->())?)
+    {
+        let chat = ChatNavigationController(userModel: userModel)
         
         if navigationController
         {
-            if let navigation = askingController.navigationController
-            {
-                navigation.pushViewController(controller, animated: animated)
-            }
+            askingController.navigationController?.pushViewController(chat, animated: animated)
+            self.serverConnect()
         }
         else
         {
-            askingController.presentViewController(askingController, animated: animated, completion: { 
-                
+            askingController.presentViewController(chat, animated: animated, completion: {
+                self.serverConnect()
+                completion?()
             })
         }
     }
-    
-    func startChatWith(askingController: UIViewController, channelId id: Int, navigationController: Bool, animated: Bool)
-    {
-        if (self.id == nil || self.username == nil) { return }
 
-        if let channel = DAOChannel.sharedInstance.getChannel(id)
+
+    func didReceiveMessage(message: MessageModel)
+    {
+        print(message)
+        
+        let sender = message.messageSender
+        let text = message.messageBody
+        
+        print("Sender", sender, "Text", text)
+        
+        let id = "\(sender)\(NSDate())"
+        
+        if let message = DAOMessage.sharedInstance.newMessage(id, sender: sender, target: self.id, type: MessageType.Text, sentDate: NSDate(), text: text)
         {
-            let controller = ChatNavigationController(channel: channel)
-            
-            if navigationController
-            {
-                if let navigation = askingController.navigationController
-                {
-                    navigation.pushViewController(controller, animated: animated)
-                }
-            }
-            else
-            {
-                askingController.presentViewController(controller, animated: animated, completion: {
-                    
-                })
-            }
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: sender))
+        }
+    }
+    
+//    func didReceivePresence(presence : UserState, from : UserModel) {
+//        
+//    }
+    
+    
+    func addedBuddyToList(buddyList :[UserModel]) {
+
+    }
+    
+    /*********************************/
+    /*********************************/
+
+    
+    
+    func sendMessage(text: String, toId id: String)
+    {
+        let body = DDXMLElement(name: "body", stringValue: text)
+        
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: id)
+        messageElement.addChild(body)
+        XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+        let id = "\(self.id)\(NSDate())"
+        
+        if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Text, sentDate: NSDate(), text: text)
+        {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
         }
     }
     
@@ -238,22 +246,20 @@ class ChatApplication : NSObject
         }
     }
     
-    private func newMessage(id: Int, sender: Int, target: Int, type: MessageType, sentDate: NSDate, text: String)
+    private func newMessage(id: String, sender: String, target: String, type: MessageType, sentDate: NSDate, text: String)
     {
         if let message = DAOMessage.sharedInstance.newMessage(id, sender: sender, target: target, type: type, sentDate: sentDate, text: text)
         {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, channel: target))
+           
         }
     }
     
     private func deleteMessage(message: Message)
     {
-        if let index = DAOMessage.sharedInstance.deleteMessage(Int(message.id))
+        if let index = DAOMessage.sharedInstance.deleteMessage(message.id)
         {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageDeleted(Int(message.id), channel: Int(message.target), index: index))
+
         }
     }
 }
-
-
 

@@ -15,6 +15,7 @@ public enum SessionStatus : String
     case Friend
 }
 
+
 extension Session {
     
     @NSManaged var createdAt: NSDate!

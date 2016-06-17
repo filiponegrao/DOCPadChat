@@ -14,13 +14,11 @@ class ChatNavigationController : UINavigationController
 {
     private var chatController : ChatController!
     
-    private var channel : Channel!
-    
-    init(channel: Channel)
+    init(userModel: UserModel)
     {
         super.init(nibName: nil, bundle: nil)
         
-        self.chatController = ChatController(channel: channel)
+        self.chatController = ChatController(usermodel: userModel)
         
         self.viewControllers = [self.chatController]
         

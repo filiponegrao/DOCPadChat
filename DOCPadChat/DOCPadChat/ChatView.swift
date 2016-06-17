@@ -185,7 +185,7 @@ class ChatView : UIView, ChatMessageBarDelegate
     {
         if(text != "")
         {
-            self.controller.sendTextMessage(0012134, target: Int(self.controller.currentChannel().id), text: text)
+            self.controller.sendTextMessage(text)
         }
         
     }

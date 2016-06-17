@@ -78,14 +78,43 @@ class ChatTextCell: UICollectionViewCell
 
                 self.dateLabel.frame.origin.y = self.frame.size.height - cellMarginV*2 - self.dateLabel.frame.height
                 self.dateLabel.frame.origin.x = screenWidth - self.dateLabel.frame.size.width - cellMarginH
-                
-              
-
             }
             //Usuario corrente nao enviou a mensagem
             else
             {
+                self.dateLabel?.removeFromSuperview()
+                self.dateLabel.text = UseFulFunctions.getStringDateFromDate(message.sentDate)
+                let dateorigin = cellMarginH
+                self.dateLabel.frame.origin.x = dateorigin
+                self.dateLabel.frame.origin.y = self.textLabel.frame.origin.y + self.textLabel.frame.height - self.dateLabel.frame.height
+                self.addSubview(self.dateLabel)
                 
+                self.textLabel?.removeFromSuperview()
+                self.textLabel.text = message.text
+                self.textLabel.frame.size = CGSizeMake(maxTextCellWidth, 60)
+                self.textLabel.frame.size = CGSizeMake(self.textLabel.contentSize.width + cellMarginH*2, self.textLabel.contentSize.height)
+                self.textLabel.sizeToFit()
+                self.textLabel.frame.size.height += 20
+                self.textLabel.frame.size.width += cellMarginH
+                let textorigin = cellMarginH
+                self.textLabel.frame.origin.x = textorigin
+                self.textLabel.frame.origin.y = cellMarginV
+                self.addSubview(self.textLabel)
+
+                if(self.textLabel.frame.width < 40 + cellMarginH)
+                {
+                    let dif = (40+cellMarginH) - (self.textLabel.frame.width)
+                    self.textLabel.frame.origin.x -= dif
+                    self.textLabel.frame.size.width += dif
+                }
+                
+                //Ajeitando posicoes
+                
+                self.bringSubviewToFront(self.dateLabel)
+                
+                self.dateLabel.frame.origin.y = self.frame.size.height - cellMarginV*2 - self.dateLabel.frame.height
+                self.dateLabel.frame.origin.x = cellMarginH*2
+
             }
         }
     }

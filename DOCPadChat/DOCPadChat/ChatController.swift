@@ -13,7 +13,9 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
 {
     /******* Chat Variables *********/
 
-    private var channel : Channel!
+//    private var channel : Channel!
+    
+    private var usermodel : UserModel!
     
     private var messages: [Message] = [Message]()
     
@@ -29,16 +31,16 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     var button : UIButton!
     
-    func currentChannel() -> Channel
+    func currentUserModel() -> UserModel
     {
-        return self.channel
+        return self.usermodel
     }
     
-    init(channel: Channel)
+    init(usermodel: UserModel)
     {
         super.init(nibName: nil, bundle: nil)
         
-        self.channel = channel
+        self.usermodel = usermodel
     }
 
     override func viewDidLayoutSubviews()
@@ -50,21 +52,15 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     /***** Refresh Controllers ******/
     /********************************/
     
-    override func viewWillAppear(animated: Bool)
-    {
-        self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
-        
-        self.chatView.collectionView.reloadData()
-        self.chatView.updateView(self.channel)
-    }
+
     
-    func refreshChat(channel: Channel)
+
+    
+    func refreshChat(usermodel: UserModel)
     {
-        self.channel = channel
-        self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
+        self.usermodel = usermodel
+        self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
         self.chatView.collectionView.reloadData()
-        
-        self.chatView.updateView(self.channel)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -90,19 +86,34 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         //Notifications
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleNewMessage(_:)), name: Event.message_new.rawValue, object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
         
+        for m in self.messages
+        {
+            print("Id: ", m.id, "Texto: ", m.text)
+        }
+        
+        self.chatView.collectionView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool)
     {
-        
+
+    }
+    
+    override func viewWillDisappear(animated: Bool)
+    {
+
     }
     
     override func viewDidDisappear(animated: Bool)
     {
-        
+
     }
-    
     
     /********************************/
     /******** Tools Methods *********/
@@ -186,12 +197,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         if let userinfo = notification.userInfo
         {
-            let channel = userinfo["channel"] as! Int
+            let sender = userinfo["sender"] as! String
             let message = userinfo["message"] as! Message
             
-            if channel != Int(self.channel.id) { return }
+            //Verifica se o remetente é o mesmo
+            if sender != self.usermodel.id && sender != ChatApplication.sharedInstance.getId() { return }
             
-            self.messages = DAOMessage.sharedInstance.getMessagesFromChannel(Int(self.channel.id))
+            self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
 
             if let index = self.messages.indexOf(message)
             {
@@ -201,13 +213,12 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             {
                 self.chatView.collectionView.reloadData()
             }
-            
         }
     }
     
-    func sendTextMessage(id: Int, target: Int, text: String)
+    func sendTextMessage(text: String)
     {
-        ChatApplication.sharedInstance.sendMessage(id, target: target, text: text)
+        ChatApplication.sharedInstance.sendMessage(text, toId: self.usermodel.id)
     }
 
     
