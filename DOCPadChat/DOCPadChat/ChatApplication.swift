@@ -96,6 +96,12 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         self.profileImage = profileImage
     }
     
+    func serverConfigure(profileImage: UIImage)
+    {
+        self.profileImage = profileImage
+        
+    }
+    
     func serverConnect()
     {
         if(self.username != nil)

@@ -31,10 +31,13 @@ class ChatTextCell: UICollectionViewCell
         self.textLabel.layer.borderWidth = 0.3
         self.textLabel.layer.borderColor = UIColor.grayColor().CGColor
         
+  
+        
         self.dateLabel = UILabel(frame: CGRectMake(0,0,40,20))
         self.dateLabel.text = "28/09"
-        self.dateLabel.font = UIFont(name: "Helvetica", size: 14)
+        self.dateLabel.font = UIFont(name: "Helvetica", size: 12)
         self.dateLabel.textColor = GMColor.grey500Color()
+        self.dateLabel.frame.size.height = dateHeight
 //        self.dateLabel.layer.borderWidth = 1
     }
     
@@ -49,7 +52,7 @@ class ChatTextCell: UICollectionViewCell
                 self.dateLabel.text = UseFulFunctions.getStringDateFromDate(message.sentDate)
                 let dateorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH*2 + self.dateLabel.frame.width)
                 self.dateLabel.frame.origin.x = dateorigin
-                self.dateLabel.frame.origin.y = self.textLabel.frame.origin.y + self.textLabel.frame.height - self.dateLabel.frame.height
+                self.dateLabel.frame.origin.y = self.frame.height - dateHeight - cellMarginV
                 self.addSubview(self.dateLabel)
                 
                 
@@ -58,11 +61,13 @@ class ChatTextCell: UICollectionViewCell
                 self.textLabel.frame.size = CGSizeMake(maxTextCellWidth, 60)
                 self.textLabel.frame.size = CGSizeMake(self.textLabel.contentSize.width + cellMarginH*2, self.textLabel.contentSize.height)
                 self.textLabel.sizeToFit()
-                self.textLabel.frame.size.height += 20
+                self.textLabel.frame.size.height += dateHeight
                 self.textLabel.frame.size.width += cellMarginH
                 let textorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH)
                 self.textLabel.frame.origin.x = textorigin
                 self.textLabel.frame.origin.y = cellMarginV
+                self.textLabel.backgroundColor = GMColor.grey400Color()
+
                 self.addSubview(self.textLabel)
                 
                 if(self.textLabel.frame.width < 40 + cellMarginH)
@@ -86,7 +91,7 @@ class ChatTextCell: UICollectionViewCell
                 self.dateLabel.text = UseFulFunctions.getStringDateFromDate(message.sentDate)
                 let dateorigin = cellMarginH
                 self.dateLabel.frame.origin.x = dateorigin
-                self.dateLabel.frame.origin.y = self.textLabel.frame.origin.y + self.textLabel.frame.height - self.dateLabel.frame.height
+                self.dateLabel.frame.origin.y = self.frame.height - dateHeight - cellMarginV
                 self.addSubview(self.dateLabel)
                 
                 self.textLabel?.removeFromSuperview()
@@ -94,17 +99,17 @@ class ChatTextCell: UICollectionViewCell
                 self.textLabel.frame.size = CGSizeMake(maxTextCellWidth, 60)
                 self.textLabel.frame.size = CGSizeMake(self.textLabel.contentSize.width + cellMarginH*2, self.textLabel.contentSize.height)
                 self.textLabel.sizeToFit()
-                self.textLabel.frame.size.height += 20
+                self.textLabel.frame.size.height += dateHeight
                 self.textLabel.frame.size.width += cellMarginH
                 let textorigin = cellMarginH
                 self.textLabel.frame.origin.x = textorigin
                 self.textLabel.frame.origin.y = cellMarginV
+                self.textLabel.backgroundColor = GMColor.grey50Color()
                 self.addSubview(self.textLabel)
 
                 if(self.textLabel.frame.width < 40 + cellMarginH)
                 {
                     let dif = (40+cellMarginH) - (self.textLabel.frame.width)
-                    self.textLabel.frame.origin.x -= dif
                     self.textLabel.frame.size.width += dif
                 }
                 
@@ -114,7 +119,6 @@ class ChatTextCell: UICollectionViewCell
                 
                 self.dateLabel.frame.origin.y = self.frame.size.height - cellMarginV*2 - self.dateLabel.frame.height
                 self.dateLabel.frame.origin.x = cellMarginH*2
-
             }
         }
     }
@@ -126,7 +130,7 @@ class ChatTextCell: UICollectionViewCell
         textview.font = defaultFont
         textview.text = message.text
         
-        return (textview.contentSize.height) + cellMarginV*2 + 20
+        return (textview.contentSize.height) + cellMarginV*2 + dateHeight
     }
     
     required init?(coder aDecoder: NSCoder) {

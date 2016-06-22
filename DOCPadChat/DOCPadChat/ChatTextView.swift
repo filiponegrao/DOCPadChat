@@ -11,7 +11,7 @@ import UIKit
 
 
 
-@objc protocol ChatTextViewDelegate : NSObjectProtocol
+@objc protocol ChatTextViewDelegate
 {
     func textView(textView: ChatTextView, heightIncreased plus: CGFloat)
     
@@ -32,19 +32,29 @@ class ChatTextView : UITextView, UITextViewDelegate
     
     private var heightPlus : CGFloat!
     
+    private var defaulFont = UIFont(name: "Helvetica", size: 16)!
+    
     weak var chatDelegate : ChatTextViewDelegate?
     
     private var mainSize: CGSize!
     
-    init(frame: CGRect)
+    private var heights : [CGFloat]!
+    
+    init(placeholder: String)
     {
+        let frame = CGRectMake(0, 0, screenWidth, 100)
         super.init(frame: frame , textContainer: nil)
         
+        self.font = self.defaulFont
+        self.placeholder = placeholder
+        self.text = self.placeholder
+        self.frame.size.height = self.contentSize.height
         self.delegate = self
         
-        self.heightDefault = frame.size.height
-        self.heightLimit = frame.size.height*2
-        self.heightPlus = frame.size.height/2
+        self.placeHolderOn()
+        self.heightDefault = self.frame.size.height
+        self.heightLimit = self.frame.size.height*2
+        self.heightPlus = self.frame.size.height/2
         
         self.mainSize = CGSizeMake(frame.width, frame.height)
     }
@@ -54,26 +64,17 @@ class ChatTextView : UITextView, UITextViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setPlaceHolder(placeholder: String)
-    {
-        self.placeholder = placeholder
-        self.placeHolderOn()
-    }
-    
     func placeHolderOn()
     {
         self.text = placeholder
-        self.font = UIFont(name: "Helvetica", size: 18)
         self.textColor = UIColor.whiteColor()
         
         self.chatDelegate?.textView(self, placeholderOn: self.text)
-        
     }
     
     func placeHolderOff()
     {
         self.text = ""
-        self.font = UIFont(name: "Helvetica", size: 16)
         self.textColor = UIColor.whiteColor()
         
         if(self.text.characters.count > 0)
@@ -99,7 +100,7 @@ class ChatTextView : UITextView, UITextViewDelegate
         
         UIView.animateWithDuration(0.3, animations: {
             
-            self.frame.size.height += self.heightPlus
+            self.frame.size.height += self.heightPlus //5 de margem default
 //            self.frame.origin.y -= self.heightPlus
             
         }) { (success: Bool) in
@@ -134,23 +135,15 @@ class ChatTextView : UITextView, UITextViewDelegate
         else if(self.text.characters.count == 0)
         {
             self.chatDelegate?.textView(self, placeholderOn: self.placeholder)
+            self.defaultSize()
         }
-        
-        if (self.contentSize.height > self.frame.size.height + self.heightPlus) && (self.frame.size.height < self.heightLimit)
+        if (self.contentSize.height > self.frame.size.height + 5) && (self.frame.size.height < self.heightLimit)
         {
             self.increaseHeight()
         }
-        else if (self.contentSize.height + self.heightPlus < self.frame.size.height) && (self.frame.size.height > self.heightDefault)
+        else if (self.contentSize.height < self.frame.size.height) && (self.frame.size.height > self.heightDefault)
         {
             self.decreaseHeight()
-        }
-        else if (self.contentSize.height < self.frame.size.height && self.frame.size.height > (self.heightDefault+heightPlus))
-        {
-            self.decreaseHeight()
-        }
-        else
-        {
-            self.defaultSize()
         }
     }
     

@@ -92,12 +92,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
         
-        for m in self.messages
-        {
-            print("Id: ", m.id, "Texto: ", m.text)
-        }
+//        for m in self.messages
+//        {
+//            print("Id: ", m.id, "Texto: ", m.text)
+//        }
         
         self.chatView.collectionView.reloadData()
+        self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
     }
     
     override func viewDidAppear(animated: Bool)
@@ -207,7 +208,9 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
 
             if let index = self.messages.indexOf(message)
             {
-                self.chatView.collectionView.insertItemsAtIndexPaths([NSIndexPath.init(forItem: index, inSection: 0)])
+                let indexPath = NSIndexPath.init(forItem: index, inSection: 0)
+                self.chatView.collectionView.insertItemsAtIndexPaths([indexPath])
+                self.chatView.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
             }
             else
             {

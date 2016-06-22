@@ -23,6 +23,8 @@ class ChatView : UIView, ChatMessageBarDelegate
     
     private var statusLabel : UILabel!
     
+    private var backgroundImage : UIImageView!
+    
     weak private var controller : ChatController!
     
     /** Collection properties */
@@ -38,10 +40,14 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.controller = controller
         super.init(frame: frame)
         
-        
         self.backgroundColor = UIColor.whiteColor()
+        self.backgroundImage = UIImageView(frame: self.bounds)
+        self.backgroundImage.image = UIImage(named: "background")
+        self.backgroundImage.contentMode = .ScaleToFill
+        self.backgroundImage.alpha = 0.3
+        self.addSubview(self.backgroundImage)
         
-        self.messageBar = ChatMessageBar(width: screenWidth)
+        self.messageBar = ChatMessageBar()
         self.messageBar.delegate = self
         self.addSubview(self.messageBar)
         
@@ -75,7 +81,7 @@ class ChatView : UIView, ChatMessageBarDelegate
         collectionLayout.minimumInteritemSpacing = 0
         collectionLayout.minimumLineSpacing = 0 //espaçamento entre uma celula de baixo com a de cima
         
-        self.collectionOrigin = self.controller.navigationController!.navigationBar.frame.size.height + 10
+        self.collectionOrigin = 70
         self.collectionHeight = self.frame.size.height - collectionOrigin - self.messageBar.frame.size.height
         
         
@@ -124,7 +130,8 @@ class ChatView : UIView, ChatMessageBarDelegate
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
         {
             self.messageBar.frame.origin.y = screenHeight - keyboardSize.height - self.messageBar.frame.size.height
-            self.collectionView.frame.size.height = self.collectionHeight - keyboardSize.height
+            
+            self.collectionView.frame.size.height = self.frame.height - 70 - self.messageBar.frame.height - keyboardSize.height
             
             if(self.collectionView.contentSize.height > self.collectionView.frame.size.height)
             {
@@ -143,7 +150,8 @@ class ChatView : UIView, ChatMessageBarDelegate
     func handleKeyboardDown(notification: NSNotification)
     {
         self.messageBar.frame.origin.y = screenHeight - self.messageBar.frame.size.height
-        self.collectionView.frame.size.height = self.collectionHeight
+
+        self.collectionView.frame.size.height = self.frame.size.height - 70 - self.messageBar.frame.height
     }
     
     

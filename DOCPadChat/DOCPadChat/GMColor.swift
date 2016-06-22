@@ -1016,7 +1016,7 @@ class GMColor {
     }
     
     class func grey400Color() -> UIColor {
-        return UIColor(rgb: 0xbdbdbd)
+        return UIColor(rgb: 0xc6c4c4)
     }
     
     class func grey500Color() -> UIColor {
