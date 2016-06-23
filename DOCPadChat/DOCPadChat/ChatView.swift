@@ -13,13 +13,13 @@ class ChatView : UIView, ChatMessageBarDelegate
 {
     private var messageBar : ChatMessageBar!
     
-    private var imageView : UIImageView!
+    var imageView : UIImageView!
     
     private var titleView : UIView!
     
     private var channelLabel : UILabel!
     
-    private var channelButton : UIButton!
+    var channelButton : UIButton!
     
     private var statusLabel : UILabel!
     

@@ -177,11 +177,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
-//    func didReceivePresence(presence : UserState, from : UserModel) {
-//        
-//    }
-    
-    
     func addedBuddyToList(buddyList :[UserModel]) {
 
     }

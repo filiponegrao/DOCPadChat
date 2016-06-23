@@ -60,7 +60,7 @@ class TesteViewController: UIViewController {
         
         let friend = self.friend.text!
         
-        let model = UserModel(id: "\(friend)@\(ip)", name: friend)
+        let model = UserModel(id: "\(friend)@\(ip)", name: friend, profileImage: UIImage(named: "channelTemplate")!)
         
         ChatApplication.sharedInstance.serverConfigure(username, username: username, profileImage: nil)
         

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserModel
 {
@@ -14,9 +15,12 @@ class UserModel
     
     var name : String!
     
-    init(id: String, name: String)
+    var profileImage : UIImage!
+    
+    init(id: String, name: String, profileImage: UIImage)
     {
         self.id = id
         self.name = name
+        self.profileImage = profileImage
     }
 }

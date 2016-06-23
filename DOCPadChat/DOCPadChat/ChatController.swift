@@ -91,14 +91,15 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     override func viewWillAppear(animated: Bool)
     {
         self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
-        
-//        for m in self.messages
-//        {
-//            print("Id: ", m.id, "Texto: ", m.text)
-//        }
+        self.title = self.usermodel.name
+        self.chatView.imageView.image = self.usermodel.profileImage
+        self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
         
         self.chatView.collectionView.reloadData()
-        self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+        if(self.messages.count > 0)
+        {
+            self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+        }
     }
     
     override func viewDidAppear(animated: Bool)
