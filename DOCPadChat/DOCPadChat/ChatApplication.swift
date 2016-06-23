@@ -15,6 +15,12 @@ import XMPPFramework
  * Some enums
  */
 
+
+@objc protocol ChatApplicationDelegate
+{
+    func chatApplication(application: ChatApplication, newMessage: Message)
+}
+
 public enum ConnectioStatus : String
 {
     case Conectando
@@ -46,6 +52,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     
     /** Fim das informacoes do usuario corrente */
     
+    weak var delegate : ChatApplicationDelegate?
     
     class var sharedInstance : ChatApplication {
         
@@ -166,6 +173,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         if let message = DAOMessage.sharedInstance.newMessage(id, sender: sender, target: self.id, type: MessageType.Text, sentDate: NSDate(), text: text)
         {
             NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: sender))
+            self.delegate?.chatApplication(self, newMessage: message)
         }
     }
     

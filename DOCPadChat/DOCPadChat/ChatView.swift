@@ -196,6 +196,10 @@ class ChatView : UIView, ChatMessageBarDelegate
             self.controller.sendTextMessage(text)
         }
         
+        if !self.messageBar.textView.isFirstResponder()
+        {
+            self.messageBar.textView.placeHolderOn()
+        }
     }
     
     func messageBarIncreasedSize(messageBar: ChatMessageBar, plus: CGFloat)
