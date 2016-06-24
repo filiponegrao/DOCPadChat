@@ -96,6 +96,7 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.collectionView.canCancelContentTouches = false
         
         self.collectionView.registerClass(ChatTextCell.self, forCellWithReuseIdentifier: "CellText")
+        self.collectionView.registerClass(ChatImageCell.self, forCellWithReuseIdentifier: "CellImage")
         
         self.addSubview(self.collectionView)
         
