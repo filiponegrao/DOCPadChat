@@ -208,7 +208,4 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     /**************************************/
     /**************************************/
 
-    
-    
-    
 }
