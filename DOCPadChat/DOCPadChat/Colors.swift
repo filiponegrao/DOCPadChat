@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let blueColor = UIColor.init(netHex: 0x1ABBF5)
+let grayColor = UIColor.init(netHex: 0x9fa3a4)
 
 
 extension UIColor {
