@@ -29,11 +29,11 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
     var textView : ChatTextView!
     
-    private var sendButton : UIButton!
+    var sendButton : UIButton!
     
-    private var audioButton : UIButton!
+    var audioButton : UIButton!
     
-    private var photoButton : UIButton!
+    var photoButton : UIButton!
     
     var delegate : ChatMessageBarDelegate?
     
@@ -133,9 +133,19 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     func handleClickSend()
     {
         self.delegate?.messageBarSendClicked(self, text: self.textView.text)
-        self.textView.text = ""
-        self.textView.defaultSize()
-        self.animateToOriginalHeight()
+        if self.textView.isFirstResponder()
+        {
+            self.textView.text = ""
+            self.textView.defaultSize()
+            self.animateToOriginalHeight()
+
+        }
+        else
+        {
+            self.textView.placeHolderOn()
+            self.textView.defaultSize()
+            self.animateToOriginalHeight()
+        }
     }
 
     func animateToOriginalHeight()

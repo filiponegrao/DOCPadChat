@@ -81,8 +81,17 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.view = self.chatView
         
         //Notifications
-        
+        self.registerNotifications()
+        self.handleOffline(nil)
+    }
+    
+    func registerNotifications()
+    {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleNewMessage(_:)), name: Event.message_new.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleOnline(_:)), name: Event.app_connected.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleTimedOut(_:)), name: Event.app_timeout.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleConnecting(_:)), name: Event.app_connecting.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleOffline(_:)), name: Event.app_disconnected.rawValue, object: nil)
     }
     
     override func viewWillAppear(animated: Bool)
@@ -97,6 +106,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         if(self.messages.count > 0)
         {
             self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+            self.chatView.collectionView.contentOffset.y += 10
         }
     }
     
@@ -203,7 +213,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     
     /********************************/
-    /***** Conversation Methods *****/
+    /*********** HANDLERS  **********/
     /********************************/
 
     func handleNewMessage(notification: NSNotification)
@@ -222,13 +232,58 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             {
                 let indexPath = NSIndexPath.init(forItem: index, inSection: 0)
                 self.chatView.collectionView.insertItemsAtIndexPaths([indexPath])
-                self.chatView.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+                self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+                self.chatView.collectionView.contentOffset.y += 10
             }
             else
             {
                 self.chatView.collectionView.reloadData()
             }
         }
+    }
+    
+    func handleOnline(notification: NSNotification?)
+    {
+        self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
+        self.chatView.enableMessages()
+    }
+    
+    func handleOffline(notification: NSNotification?)
+    {
+        if let userinfo = notification?.userInfo
+        {
+            let error = userinfo["error"] as! NSError
+            print(error)
+        }
+        
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
+    }
+    
+    func handleNoInternet()
+    {
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
+        
+        let alert = UIAlertController(title: "Ops!", message: "Parece que voce nao tem uma conexao com a internet! Verifique e abra essa tela novamente", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: { (action: UIAlertAction) in
+            
+        }))
+        self.presentViewController(alert, animated: true, completion: { 
+            
+        })
+    }
+    
+    func handleConnecting(notification: NSNotification)
+    {
+        self.chatView.channelButton.setTitle("Conectando...", forState: .Normal)
+        self.chatView.disableMessages()
+    }
+    
+    func handleTimedOut(notitifation: NSNotification)
+    {
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
     }
     
     func sendTextMessage(text: String)

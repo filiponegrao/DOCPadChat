@@ -13,24 +13,45 @@ class ChatNotifications : NSObject
     
     //Server controller notifcations
     
-    class func commandMissing(event: String, parameter: String) -> NSNotification
+    
+    class func appConnected() -> NSNotification
     {
-        return NSNotification(name: Event.command_missing.rawValue, object: nil, userInfo: ["event": event, parameter: parameter])
+        return NSNotification(name: Event.app_connected.rawValue, object: nil)
     }
     
-    class func commandIncorrect() -> NSNotification
+    class func appConnecting() -> NSNotification
     {
-        return NSNotification(name: Event.command_incorrect.rawValue, object: nil, userInfo: nil)
+        return NSNotification(name: Event.app_connecting.rawValue, object: nil, userInfo: nil)
     }
     
-    class func notConnected() -> NSNotification
+    class func appDisconnected(error: NSError?) -> NSNotification
     {
-        return NSNotification(name: "net_disconected", object: nil)
+        if let error = error
+        {
+            return NSNotification(name: Event.app_disconnected.rawValue, object: nil, userInfo: ["error": error])
+        }
+        else
+        {
+            return NSNotification(name: Event.app_disconnected.rawValue, object: nil)
+        }
     }
     
-    class func timeOut() -> NSNotification
+    class func appNoInternet() -> NSNotification
     {
-        return NSNotification(name: "net_timeout", object: nil)
+        return NSNotification(name: Event.app_nointernet.rawValue, object: nil, userInfo: nil)
+    }
+    
+    class func appTimeOut(error: NSError?) -> NSNotification
+    {
+        if let error = error
+        {
+            return NSNotification(name: Event.app_timeout.rawValue, object: nil, userInfo: ["error": error])
+        }
+        else
+        {
+            return NSNotification(name: Event.app_timeout.rawValue, object: nil, userInfo: nil)
+        }
+        
     }
     
     //Accounts 

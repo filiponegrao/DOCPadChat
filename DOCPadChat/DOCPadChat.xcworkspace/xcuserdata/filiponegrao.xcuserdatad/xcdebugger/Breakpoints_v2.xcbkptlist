@@ -2,4 +2,70 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DOCPadChat/ChatView.swift"
+            timestampString = "489453235.869284"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "disableMessages()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DOCPadChat/ChatController.swift"
+            timestampString = "489454265.594262"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
+            landmarkName = "handleOffline(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DOCPadChat.ChatController.handleOffline (Swift.Optional&lt;__ObjC.NSNotification&gt;) -&gt; ()"
+                  moduleName = "DOCPadChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/filiponegrao/Documents/Arquivos%20Programacao/DOCPadChat/DOCPadChat/DOCPadChat/ChatController.swift"
+                  timestampString = "489453378.209688"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DOCPadChat.ChatController.handleOffline (Swift.Optional&lt;__ObjC.NSNotification&gt;) -&gt; ()"
+                  moduleName = "DOCPadChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/filiponegrao/Documents/Arquivos%20Programacao/DOCPadChat/DOCPadChat/DOCPadChat/ChatController.swift"
+                  timestampString = "489453378.209879"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
+                  offsetFromSymbolStart = "340">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

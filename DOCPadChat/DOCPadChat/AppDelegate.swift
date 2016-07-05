@@ -14,15 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
 
-    var testeController : UIViewController!
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        self.editionController = ImageEditionController()
+        let controller = TesteViewController()
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = self.editionController
+        self.window?.rootViewController = controller
         self.window?.makeKeyAndVisible()
                         
         return true
@@ -36,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        ChatApplication.sharedInstance.serverDisconnect()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
-        ChatApplication.sharedInstance.serverDisconnect()
     }
 
     // MARK: - Core Data stack

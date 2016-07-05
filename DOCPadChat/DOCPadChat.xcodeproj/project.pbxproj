@@ -92,7 +92,6 @@
 		8012ED551D10A1CF00652FE8 /* RegexParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
 		8012ED581D10AEE300652FE8 /* ViewOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOptions.swift; sourceTree = "<group>"; };
 		8012ED641D12F9CC00652FE8 /* DoctorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorModel.swift; sourceTree = "<group>"; };
-		8012ED6D1D12FB8800652FE8 /* DOCPadChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DOCPadChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8012ED701D12FD6500652FE8 /* XMPPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPManager.swift; sourceTree = "<group>"; };
 		8012ED721D12FE6400652FE8 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		8012ED741D13759600652FE8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -163,16 +162,16 @@
 		8008B7CE1CFF6F6200C4FAE4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8012ED581D10AEE300652FE8 /* ViewOptions.swift */,
-				8012ED531D10A00F00652FE8 /* GMColor.swift */,
+				8008B7D41CFF71A600C4FAE4 /* MessageBar */,
 				8012ED571D10A1D500652FE8 /* Smart Label */,
 				F61DBCE81CFF8C020040A287 /* Cells */,
+				8012ED581D10AEE300652FE8 /* ViewOptions.swift */,
+				8012ED531D10A00F00652FE8 /* GMColor.swift */,
 				8008B7CC1CFF6F2C00C4FAE4 /* ChatView.swift */,
 				F61DBCE41CFF7DDB0040A287 /* SentMediaView.swift */,
 				F61DBCE91CFF92450040A287 /* SentImageView.swift */,
 				F66D23111D010D9500B7F466 /* ReceivedImageView.swift */,
 				F68683B61D2B5C70007DAE44 /* ImageEditionView.swift */,
-				8008B7D41CFF71A600C4FAE4 /* MessageBar */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -180,11 +179,10 @@
 		8008B7CF1CFF6F6900C4FAE4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */,
 				80E6D0531D0381A100ECDBC7 /* Chat Controller Tools */,
+				8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */,
 				8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */,
 				F61DBCE21CFF7DC70040A287 /* SentMediaController.swift */,
-				8012ED6D1D12FB8800652FE8 /* DOCPadChat-Bridging-Header.h */,
 				F68683B81D2B5CBE007DAE44 /* ImageEditionController.swift */,
 			);
 			name = Controller;
@@ -269,6 +267,7 @@
 				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
 				80E6D04D1D037D9100ECDBC7 /* Simulation.swift */,
 				80F2C3871CFFC29B008EDE2B /* Model */,
+				8012ED741D13759600652FE8 /* UserModel.swift */,
 				8008B7CF1CFF6F6900C4FAE4 /* Controller */,
 				8008B7CE1CFF6F6200C4FAE4 /* View */,
 				80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */,
@@ -330,7 +329,6 @@
 		80F2C3871CFFC29B008EDE2B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8012ED741D13759600652FE8 /* UserModel.swift */,
 				80180E5F1D02613A00AA0AC9 /* CHANNEL */,
 				80180E4D1D0237AC00AA0AC9 /* FILE */,
 				80F2C3861CFFC28F008EDE2B /* USER */,
@@ -730,7 +728,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DOCPadChat/DOCPadChat-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -745,7 +743,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = FilipoNegrao.DOCPadChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DOCPadChat/DOCPadChat-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

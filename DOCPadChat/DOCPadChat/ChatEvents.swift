@@ -13,14 +13,15 @@ enum Event : String
     
     //*******  SERVER *******//
     
-    /** Faltou um parametro no comando enviado */
-    case command_missing = "command_missing"
+    case app_connected = "app_connected"
     
-    /** Parametro passado para o evento foi incorreto */
-    case command_incorrect = "command_incorrect"
+    case app_connecting = "app_connecting"
     
-    /** Avisa a ocorrencia de um erro no servidor ou no login */
-    case account_error = "account_error"
+    case app_disconnected = "app_disconnected"
+    
+    case app_timeout = "app_timeout"
+    
+    case app_nointernet = "app_nointernet"
     
     //*******  CONTAS *******//
     

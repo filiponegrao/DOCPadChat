@@ -58,9 +58,9 @@ class TesteViewController: UIViewController
     {
         let ip = "52.67.65.109"
         
-        let username = self.login.text!
+        let username =  "test2" //self.login.text!
         
-        let friend = self.friend.text!
+        let friend = "test1" // self.friend.text!
         
         let model = UserModel(id: "\(friend)@\(ip)", name: friend, profileImage: UIImage(named: "channelTemplate")!)
         

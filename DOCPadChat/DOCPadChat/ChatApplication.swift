@@ -40,8 +40,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
 
     let port : Int = 5222
     
-    private var connectionStatus : ConnectioStatus!
-    
     /** Informacoes do usuario corrente */
     
     private var id : String!
@@ -76,16 +74,9 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         return self.username
     }
     
-    func isConnected() -> Bool
+    func connectionStatus() -> ConnectioStatus
     {
-        if(self.connectionStatus == ConnectioStatus.Conectado)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return XMPPManager.sharedInstance.connectionStatus()
     }
     
     func registerXMPPDelegate()
@@ -111,10 +102,17 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     
     func serverConnect()
     {
+        if((self.connectionStatus() != ConnectioStatus.Desconectado))
+        {
+            return
+        }
+        
         if(self.username != nil)
         {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appConnecting())
+            
             let address = "\(self.id)@\(self.ip)"
-            print(address)
+            print("Logando como: ", address)
             XMPPManager.sharedInstance.loginToXMPPServer(address, password: "1234")
         }
     }
@@ -131,8 +129,33 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     func didConnectToServer(bool: Bool, errorMessage: String?)
     {
         print("Connectado!")
+        
+        NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appConnected())
+        
         let presence = XMPPPresence(type: "Available")
         XMPPManager.sharedInstance.xmppStream?.sendElement(presence)
+    }
+    
+    func didDisconnected(error: NSError)
+    {
+        if error.code == 51
+        {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appNoInternet())
+        }
+        else if error.code == 57
+        {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
+            self.serverConnect()
+        }
+        else
+        {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
+        }
+    }
+    
+    func didConnectionTimedOut(error: NSError)
+    {
+        NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appTimeOut(error))
     }
     
     func failedToAuthenticate(error: String)
@@ -161,12 +184,8 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
 
     func didReceiveMessage(message: MessageModel)
     {
-        print(message)
-        
         let sender = message.messageSender
         let text = message.messageBody
-        
-        print("Sender", sender, "Text", text)
         
         let id = "\(sender)\(NSDate())"
         
@@ -177,8 +196,8 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
-    func addedBuddyToList(buddyList :[UserModel]) {
-
+    func addedBuddyToList(buddyList: [UserModel]) {
+        
     }
     
     /*********************************/
