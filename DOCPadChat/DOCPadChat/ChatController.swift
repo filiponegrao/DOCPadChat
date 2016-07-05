@@ -53,9 +53,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     /********************************/
     
 
-    
-
-    
     func refreshChat(usermodel: UserModel)
     {
         self.usermodel = usermodel
@@ -92,6 +89,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
         self.title = self.usermodel.name
+        
         self.chatView.imageView.image = self.usermodel.profileImage
         self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
         
