@@ -14,10 +14,6 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     var image = UIImage(named: "gamba") //temp
     
-    var leftButton : UIBarButtonItem!
-    
-    var rightButton : UIBarButtonItem!
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
