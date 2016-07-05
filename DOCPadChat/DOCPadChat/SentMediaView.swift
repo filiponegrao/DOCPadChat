@@ -28,9 +28,9 @@ class SentMediaView: UIView
         layout.minimumLineSpacing = 5 //espaçamento entre uma celula de baixo com a de cima
         layout.headerReferenceSize = CGSizeZero
         
-        let nav = self.controller.navigationController!.navigationBar
-        
-        let navLimit = nav.frame.origin.y + nav.frame.size.height
+//        let nav = self.controller.navigationController!.navigationBar
+//        
+//        let navLimit = nav.frame.origin.y + nav.frame.size.height
         
         self.collection = UICollectionView(frame: CGRectMake(0, 0, screenWidth, screenHeight - 70) , collectionViewLayout: layout)
         self.collection.backgroundColor = UIColor.clearColor()

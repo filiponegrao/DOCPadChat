@@ -10,20 +10,19 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
     var window: UIWindow?
 
     var testeController : UIViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-    
         
-        self.testeController = TesteViewController()
+        self.editionController = ImageEditionController()
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = self.testeController
+        self.window?.rootViewController = self.editionController
         self.window?.makeKeyAndVisible()
                         
         return true

@@ -148,6 +148,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             
             return CGSizeMake(screenWidth, height)
         }
+        else if message.text == MessageType.Image.rawValue
+        {
+            let height = imageCellHeight
+            let width = imageCellWidth
+            
+            return CGSizeMake(width, height)
+        }
         
         return CGSizeMake(screenWidth, 60)
     }
@@ -181,6 +188,12 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
 //            else { cell.backgroundColor = UIColor.blueColor() }
             
             cell.configureCell(message)
+            
+            return cell
+        }
+        else if (type == MessageType.Image.rawValue)
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
             return cell
         }

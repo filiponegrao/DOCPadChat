@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ChatView : UIView, ChatMessageBarDelegate
+class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate
 {
     private var messageBar : ChatMessageBar!
     
@@ -27,6 +27,10 @@ class ChatView : UIView, ChatMessageBarDelegate
     
     weak private var controller : ChatController!
     
+    private var sentImage : UIImage!
+    
+    private var editionButton : UIButton! //temp
+    
     /** Collection properties */
     
     var collectionView : UICollectionView!
@@ -34,7 +38,13 @@ class ChatView : UIView, ChatMessageBarDelegate
     private var collectionOrigin : CGFloat!
     
     private var collectionHeight : CGFloat!
-        
+    
+    //sheet
+    
+    private var picker = UIImagePickerController()
+    
+    private var popover : UIPopoverController!
+
     init(frame: CGRect, controller: ChatController)
     {
         self.controller = controller
@@ -71,6 +81,7 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.imageView.layer.borderColor = UIColor.whiteColor().CGColor
         self.imageView.clipsToBounds = true
         
+        
         self.controller.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.imageView)
         
         
@@ -96,8 +107,19 @@ class ChatView : UIView, ChatMessageBarDelegate
         self.collectionView.canCancelContentTouches = false
         
         self.collectionView.registerClass(ChatTextCell.self, forCellWithReuseIdentifier: "CellText")
+        self.collectionView.registerClass(ChatImageCell.self, forCellWithReuseIdentifier: "CellImage")
         
         self.addSubview(self.collectionView)
+        
+        
+        //teste para edicao
+        
+        self.editionButton = UIButton(frame: CGRectMake(0,100,100,50))
+        self.editionButton.setTitle("Edition", forState: .Normal)
+        self.editionButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.editionButton.addTarget(self.controller, action: #selector(ChatView.goEdition), forControlEvents: .TouchUpInside)
+        self.addSubview(self.editionButton)
+
         
         //Notifications do TECLADO
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleKeyboardUp(_:)), name: UIKeyboardWillShowNotification, object: nil)
@@ -162,21 +184,23 @@ class ChatView : UIView, ChatMessageBarDelegate
     /**** MESSAGE BAR DELEGATE *******/
     /*********************************/
     
-    func messageBarAudioClicked(messageBar: ChatMessageBar) {
-        
+    func messageBarAudioClicked(messageBar: ChatMessageBar)
+    {
         print("Audio clicked")
     }
     
-    func messageBarPhotoClicked(messageBar: ChatMessageBar) {
-        
+    func messageBarPhotoClicked(messageBar: ChatMessageBar)
+    {
         let sheet = UIAlertController(title: "Selecionar foto", message: nil, preferredStyle: .ActionSheet)
         
         sheet.addAction(UIAlertAction(title: "da Câmera", style: .Default, handler: { (action: UIAlertAction) in
             
+            self.openCamera()
         }))
         
         sheet.addAction(UIAlertAction(title: "do Álbum", style: .Default, handler: { (action: UIAlertAction) in
             
+            self.openGallery()
         }))
         
         sheet.addAction(UIAlertAction(title: "Cancelar", style: .Cancel, handler: { (action: UIAlertAction) in
@@ -227,7 +251,52 @@ class ChatView : UIView, ChatMessageBarDelegate
     
     /*********************************/
     /*********************************/
+    
+    func openCamera()
+    {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera))
+        {
+            self.picker.sourceType = UIImagePickerControllerSourceType.Camera
+            self.picker.cameraDevice = .Front
+            self.picker.allowsEditing = true
+            self.picker.delegate = self
+            self.controller.presentViewController(self.picker, animated: true, completion: nil)
+        }
+        else
+        {
+            openGallery()
+        }
+    }
+    
+    func openGallery()
+    {
+        self.picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        self.picker.delegate = self
+        self.picker.allowsEditing = true
         
+        if(UIDevice.currentDevice().userInterfaceIdiom == .Phone)
+        {
+            self.controller.presentViewController(self.picker, animated: true, completion: nil)
+        }
+    }
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?)
+    {
+        self.picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        //jogar imagem na cell
+//        self.sentImage = UIImage(data: image as! NSData)
+//        self.controller.
+        
+        //DAO
+        
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
+    {
+        self.controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func heightForImageCell() -> CGFloat
     {
         return 100;
@@ -238,6 +307,12 @@ class ChatView : UIView, ChatMessageBarDelegate
         return 60;
     }
     
-    
+    //temp
+    func goEdition()
+    {
+//        let img = UIImage(named: "gamba")
+//        let viewController = ImageEditionController(image: img)
+//        self.controller.navigationController?.pushViewController(viewController, animated: true)
+    }
 
 }

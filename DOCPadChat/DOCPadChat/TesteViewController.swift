@@ -8,7 +8,8 @@
 
 import UIKit
 
-class TesteViewController: UIViewController {
+class TesteViewController: UIViewController
+{
 
     private var button : UIButton!
     
@@ -42,6 +43,7 @@ class TesteViewController: UIViewController {
         self.friend.autocorrectionType = .No
         self.friend.autocapitalizationType = .None
         self.view.addSubview(self.friend)
+ 
         
         // Do any additional setup after loading the view.
     }
@@ -66,5 +68,4 @@ class TesteViewController: UIViewController {
         
         ChatApplication.sharedInstance.startChatWith(self, userModel: model, navigationController: false, animated: true, completion: nil)
     }
-    
 }
