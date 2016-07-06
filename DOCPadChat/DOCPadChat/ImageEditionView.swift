@@ -61,7 +61,7 @@ class ImageEditionView: UIView
         //espessura
         self.thicknessButton = UIButton(frame: CGRectMake(0, frame.size.height - screenWidth/2 - 10, screenWidth/4, screenWidth/6))
         self.thicknessButton.backgroundColor = UIColor.clearColor()
-        self.thicknessButton.setImage(UIImage(named: "paintThickness"), forState: .Normal)
+        self.thicknessButton.setImage(UIImage(named: "paintThickness_selected"), forState: .Normal)
         self.thicknessButton.contentMode = .Center
         self.addSubview(self.thicknessButton)
         

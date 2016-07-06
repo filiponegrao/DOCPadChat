@@ -52,6 +52,7 @@ class ImageEditionController: UIViewController
         self.view.addSubview(self.imageEdit)
         
         //AQUI MÉTODO QUE ESCOLHE ESPESSURA
+        self.thicknessSelected = true //por padrao começa selecionado
         self.imageEdit.thicknessButton.addTarget(self, action: #selector(ImageEditionController.chooseThickness), forControlEvents: .TouchUpInside)
         
         //AQUI MÉTODO QUE ESCOLHE COR
@@ -102,6 +103,14 @@ class ImageEditionController: UIViewController
         self.colorSelected = false
         self.refreshSelectedButton()
         
+        self.imageEdit.chooseColorView.hidden = false
+        self.imageEdit.pencilButton.hidden = false
+        self.imageEdit.pencilStroke.hidden = false
+        self.imageEdit.brushButton.hidden = false
+        self.imageEdit.brushStroke.hidden = false
+        self.imageEdit.markButton.hidden = false
+        self.imageEdit.markStroke.hidden = false
+        
         //IMPLEMENTAR MÉTODO QUE DEFINE ESPESSURA DO PINCEL
     }
 
@@ -110,6 +119,14 @@ class ImageEditionController: UIViewController
         self.colorSelected = true
         self.thicknessSelected = false
         self.refreshSelectedButton()
+        
+        self.imageEdit.chooseColorView.hidden = true
+        self.imageEdit.pencilButton.hidden = true
+        self.imageEdit.pencilStroke.hidden = true
+        self.imageEdit.brushButton.hidden = true
+        self.imageEdit.brushStroke.hidden = true
+        self.imageEdit.markButton.hidden = true
+        self.imageEdit.markStroke.hidden = true
         
         //IMPLEMENTAR MÉTODO QUE DEFINE COR DA PINTURA
     }
