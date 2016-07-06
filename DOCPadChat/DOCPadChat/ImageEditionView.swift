@@ -94,14 +94,14 @@ class ImageEditionView: UIView
         //botao espessura lapis
         self.pencilButton = UIButton(frame: CGRectMake(screenWidth/2 - screenWidth/6 * 1.5, self.frame.size.height - self.chooseColorView.frame.size.height/8 * 5 + 10, screenWidth/6, self.chooseColorView.frame.size.height/8 * 5))
         self.pencilButton.backgroundColor = UIColor.clearColor()
-        self.pencilButton.setImage(UIImage.init(named: "pencil"), forState: .Normal)
+        self.pencilButton.setImage(UIImage.init(named: "pencilSelected"), forState: .Normal)
         self.pencilButton.contentMode = .Center
         self.addSubview(self.pencilButton)
         
         //imageview exemplo espessura lapis
         self.pencilStroke = UIImageView(frame: CGRectMake(screenWidth/2 - screenWidth/6 * 1.5, self.frame.size.height - screenWidth/3, screenWidth/6, self.chooseColorView.frame.size.height/8 * 3))
         self.pencilStroke.backgroundColor = UIColor.clearColor()
-        self.pencilStroke.image = UIImage.init(named: "pencilStroke")
+        self.pencilStroke.image = UIImage.init(named: "pencilStrokeSelected") 
         self.pencilStroke.contentMode = .Center
         self.addSubview(self.pencilStroke)
         

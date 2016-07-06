@@ -53,6 +53,7 @@ class ImageEditionController: UIViewController
         
         //AQUI MÉTODO QUE ESCOLHE ESPESSURA
         self.thicknessSelected = true //por padrao começa selecionado
+        self.pencilSelected = true //por padrao começa selecionado
         self.imageEdit.thicknessButton.addTarget(self, action: #selector(ImageEditionController.chooseThickness), forControlEvents: .TouchUpInside)
         
         //AQUI MÉTODO QUE ESCOLHE COR
