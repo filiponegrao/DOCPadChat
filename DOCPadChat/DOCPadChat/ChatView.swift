@@ -106,7 +106,8 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         
         self.collectionView.registerClass(ChatTextCell.self, forCellWithReuseIdentifier: "CellText")
         self.collectionView.registerClass(ChatImageCell.self, forCellWithReuseIdentifier: "CellImage")
-        
+        self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+
         self.addSubview(self.collectionView)
         
         
@@ -197,10 +198,16 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     /*********************************/
     /**** MESSAGE BAR DELEGATE *******/
     /*********************************/
+ 
     
-    func messageBarAudioClicked(messageBar: ChatMessageBar)
+    func messageBarStartAudioClicked(messageBar: ChatMessageBar)
     {
-        print("Audio clicked")
+        AudioController.sharedInstance.startRecord()
+    }
+    
+    func messageBarEndAudioClicked(messageBar: ChatMessageBar)
+    {
+        AudioController.sharedInstance.stopRecord()
     }
     
     func messageBarPhotoClicked(messageBar: ChatMessageBar)

@@ -61,7 +61,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     {
         super.init()
         self.registerXMPPDelegate()
- 
     }
     
     func getId() -> String?
@@ -122,6 +121,9 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         XMPPManager.sharedInstance.disconnect()
     }
     
+
+    
+    
     /*********************************/
     /******** XMPP DELEGATES *********/
     /*********************************/
@@ -145,6 +147,11 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appNoInternet())
             }
             else if error.code == 57
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
+                self.serverConnect()
+            }
+            else if error.code == 7
             {
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
                 self.serverConnect()
@@ -211,7 +218,8 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
-    func addedBuddyToList(buddyList: [UserModel]) {
+    func addedBuddyToList(buddyList: [UserModel])
+    {
         
     }
     
@@ -310,7 +318,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         
         if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Audio, content: audio)
         {
-            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Image, sentDate: NSDate(), text: newText)
+            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Audio, sentDate: NSDate(), text: newText)
             {
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
             }

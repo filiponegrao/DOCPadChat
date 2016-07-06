@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource
+class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AudioDelegate
 {
     /******* Chat Variables *********/
 
@@ -83,6 +83,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         //Notifications
         self.registerNotifications()
         self.handleOffline(nil)
+        
+        AudioController.sharedInstance.delegate = self
     }
     
     func registerNotifications()
@@ -152,8 +154,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         let message = self.messages[indexPath.item]
         
-        let type = message.type
-        
         if message.type == MessageType.Text.rawValue
         {
             let height = ChatTextCell.getHeightForCell(forMessage: message)
@@ -166,6 +166,10 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             let width = imageCellWidth
             
             return CGSizeMake(width, height)
+        }
+        else if message.type == MessageType.Audio.rawValue
+        {
+            return CGSizeMake(screenWidth, audioCellHeight)
         }
         
         return CGSizeMake(screenWidth, 60)
@@ -207,7 +211,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
-            
             /** 
              * Aqui passa a mensagem inteira.
              * Mas la dentro da celula se quiser acessar a imagem enviada é:
@@ -226,6 +229,14 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             
 //            cell.configureCell(message)
             
+            return cell
+        }
+        else if type == MessageType.Audio.rawValue
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+
+//            cell.configureCell(message)
+
             return cell
         }
         
@@ -315,5 +326,24 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     /********************************/
     /********************************/
+    
+    /*********************************/
+    /******** AUDIO DELEGATES ********/
+    /*********************************/
+    
+    func audioEndPlaying()
+    {
+        
+    }
+    
+    func audioRecorded(audio: NSData)
+    {
+        ChatApplication.sharedInstance.sendAudioMessage(nil, toId: self.usermodel.id, audio: audio)
+    }
+    
+    /********************************/
+    /********************************/
+    
+    
     
 }
