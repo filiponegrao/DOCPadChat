@@ -54,6 +54,7 @@
 		F61DBCEA1CFF92450040A287 /* SentImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61DBCE91CFF92450040A287 /* SentImageView.swift */; };
 		F6579F701D1CA4230097FA47 /* ChatImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6579F6F1D1CA4230097FA47 /* ChatImageCell.swift */; };
 		F66D23121D010D9500B7F466 /* ReceivedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D23111D010D9500B7F466 /* ReceivedImageView.swift */; };
+		F67169A91D2CDBD000EBBD91 /* ImageEditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67169A81D2CDBD000EBBD91 /* ImageEditionCell.swift */; };
 		F68683B71D2B5C70007DAE44 /* ImageEditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68683B61D2B5C70007DAE44 /* ImageEditionView.swift */; };
 		F68683B91D2B5CBE007DAE44 /* ImageEditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68683B81D2B5CBE007DAE44 /* ImageEditionController.swift */; };
 /* End PBXBuildFile section */
@@ -131,6 +132,7 @@
 		F61DBCE91CFF92450040A287 /* SentImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentImageView.swift; sourceTree = "<group>"; };
 		F6579F6F1D1CA4230097FA47 /* ChatImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatImageCell.swift; sourceTree = "<group>"; };
 		F66D23111D010D9500B7F466 /* ReceivedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedImageView.swift; sourceTree = "<group>"; };
+		F67169A81D2CDBD000EBBD91 /* ImageEditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditionCell.swift; sourceTree = "<group>"; };
 		F68683B61D2B5C70007DAE44 /* ImageEditionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditionView.swift; sourceTree = "<group>"; };
 		F68683B81D2B5CBE007DAE44 /* ImageEditionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -364,6 +366,7 @@
 				F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */,
 				8012ED4D1D109E2A00652FE8 /* ChatTextCell.swift */,
 				F6579F6F1D1CA4230097FA47 /* ChatImageCell.swift */,
+				F67169A81D2CDBD000EBBD91 /* ImageEditionCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				80180E481D02371400AA0AC9 /* DAOFile.swift in Sources */,
 				8012ED651D12F9CC00652FE8 /* DoctorModel.swift in Sources */,
 				80E6D0521D03819B00ECDBC7 /* ChatNotifications.swift in Sources */,
+				F67169A91D2CDBD000EBBD91 /* ImageEditionCell.swift in Sources */,
 				8012ED561D10A1CF00652FE8 /* RegexParser.swift in Sources */,
 				8008B7CB1CFF6F1E00C4FAE4 /* ChatController.swift in Sources */,
 				8012ED711D12FD6500652FE8 /* XMPPManager.swift in Sources */,

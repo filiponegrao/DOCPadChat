@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageEditionController: UIViewController
+class ImageEditionController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource
 {
     private var imageEdit : ImageEditionView!
     
@@ -73,6 +73,11 @@ class ImageEditionController: UIViewController
         
         //AÇÃO DO MARCADOR
         self.imageEdit.markButton.addTarget(self, action: #selector(ImageEditionController.markAction), forControlEvents: .TouchUpInside)
+        
+        //collection delegate
+        self.imageEdit.collection.delegate = self
+        self.imageEdit.collection.dataSource = self
+    self.imageEdit.collection.registerClass(ImageEditionCell.self, forCellWithReuseIdentifier: "Cell")
     }
 
     override func didReceiveMemoryWarning()
@@ -81,8 +86,9 @@ class ImageEditionController: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
-    /**********/
+    /*********************************/
     //propriedades e ações dos botões
+    /*********************************/
     
     func refreshSelectedButton()
     {
@@ -104,6 +110,7 @@ class ImageEditionController: UIViewController
         self.colorSelected = false
         self.refreshSelectedButton()
         
+        self.imageEdit.collection.hidden = true
         self.imageEdit.chooseColorView.hidden = false
         self.imageEdit.pencilButton.hidden = false
         self.imageEdit.pencilStroke.hidden = false
@@ -121,6 +128,7 @@ class ImageEditionController: UIViewController
         self.thicknessSelected = false
         self.refreshSelectedButton()
         
+        self.imageEdit.collection.hidden = false
         self.imageEdit.chooseColorView.hidden = true
         self.imageEdit.pencilButton.hidden = true
         self.imageEdit.pencilStroke.hidden = true
@@ -215,8 +223,66 @@ class ImageEditionController: UIViewController
         self.refreshSelectedThickness()
     }
     
+    /*********************************/
     //fim propriedade e ações dos botoes
-    /*************/
+    /*********************************/
+    
+    
+    /*********************************/
+    /****** COLLECTION DELEGATE ******/
+    /*********************************/
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 12
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! ImageEditionCell
+        
+        switch indexPath.item {
+        case 0:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xe94d3e)
+        case 1:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x2f60ad)
+        case 2:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf7be32)
+        case 3:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xa3c2c7)
+        case 4:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xfdfdf8)
+        case 5:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+        case 6:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+        case 7:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xfdfdf8)
+        case 8:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xa3c2c7)
+        case 9:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf7be32)
+        case 10:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x2f60ad)
+        case 11:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xe94d3e)
+        default:
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+        }
+        
+        cell.frame.size = CGSizeMake(screenWidth/6, screenWidth/6)
+        
+        return cell
+    }
+    
+    /*********************************/
+    /********** FIM DELEGATE *********/
+    /*********************************/
     
     func sendImage()
     {
