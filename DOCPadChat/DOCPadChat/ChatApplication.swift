@@ -272,6 +272,44 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
+    func sendAudioMessage(text: String?, toId id: String, audio: NSData)
+    {
+        
+        let id = "\(self.id)_\(id)_\(NSDate())"
+        
+        var newText = ""
+        
+        if text != nil
+        {
+            newText = text!
+        }
+        
+        let body = DDXMLElement(name: "body", stringValue: newText)
+        
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("id", stringValue: id)
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: id)
+        messageElement.addChild(body)
+        
+        let string = audio.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
+        
+        let attachement = DDXMLElement(name: "attachement")
+        attachement.setStringValue(string as String)
+        
+        messageElement.addChild(attachement)
+        
+        XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+        
+        if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Audio, content: audio)
+        {
+            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Image, sentDate: NSDate(), text: newText)
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+            }
+        }
+    }
+    
     
     private func newSession(id: Int, nickname: String, profileImage: UIImage?)
     {

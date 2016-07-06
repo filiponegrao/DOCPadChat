@@ -36,13 +36,13 @@ class TesteViewController: UIViewController
         self.login.center = CGPointMake(screenWidth/2, screenHeight/5)
         self.login.autocorrectionType = .No
         self.login.autocapitalizationType = .None
-        self.view.addSubview(self.login)
+//        self.view.addSubview(self.login)
         
         self.friend = UITextField(frame: CGRectMake(self.login.frame.origin.x, self.login.bounds.height, screenWidth/2, 44))
         self.friend.placeholder = "Friend"
         self.friend.autocorrectionType = .No
         self.friend.autocapitalizationType = .None
-        self.view.addSubview(self.friend)
+//        self.view.addSubview(self.friend)
  
         
         // Do any additional setup after loading the view.
