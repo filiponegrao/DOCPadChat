@@ -40,6 +40,7 @@
 		80A7D9D41CFE4E5800BE52EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80A7D9D21CFE4E5800BE52EB /* LaunchScreen.storyboard */; };
 		80A7D9DF1CFE4E5800BE52EB /* DOCPadChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */; };
 		80A7D9EA1CFE4E5800BE52EB /* DOCPadChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */; };
+		80D7317F1D2C917400B0170A /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7317E1D2C917400B0170A /* AudioController.swift */; };
 		80E6D0491D03686B00ECDBC7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D0471D03686B00ECDBC7 /* Message.swift */; };
 		80E6D04C1D036D1B00ECDBC7 /* DAOMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D04B1D036D1B00ECDBC7 /* DAOMessage.swift */; };
 		80E6D04E1D037D9100ECDBC7 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D04D1D037D9100ECDBC7 /* Simulation.swift */; };
@@ -115,6 +116,7 @@
 		80A7D9E51CFE4E5800BE52EB /* DOCPadChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOCPadChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCPadChatUITests.swift; sourceTree = "<group>"; };
 		80A7D9EB1CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80D7317E1D2C917400B0170A /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		80E6D0471D03686B00ECDBC7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		80E6D04B1D036D1B00ECDBC7 /* DAOMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOMessage.swift; sourceTree = "<group>"; };
 		80E6D04D1D037D9100ECDBC7 /* Simulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simulation.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		8008B7CF1CFF6F6900C4FAE4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				80D7317E1D2C917400B0170A /* AudioController.swift */,
 				80E6D0531D0381A100ECDBC7 /* Chat Controller Tools */,
 				8008B7D51CFF741300C4FAE4 /* MainNavigationController.swift */,
 				8008B7CA1CFF6F1E00C4FAE4 /* ChatController.swift */,
@@ -568,6 +571,7 @@
 				8012ED751D13759600652FE8 /* UserModel.swift in Sources */,
 				80180E571D02521900AA0AC9 /* DAOSession.swift in Sources */,
 				8012ED731D12FE6400652FE8 /* MessageModel.swift in Sources */,
+				80D7317F1D2C917400B0170A /* AudioController.swift in Sources */,
 				80180E631D02765F00AA0AC9 /* ChatApplication.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
 				F68683B71D2B5C70007DAE44 /* ImageEditionView.swift in Sources */,

@@ -136,16 +136,23 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         XMPPManager.sharedInstance.xmppStream?.sendElement(presence)
     }
     
-    func didDisconnected(error: NSError)
+    func didDisconnected(error: NSError?)
     {
-        if error.code == 51
+        if let error = error
         {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appNoInternet())
-        }
-        else if error.code == 57
-        {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
-            self.serverConnect()
+            if error.code == 51
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appNoInternet())
+            }
+            else if error.code == 57
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
+                self.serverConnect()
+            }
+            else
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appDisconnected(error))
+            }
         }
         else
         {

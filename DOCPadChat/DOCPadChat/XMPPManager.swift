@@ -32,7 +32,7 @@ protocol XMPPManagerStreamDelegate
     
     func didConnectionTimedOut(error: NSError)
     
-    func didDisconnected(error: NSError)
+    func didDisconnected(error: NSError?)
     
     func didSentMessage(id: String)
 
