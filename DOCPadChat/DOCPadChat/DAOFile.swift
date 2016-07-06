@@ -63,11 +63,11 @@ class DAOFile : NSObject
      * Método responsavel por criar um elemento File no armazenamento
      * local. Criando com sucesso retorna o arquivo criado.
      */
-    func newFile(id: Int, type: FileType, content: NSData) -> File?
+    func newFile(withId id: String, type: FileType, content: NSData) -> File?
     {
         let query = NSFetchRequest(entityName: "File")
         
-        let predicate = NSPredicate(format: "id == %@ ", NSNumber.init(integer: id))
+        let predicate = NSPredicate(format: "id == %@ ", id)
         
         query.predicate = predicate
         
@@ -97,11 +97,11 @@ class DAOFile : NSObject
      *
      * Encontrado com sucesso, o arquivo é retornado.
      */
-    func getFile(id: Int) -> File?
+    func getFile(id: String) -> File?
     {
         let query = NSFetchRequest(entityName: "File")
         
-        let predicate = NSPredicate(format: "id == %@", NSNumber.init(integer: id))
+        let predicate = NSPredicate(format: "id == %@", id)
         
         query.predicate = predicate
         
@@ -149,7 +149,7 @@ class DAOFile : NSObject
      * Se a exclusao for sucedida, é retornado o index o qual o arquivo
      * ocupava na lista dos arquivos locais.
      */
-    func deleteFile(id: Int) -> Int?
+    func deleteFile(id: String) -> Int?
     {
         let query = NSFetchRequest(entityName: "File")
         
@@ -161,7 +161,7 @@ class DAOFile : NSObject
             {
                 if let id = results[i].id
                 {
-                    if Int(id) == id
+                    if id == id
                     {
                         self.managedObjectContext.deleteObject(results[i])
                         
@@ -187,7 +187,7 @@ class DAOFile : NSObject
      * Se a exclusao for sucedida, é retornado o index o qual o arquivo
      * ocupava na lista dos arquivos locais.
      */
-    func deleteFile(name: String) -> Int?
+    func deleteFile(withName name: String) -> Int?
     {
         let query = NSFetchRequest(entityName: "File")
         

@@ -43,7 +43,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     
     private var picker = UIImagePickerController()
     
-    private var popover : UIPopoverController!
+//    private var popover : UIPopoverController!
 
     init(frame: CGRect, controller: ChatController)
     {
@@ -54,14 +54,12 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         self.backgroundImage = UIImageView(frame: self.bounds)
         self.backgroundImage.image = UIImage(named: "background")
         self.backgroundImage.contentMode = .ScaleToFill
-        self.backgroundImage.alpha = 0.3
+        self.backgroundImage.alpha = 0.4
         self.addSubview(self.backgroundImage)
         
         self.messageBar = ChatMessageBar()
         self.messageBar.delegate = self
         self.addSubview(self.messageBar)
-        
-        
         
         let height : CGFloat = self.controller.navigationController!.navigationBar.frame.size.height
 
@@ -87,12 +85,12 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         
         //Collection
         let collectionLayout = UICollectionViewFlowLayout()
-        collectionLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
+        collectionLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         collectionLayout.itemSize = CGSize(width: frame.size.width, height: 60)
         collectionLayout.minimumInteritemSpacing = 0
         collectionLayout.minimumLineSpacing = 0 //espaçamento entre uma celula de baixo com a de cima
         
-        self.collectionOrigin = 70
+        self.collectionOrigin = 65
         self.collectionHeight = self.frame.size.height - collectionOrigin - self.messageBar.frame.size.height
         
         
@@ -108,17 +106,18 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         
         self.collectionView.registerClass(ChatTextCell.self, forCellWithReuseIdentifier: "CellText")
         self.collectionView.registerClass(ChatImageCell.self, forCellWithReuseIdentifier: "CellImage")
-        
+        self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+
         self.addSubview(self.collectionView)
         
         
         //teste para edicao
         
-        self.editionButton = UIButton(frame: CGRectMake(0,100,100,50))
-        self.editionButton.setTitle("Edition", forState: .Normal)
-        self.editionButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        self.editionButton.addTarget(self.controller, action: #selector(ChatView.goEdition), forControlEvents: .TouchUpInside)
-        self.addSubview(self.editionButton)
+//        self.editionButton = UIButton(frame: CGRectMake(0,100,100,50))
+//        self.editionButton.setTitle("Edition", forState: .Normal)
+//        self.editionButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+//        self.editionButton.addTarget(self.controller, action: #selector(ChatView.goEdition), forControlEvents: .TouchUpInside)
+//        self.addSubview(self.editionButton)
 
         
         //Notifications do TECLADO
@@ -143,6 +142,22 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         self.imageView.image = UIImage(data: channel.image)
     }
     
+    func disableMessages()
+    {
+        self.messageBar.textView.userInteractionEnabled = false
+        self.messageBar.sendButton.enabled = false
+        self.messageBar.audioButton.enabled = false
+        self.messageBar.photoButton.enabled = false
+    }
+    
+    func enableMessages()
+    {
+        self.messageBar.textView.userInteractionEnabled = true
+        self.messageBar.sendButton.enabled = true
+        self.messageBar.audioButton.enabled = true
+        self.messageBar.photoButton.enabled = true
+    }
+    
     /*********************************/
     /********** ANIMATIONS ***********/
     /*********************************/
@@ -153,7 +168,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         {
             self.messageBar.frame.origin.y = screenHeight - keyboardSize.height - self.messageBar.frame.size.height
             
-            self.collectionView.frame.size.height = self.frame.height - 70 - self.messageBar.frame.height - keyboardSize.height
+            self.collectionView.frame.size.height = self.frame.height - self.collectionOrigin - self.messageBar.frame.height - keyboardSize.height
             
             if(self.collectionView.contentSize.height > self.collectionView.frame.size.height)
             {
@@ -173,7 +188,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     {
         self.messageBar.frame.origin.y = screenHeight - self.messageBar.frame.size.height
 
-        self.collectionView.frame.size.height = self.frame.size.height - 70 - self.messageBar.frame.height
+        self.collectionView.frame.size.height = self.frame.size.height - self.collectionOrigin - self.messageBar.frame.height
     }
     
     
@@ -183,10 +198,16 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     /*********************************/
     /**** MESSAGE BAR DELEGATE *******/
     /*********************************/
+ 
     
-    func messageBarAudioClicked(messageBar: ChatMessageBar)
+    func messageBarStartAudioClicked(messageBar: ChatMessageBar)
     {
-        print("Audio clicked")
+        AudioController.sharedInstance.startRecord()
+    }
+    
+    func messageBarEndAudioClicked(messageBar: ChatMessageBar)
+    {
+        AudioController.sharedInstance.stopRecord()
     }
     
     func messageBarPhotoClicked(messageBar: ChatMessageBar)
@@ -284,12 +305,10 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     {
         self.picker.dismissViewControllerAnimated(true, completion: nil)
         
-        //jogar imagem na cell
-//        self.sentImage = UIImage(data: image as! NSData)
-//        self.controller.
-        
-        //DAO
-        
+        if let id = self.controller.currentUserModel().id
+        {
+            ChatApplication.sharedInstance.sendImageMessage(nil, toId: id, image: image)
+        }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController)

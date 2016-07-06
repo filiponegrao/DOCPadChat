@@ -9,17 +9,38 @@
 import UIKit
 import XMPPFramework
 
-protocol XMPPManagerLoginDelegate {
+
+enum ConnectionStatus : String
+{
+    case Disconnected = "disconnected"
+    
+    case Connecting = "connecting"
+    
+    case Connected = "connected"
+}
+
+protocol XMPPManagerLoginDelegate
+{
     func didConnectToServer(bool : Bool, errorMessage : String?)
+    
     func failedToAuthenticate(error : String)
 }
 
-protocol XMPPManagerStreamDelegate {
+protocol XMPPManagerStreamDelegate
+{
     func didReceiveMessage(message : MessageModel)
+    
+    func didConnectionTimedOut(error: NSError)
+    
+    func didDisconnected(error: NSError?)
+    
+    func didSentMessage(id: String)
+
 //    func didReceivePresence(presence : UserState, from : UserModel)
 }
 
-protocol XMPPManagerRosterDelegate {
+protocol XMPPManagerRosterDelegate
+{
 //    func didReceivePresence(presence : UserState, from : String)
     func addedBuddyToList(buddyList :[UserModel])
     
@@ -69,6 +90,27 @@ class XMPPManager: NSObject {
     {
         self.xmppStream?.disconnect()
     }
+    
+    func connectionStatus() -> ConnectioStatus
+    {
+        if let xmpp = self.xmppStream
+        {
+            if xmpp.isConnected()
+            {
+                return ConnectioStatus.Conectado
+            }
+            else if xmpp.isConnecting()
+            {
+                return ConnectioStatus.Conectando
+            }
+            else if xmpp.isDisconnected()
+            {
+                return ConnectioStatus.Desconectado
+            }
+        }
+        
+        return ConnectioStatus.Desconectado
+    }
 }
 
 extension XMPPManager : XMPPStreamDelegate
@@ -98,6 +140,11 @@ extension XMPPManager : XMPPStreamDelegate
         }
     }
     
+    func xmppStreamDidDisconnect(sender: XMPPStream!, withError error: NSError!)
+    {
+        xmppManagerStreamDelegate?.didDisconnected(error)
+    }
+    
     func xmppStreamDidAuthenticate(sender: XMPPStream!) {
         print("The XMPP Authenticated")
         print(sender)
@@ -110,7 +157,8 @@ extension XMPPManager : XMPPStreamDelegate
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
                 
-        if message.body() == nil {
+        if message.body() == nil || message.from() == nil
+        {
             return
         }
         
@@ -137,7 +185,18 @@ extension XMPPManager : XMPPStreamDelegate
     
     func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!)
     {
-        print(message)
+//        print(message)
+        
+        if let id = message.attributeStringValueForName("id")
+        {
+            self.xmppManagerStreamDelegate?.didSentMessage(id)
+            print("mensagem \(id) enviada!")
+        }
+    }
+    
+    func xmppStreamConnectDidTimeout(sender: XMPPStream!)
+    {
+        self.xmppManagerStreamDelegate?.didConnectionTimedOut(NSError(domain: "Timedout", code: 001, userInfo: nil))
     }
 }
 

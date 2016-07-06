@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource
+class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AudioDelegate
 {
     /******* Chat Variables *********/
 
@@ -53,9 +53,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     /********************************/
     
 
-    
-
-    
     func refreshChat(usermodel: UserModel)
     {
         self.usermodel = usermodel
@@ -84,14 +81,26 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.view = self.chatView
         
         //Notifications
+        self.registerNotifications()
+        self.handleOffline(nil)
         
+        AudioController.sharedInstance.delegate = self
+    }
+    
+    func registerNotifications()
+    {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleNewMessage(_:)), name: Event.message_new.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleOnline(_:)), name: Event.app_connected.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleTimedOut(_:)), name: Event.app_timeout.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleConnecting(_:)), name: Event.app_connecting.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleOffline(_:)), name: Event.app_disconnected.rawValue, object: nil)
     }
     
     override func viewWillAppear(animated: Bool)
     {
         self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
         self.title = self.usermodel.name
+        
         self.chatView.imageView.image = self.usermodel.profileImage
         self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
         
@@ -99,6 +108,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         if(self.messages.count > 0)
         {
             self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+            self.chatView.collectionView.contentOffset.y += 10
         }
     }
     
@@ -150,12 +160,16 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             
             return CGSizeMake(screenWidth, height)
         }
-        else if message.text == MessageType.Image.rawValue
+        else if message.type == MessageType.Image.rawValue
         {
             let height = imageCellHeight
             let width = imageCellWidth
             
             return CGSizeMake(width, height)
+        }
+        else if message.type == MessageType.Audio.rawValue
+        {
+            return CGSizeMake(screenWidth, audioCellHeight)
         }
         
         return CGSizeMake(screenWidth, 60)
@@ -197,6 +211,32 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
+            /** 
+             * Aqui passa a mensagem inteira.
+             * Mas la dentro da celula se quiser acessar a imagem enviada é:
+             *
+             * if let image = DAOFile.sharedInstance.getFile(message.id)
+             * {
+             *      print("tem imagem")
+             * }
+             *
+             */
+            
+             if let image = DAOFile.sharedInstance.getFile(message.id)
+             {
+                  print("tem imagem")
+             }
+            
+//            cell.configureCell(message)
+            
+            return cell
+        }
+        else if type == MessageType.Audio.rawValue
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+
+//            cell.configureCell(message)
+
             return cell
         }
         
@@ -205,7 +245,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     
     /********************************/
-    /***** Conversation Methods *****/
+    /*********** HANDLERS  **********/
     /********************************/
 
     func handleNewMessage(notification: NSNotification)
@@ -224,7 +264,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             {
                 let indexPath = NSIndexPath.init(forItem: index, inSection: 0)
                 self.chatView.collectionView.insertItemsAtIndexPaths([indexPath])
-                self.chatView.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+                self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+                self.chatView.collectionView.contentOffset.y += 10
             }
             else
             {
@@ -233,13 +274,76 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         }
     }
     
+    func handleOnline(notification: NSNotification?)
+    {
+        self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
+        self.chatView.enableMessages()
+    }
+    
+    func handleOffline(notification: NSNotification?)
+    {
+        if let userinfo = notification?.userInfo
+        {
+            let error = userinfo["error"] as! NSError
+            print(error)
+        }
+        
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
+    }
+    
+    func handleNoInternet()
+    {
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
+        
+        let alert = UIAlertController(title: "Ops!", message: "Parece que voce nao tem uma conexao com a internet! Verifique e abra essa tela novamente", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: { (action: UIAlertAction) in
+            
+        }))
+        self.presentViewController(alert, animated: true, completion: { 
+            
+        })
+    }
+    
+    func handleConnecting(notification: NSNotification)
+    {
+        self.chatView.channelButton.setTitle("Conectando...", forState: .Normal)
+        self.chatView.disableMessages()
+    }
+    
+    func handleTimedOut(notitifation: NSNotification)
+    {
+        self.chatView.channelButton.setTitle("Desconectado", forState: .Normal)
+        self.chatView.disableMessages()
+    }
+    
     func sendTextMessage(text: String)
     {
-        ChatApplication.sharedInstance.sendMessage(text, toId: self.usermodel.id)
+        ChatApplication.sharedInstance.sendTextMessage(text, toId: self.usermodel.id)
     }
 
     
     /********************************/
     /********************************/
+    
+    /*********************************/
+    /******** AUDIO DELEGATES ********/
+    /*********************************/
+    
+    func audioEndPlaying()
+    {
+        
+    }
+    
+    func audioRecorded(audio: NSData)
+    {
+        ChatApplication.sharedInstance.sendAudioMessage(nil, toId: self.usermodel.id, audio: audio)
+    }
+    
+    /********************************/
+    /********************************/
+    
+    
     
 }

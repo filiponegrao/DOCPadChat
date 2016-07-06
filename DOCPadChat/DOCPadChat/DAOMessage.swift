@@ -69,6 +69,19 @@ class DAOMessage : NSObject
         }
     }
     
+    func changeMessageStatus(id: String, status: MessageStatus) -> Bool
+    {
+        if let message = self.getMessage(id)
+        {
+            message.status = status.rawValue
+            self.save()
+            
+            return true
+        }
+        
+        return false
+    }
+    
     func getMessagesFromChannel(channel: String) -> [Message]
     {
         let mssgs = [Message]()

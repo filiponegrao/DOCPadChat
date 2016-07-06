@@ -36,13 +36,13 @@ class TesteViewController: UIViewController
         self.login.center = CGPointMake(screenWidth/2, screenHeight/5)
         self.login.autocorrectionType = .No
         self.login.autocapitalizationType = .None
-        self.view.addSubview(self.login)
+//        self.view.addSubview(self.login)
         
         self.friend = UITextField(frame: CGRectMake(self.login.frame.origin.x, self.login.bounds.height, screenWidth/2, 44))
         self.friend.placeholder = "Friend"
         self.friend.autocorrectionType = .No
         self.friend.autocapitalizationType = .None
-        self.view.addSubview(self.friend)
+//        self.view.addSubview(self.friend)
  
         
         // Do any additional setup after loading the view.
@@ -58,9 +58,9 @@ class TesteViewController: UIViewController
     {
         let ip = "52.67.65.109"
         
-        let username = self.login.text!
+        let username =  "test2" //self.login.text!
         
-        let friend = self.friend.text!
+        let friend = "test1" // self.friend.text!
         
         let model = UserModel(id: "\(friend)@\(ip)", name: friend, profileImage: UIImage(named: "channelTemplate")!)
         

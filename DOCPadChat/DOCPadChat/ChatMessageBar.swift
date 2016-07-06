@@ -14,7 +14,9 @@ import UIKit
 {
     func messageBarPhotoClicked(messageBar: ChatMessageBar)
     
-    func messageBarAudioClicked(messageBar: ChatMessageBar)
+    func messageBarStartAudioClicked(messageBar: ChatMessageBar)
+    
+    func messageBarEndAudioClicked(messageBar: ChatMessageBar)
     
     func messageBarSendClicked(messageBar: ChatMessageBar, text: String)
     
@@ -29,11 +31,11 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
     var textView : ChatTextView!
     
-    private var sendButton : UIButton!
+    var sendButton : UIButton!
     
-    private var audioButton : UIButton!
+    var audioButton : UIButton!
     
-    private var photoButton : UIButton!
+    var photoButton : UIButton!
     
     var delegate : ChatMessageBarDelegate?
     
@@ -57,7 +59,10 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     
         self.audioButton = UIButton(frame: CGRectMake(self.frame.width - self.height, 0, self.height, self.height))
         self.audioButton.setImage(UIImage(named: "buttonMic"), forState: .Normal)
-        self.audioButton.addTarget(self, action: #selector(self.handleClickAudio), forControlEvents: .TouchUpInside)
+        
+        self.audioButton.addTarget(self, action: #selector(self.handleStartClickAudio), forControlEvents: .TouchDown)
+        self.audioButton.addTarget(self, action: #selector(self.handleEndClickAudio), forControlEvents: .TouchUpInside)
+        
         self.addSubview(self.audioButton)
         
         self.sendButton = UIButton(frame: self.audioButton.frame)
@@ -120,9 +125,14 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     /**************************************/
 
     
-    func handleClickAudio()
+    func handleStartClickAudio()
     {
-        self.delegate?.messageBarAudioClicked(self)
+        self.delegate?.messageBarStartAudioClicked(self)
+    }
+    
+    func handleEndClickAudio()
+    {
+        self.delegate?.messageBarEndAudioClicked(self)
     }
     
     func handleClickPhoto()
@@ -133,9 +143,19 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     func handleClickSend()
     {
         self.delegate?.messageBarSendClicked(self, text: self.textView.text)
-        self.textView.text = ""
-        self.textView.defaultSize()
-        self.animateToOriginalHeight()
+        if self.textView.isFirstResponder()
+        {
+            self.textView.text = ""
+            self.textView.defaultSize()
+            self.animateToOriginalHeight()
+
+        }
+        else
+        {
+            self.textView.placeHolderOn()
+            self.textView.defaultSize()
+            self.animateToOriginalHeight()
+        }
     }
 
     func animateToOriginalHeight()
@@ -198,7 +218,4 @@ class ChatMessageBar : UIView, ChatTextViewDelegate
     /**************************************/
     /**************************************/
 
-    
-    
-    
 }
