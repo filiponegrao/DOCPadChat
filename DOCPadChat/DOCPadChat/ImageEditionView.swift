@@ -35,7 +35,7 @@ class ImageEditionView: UIView
         
 //        let nav = self.controller.navigationController!.navigationBar
         
-        self.imageView = UIImageView(frame: CGRectMake(0, 0, screenWidth, screenHeight/10 * 5.5))
+        self.imageView = UIImageView(frame: CGRectMake(0, 0, screenWidth, self.frame.size.height - screenWidth/2 - 15))
         self.imageView.image = image
         self.imageView.contentMode = .ScaleAspectFit
         
