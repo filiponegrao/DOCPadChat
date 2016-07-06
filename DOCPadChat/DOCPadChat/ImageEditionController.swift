@@ -17,6 +17,12 @@ class ImageEditionController: UIViewController
     var thicknessSelected : Bool!
     
     var colorSelected : Bool!
+    
+    var pencilSelected : Bool!
+    
+    var brushSelected : Bool!
+    
+    var markSelected : Bool!
 
     
 //    init(image: UIImage?)
@@ -56,6 +62,15 @@ class ImageEditionController: UIViewController
         
         //AQUI MÉTODO QUE REMOVE PINTURA
         self.imageEdit.cleanButton.addTarget(self, action: #selector(ImageEditionController.cleanAllPaint), forControlEvents: .TouchUpInside)
+        
+        //AÇÃO DO LAPIS
+        self.imageEdit.pencilButton.addTarget(self, action: #selector(ImageEditionController.pencilAction), forControlEvents: .TouchUpInside)
+        
+        //AÇÃO DO PINCEL
+        self.imageEdit.brushButton.addTarget(self, action: #selector(ImageEditionController.brushAction), forControlEvents: .TouchUpInside)
+        
+        //AÇÃO DO MARCADOR
+        self.imageEdit.markButton.addTarget(self, action: #selector(ImageEditionController.markAction), forControlEvents: .TouchUpInside)
     }
 
     override func didReceiveMemoryWarning()
@@ -107,6 +122,79 @@ class ImageEditionController: UIViewController
     func cleanAllPaint()
     {
         //IMPLEMENTAR MÉTODO QUE APAGA PINTURA
+    }
+    
+    func refreshSelectedThickness()
+    {
+        if(self.pencilSelected == true && self.brushSelected == false && self.markSelected == false)
+        {
+            self.imageEdit.pencilButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5
+            self.imageEdit.pencilButton.setImage(UIImage.init(named: "pencilSelected"), forState: .Normal)
+            self.imageEdit.pencilStroke.image = UIImage.init(named: "pencilStrokeSelected")
+            
+            self.imageEdit.brushButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.brushButton.setImage(UIImage.init(named: "brush"), forState: .Normal)
+            self.imageEdit.brushStroke.image = UIImage.init(named: "brushStroke")
+            
+            self.imageEdit.markButton.frame.origin.y
+             = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.markButton.setImage(UIImage.init(named: "mark"), forState: .Normal)
+            self.imageEdit.markStroke.image = UIImage.init(named: "markStroke")
+        }
+        else if(self.brushSelected == true && self.pencilSelected == false && self.markSelected == false)
+        {
+            self.imageEdit.brushButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5
+            self.imageEdit.brushButton.setImage(UIImage.init(named: "brushSelected"), forState: .Normal)
+            self.imageEdit.brushStroke.image = UIImage.init(named: "brushStrokeSelected")
+            
+            self.imageEdit.pencilButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.pencilButton.setImage(UIImage.init(named: "pencil"), forState: .Normal)
+            self.imageEdit.pencilStroke.image = UIImage.init(named: "pencilStroke")
+            
+            self.imageEdit.markButton.frame.origin.y
+                = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.markButton.setImage(UIImage.init(named: "mark"), forState: .Normal)
+            self.imageEdit.markStroke.image = UIImage.init(named: "markStroke")
+        }
+        else if(self.markSelected == true && self.pencilSelected == false && self.brushSelected == false)
+        {
+            self.imageEdit.markButton.frame.origin.y
+                = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5
+            self.imageEdit.markButton.setImage(UIImage.init(named: "markSelected"), forState: .Normal)
+            self.imageEdit.markStroke.image = UIImage.init(named: "markStrokeSelected")
+            
+            self.imageEdit.pencilButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.pencilButton.setImage(UIImage.init(named: "pencil"), forState: .Normal)
+            self.imageEdit.pencilStroke.image = UIImage.init(named: "pencilStroke")
+            
+            self.imageEdit.brushButton.frame.origin.y = self.imageEdit.frame.size.height - self.imageEdit.chooseColorView.frame.size.height/8 * 5 + 10
+            self.imageEdit.brushButton.setImage(UIImage.init(named: "brush"), forState: .Normal)
+            self.imageEdit.brushStroke.image = UIImage.init(named: "brushStroke")
+        }
+    }
+    
+    func pencilAction()
+    {
+        self.pencilSelected = true
+        self.brushSelected = false
+        self.markSelected = false
+        self.refreshSelectedThickness()
+    }
+    
+    func brushAction()
+    {
+        self.brushSelected = true
+        self.pencilSelected = false
+        self.markSelected = false
+        self.refreshSelectedThickness()
+    }
+    
+    func markAction()
+    {
+        self.markSelected = true
+        self.pencilSelected = false
+        self.brushSelected = false
+        self.refreshSelectedThickness()
     }
     
     //fim propriedade e ações dos botoes

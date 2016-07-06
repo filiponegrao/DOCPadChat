@@ -24,6 +24,18 @@ class ImageEditionView: UIView
     
     var chooseColorView : UIView!
     
+    var pencilButton : UIButton!
+    
+    var brushButton : UIButton!
+    
+    var markButton : UIButton!
+    
+    var pencilStroke : UIImageView!
+    
+    var brushStroke : UIImageView!
+    
+    var markStroke : UIImageView!
+    
     weak private var controller : ImageEditionController!
     
     init(image: UIImage, controller: ImageEditionController)
@@ -78,6 +90,48 @@ class ImageEditionView: UIView
         self.chooseColorView = UIView(frame: CGRectMake(0, self.frame.size.height - screenWidth/3, screenWidth, screenWidth/3))
         self.chooseColorView.backgroundColor = grayColor
         self.addSubview(self.chooseColorView)
+        
+        //botao espessura lapis
+        self.pencilButton = UIButton(frame: CGRectMake(screenWidth/2 - screenWidth/6 * 1.5, self.frame.size.height - self.chooseColorView.frame.size.height/8 * 5 + 10, screenWidth/6, self.chooseColorView.frame.size.height/8 * 5))
+        self.pencilButton.backgroundColor = UIColor.clearColor()
+        self.pencilButton.setImage(UIImage.init(named: "pencil"), forState: .Normal)
+        self.pencilButton.contentMode = .Center
+        self.addSubview(self.pencilButton)
+        
+        //imageview exemplo espessura lapis
+        self.pencilStroke = UIImageView(frame: CGRectMake(screenWidth/2 - screenWidth/6 * 1.5, self.frame.size.height - screenWidth/3, screenWidth/6, self.chooseColorView.frame.size.height/8 * 3))
+        self.pencilStroke.backgroundColor = UIColor.clearColor()
+        self.pencilStroke.image = UIImage.init(named: "pencilStroke")
+        self.pencilStroke.contentMode = .Center
+        self.addSubview(self.pencilStroke)
+        
+        //botao espessura pincel
+        self.brushButton = UIButton(frame: CGRectMake(screenWidth/2 - screenWidth/12, self.frame.size.height - self.chooseColorView.frame.size.height/8 * 5 + 10, screenWidth/6, self.chooseColorView.frame.size.height/8 * 5))
+        self.brushButton.backgroundColor = UIColor.clearColor()
+        self.brushButton.setImage(UIImage.init(named: "brush"), forState: .Normal)
+        self.brushButton.contentMode = .Center
+        self.addSubview(self.brushButton)
+        
+        //imageview exemplo espessura pincel
+        self.brushStroke = UIImageView(frame: CGRectMake(screenWidth/2 - screenWidth/12, self.frame.size.height - screenWidth/3, screenWidth/6, self.chooseColorView.frame.size.height/8 * 3))
+        self.brushStroke.backgroundColor = UIColor.clearColor()
+        self.brushStroke.image = UIImage.init(named: "brushStroke")
+        self.brushStroke.contentMode = .Center
+        self.addSubview(self.brushStroke)
+        
+        //botao espessura marcador
+        self.markButton = UIButton(frame: CGRectMake(screenWidth/2 + screenWidth/6 * 0.5, self.frame.size.height - self.chooseColorView.frame.size.height/8 * 5 + 10, screenWidth/6, self.chooseColorView.frame.size.height/8 * 5))
+        self.markButton.backgroundColor = UIColor.clearColor()
+        self.markButton.setImage(UIImage.init(named: "mark"), forState: .Normal)
+        self.markButton.contentMode = .Center
+        self.addSubview(self.markButton)
+        
+        //imageview exemplo espessura pincel
+        self.markStroke = UIImageView(frame: CGRectMake(screenWidth/2 + screenWidth/6 * 0.5, self.frame.size.height - screenWidth/3, screenWidth/6, self.chooseColorView.frame.size.height/8 * 3))
+        self.markStroke.backgroundColor = UIColor.clearColor()
+        self.markStroke.image = UIImage.init(named: "markStroke")
+        self.markStroke.contentMode = .Center
+        self.addSubview(self.markStroke)
         
         //Navigation
         let right = UIBarButtonItem(title: "Enviar", style: .Plain, target: controller, action: #selector(self.controller.sendImage))
