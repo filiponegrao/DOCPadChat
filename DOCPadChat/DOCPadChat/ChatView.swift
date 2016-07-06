@@ -298,12 +298,10 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     {
         self.picker.dismissViewControllerAnimated(true, completion: nil)
         
-        //jogar imagem na cell
-//        self.sentImage = UIImage(data: image as! NSData)
-//        self.controller.
-        
-        //DAO
-        
+        if let id = self.controller.currentUserModel().id
+        {
+            ChatApplication.sharedInstance.sendImageMessage(nil, toId: id, image: image)
+        }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController)

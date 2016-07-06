@@ -152,13 +152,15 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         let message = self.messages[indexPath.item]
         
+        let type = message.type
+        
         if message.type == MessageType.Text.rawValue
         {
             let height = ChatTextCell.getHeightForCell(forMessage: message)
             
             return CGSizeMake(screenWidth, height)
         }
-        else if message.text == MessageType.Image.rawValue
+        else if message.type == MessageType.Image.rawValue
         {
             let height = imageCellHeight
             let width = imageCellWidth
@@ -204,6 +206,25 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         else if (type == MessageType.Image.rawValue)
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
+            
+            
+            /** 
+             * Aqui passa a mensagem inteira.
+             * Mas la dentro da celula se quiser acessar a imagem enviada é:
+             *
+             * if let image = DAOFile.sharedInstance.getFile(message.id)
+             * {
+             *      print("tem imagem")
+             * }
+             *
+             */
+            
+             if let image = DAOFile.sharedInstance.getFile(message.id)
+             {
+                  print("tem imagem")
+             }
+            
+//            cell.configureCell(message)
             
             return cell
         }
@@ -288,7 +309,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     func sendTextMessage(text: String)
     {
-        ChatApplication.sharedInstance.sendMessage(text, toId: self.usermodel.id)
+        ChatApplication.sharedInstance.sendTextMessage(text, toId: self.usermodel.id)
     }
 
     

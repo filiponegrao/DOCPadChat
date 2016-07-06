@@ -23,19 +23,19 @@ public enum FileType : String
 
 extension File {
     
-    @NSManaged var id: NSNumber?
+    @NSManaged var id: String!
     @NSManaged var name: String?
     @NSManaged var content: NSData!
     @NSManaged var createdAt: NSDate!
     @NSManaged var updatedAt: NSDate!
-    @NSManaged var type: String?
+    @NSManaged var type: String!
     
 }
 
 class File: NSManagedObject {
 
 
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: Int, content: NSData, type: FileType) -> File
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, id: String, content: NSData, type: FileType) -> File
     {
         
         let file = NSEntityDescription.insertNewObjectForEntityForName("File", inManagedObjectContext: moc) as! File
@@ -44,6 +44,7 @@ class File: NSManagedObject {
         file.createdAt = NSDate()
         file.updatedAt = file.createdAt
         file.type = type.rawValue
+        file.content = content
         
         return file
     }
@@ -57,7 +58,8 @@ class File: NSManagedObject {
         file.createdAt = NSDate()
         file.updatedAt = file.createdAt
         file.type = type.rawValue
-        
+        file.content = content
+
         return file
     }
 }

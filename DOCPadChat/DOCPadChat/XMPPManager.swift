@@ -33,6 +33,8 @@ protocol XMPPManagerStreamDelegate
     func didConnectionTimedOut(error: NSError)
     
     func didDisconnected(error: NSError)
+    
+    func didSentMessage(id: String)
 
 //    func didReceivePresence(presence : UserState, from : UserModel)
 }
@@ -183,7 +185,13 @@ extension XMPPManager : XMPPStreamDelegate
     
     func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!)
     {
-        print(message)
+//        print(message)
+        
+        if let id = message.attributeStringValueForName("id")
+        {
+            self.xmppManagerStreamDelegate?.didSentMessage(id)
+            print("mensagem \(id) enviada!")
+        }
     }
     
     func xmppStreamConnectDidTimeout(sender: XMPPStream!)

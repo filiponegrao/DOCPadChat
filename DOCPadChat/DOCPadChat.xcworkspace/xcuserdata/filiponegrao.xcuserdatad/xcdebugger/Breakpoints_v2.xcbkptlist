@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DOCPadChat/ChatController.swift"
-            timestampString = "489454265.594262"
+            timestampString = "489458754.869566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "handleOffline(_:)"
             landmarkType = "5">
             <Locations>

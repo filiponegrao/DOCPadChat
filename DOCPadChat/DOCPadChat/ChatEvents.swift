@@ -168,6 +168,9 @@ enum Event : String
     /** nova mensagem */
     case message_new = "message_new"
     
+    /** Mensagem foi enviada com sucesso! */
+    case message_sent = "message_sent"
+    
     /** Envia e recebe uma notificacao de que uma mensagem foi vista */
     case message_seen = "message_seen"
     

@@ -175,6 +175,11 @@ class ChatNotifications : NSObject
         return NSNotification(name: Event.message_new.rawValue, object: nil, userInfo: ["message": message, "sender": sender])
     }
     
+    class func messageSent(id: String) -> NSNotification
+    {
+        return NSNotification(name: Event.message_sent.rawValue, object: nil, userInfo: ["id": id])
+    }
+    
     class func messageSeen(message: String, channel: String, session: Int) -> NSNotification
     {
         return NSNotification(name: Event.message_seen.rawValue, object: nil, userInfo: ["message": message, "channel": channel, "session": session])

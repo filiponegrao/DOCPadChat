@@ -196,6 +196,14 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
+    func didSentMessage(id: String)
+    {
+        if DAOMessage.sharedInstance.changeMessageStatus(id, status: MessageStatus.Sent)
+        {
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageSent(id))
+        }
+    }
+    
     func addedBuddyToList(buddyList: [UserModel]) {
         
     }
@@ -205,20 +213,62 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
 
     
     
-    func sendMessage(text: String, toId id: String)
+    func sendTextMessage(text: String, toId id: String)
     {
+        let id = "\(self.id)_\(id)_\(NSDate())"
+        
         let body = DDXMLElement(name: "body", stringValue: text)
         
         let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("id", stringValue: id)
         messageElement.addAttributeWithName("type", stringValue: "chat")
         messageElement.addAttributeWithName("to", stringValue: id)
         messageElement.addChild(body)
+        
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
-        let id = "\(self.id)\(NSDate())"
         
         if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Text, sentDate: NSDate(), text: text)
         {
             NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+        }
+    }
+    
+    func sendImageMessage(text: String?, toId id: String, image: UIImage)
+    {
+        
+        let id = "\(self.id)_\(id)_\(NSDate())"
+        
+        var newText = ""
+
+        if text != nil
+        {
+            newText = text!
+        }
+        
+        let body = DDXMLElement(name: "body", stringValue: newText)
+        
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("id", stringValue: id)
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: id)
+        messageElement.addChild(body)
+        
+        let data = image.highestQualityJPEGNSData
+        let string = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
+        
+        let attachement = DDXMLElement(name: "attachement")
+        attachement.setStringValue(string as String)
+        
+        messageElement.addChild(attachement)
+        
+        XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+
+        if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Image, content: data)
+        {
+            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Image, sentDate: NSDate(), text: newText)
+            {
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+            }
         }
     }
     
@@ -271,14 +321,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         if DAOChannel.sharedInstance.addSessionToChannel(channel, session: session)
         {
             NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.channelMember(channel, member: session))
-        }
-    }
-    
-    private func newMessage(id: String, sender: String, target: String, type: MessageType, sentDate: NSDate, text: String)
-    {
-        if let message = DAOMessage.sharedInstance.newMessage(id, sender: sender, target: target, type: type, sentDate: sentDate, text: text)
-        {
-           
         }
     }
     
