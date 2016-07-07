@@ -15,7 +15,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
 
 //    private var channel : Channel!
     
-    private var usermodel : UserModel!
+    var usermodel : UserModel!
     
     private var messages: [Message] = [Message]()
     
@@ -30,11 +30,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     var rightButton : UIBarButtonItem!
     
     var button : UIButton!
-    
-    func currentUserModel() -> UserModel
-    {
-        return self.usermodel
-    }
     
     init(usermodel: UserModel)
     {
@@ -53,11 +48,22 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     /********************************/
     
 
-    func refreshChat(usermodel: UserModel)
+    func refreshChat()
     {
-        self.usermodel = usermodel
-        self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
-        self.chatView.collectionView.reloadData()
+        if let id = ChatApplication.sharedInstance.getId()
+        {
+            self.messages = DAOMessage.sharedInstance.getMessagesWithContact(id, contact: self.usermodel.id)
+            self.chatView.collectionView.reloadData()
+            
+            self.chatView.imageView.image = self.usermodel.profileImage
+            self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
+            
+            if(self.messages.count > 0)
+            {
+                self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+                self.chatView.collectionView.contentOffset.y += 10
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -98,18 +104,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     override func viewWillAppear(animated: Bool)
     {
-        self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
-        self.title = self.usermodel.name
-        
-        self.chatView.imageView.image = self.usermodel.profileImage
-        self.chatView.channelButton.setTitle(self.usermodel.name, forState: .Normal)
-        
-        self.chatView.collectionView.reloadData()
-        if(self.messages.count > 0)
-        {
-            self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: false)
-            self.chatView.collectionView.contentOffset.y += 10
-        }
+        self.refreshChat()
     }
     
     override func viewDidAppear(animated: Bool)
@@ -133,7 +128,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     func openGallery()
     {
-        let sentMediaController = SentMediaController()
+        let sentMediaController = SentMediaController(userModel: self.usermodel)
         self.navigationController?.pushViewController(sentMediaController, animated: true)
     }
     
@@ -211,23 +206,17 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
-            /** 
-             * Aqui passa a mensagem inteira.
-             * Mas la dentro da celula se quiser acessar a imagem enviada é:
-             *
-             * if let image = DAOFile.sharedInstance.getFile(message.id)
-             * {
-             *      print("tem imagem")
-             * }
-             *
-             */
-            
-             if let image = DAOFile.sharedInstance.getFile(message.id)
-             {
-                  print("tem imagem")
-             }
-            
-//            cell.configureCell(message)
+            /**
+             
+             ' É assim que se pega a imagem.
+             Entretanto é preferivel que essa açao seja feita dentro de
+             "configureCell", pra deixar aqui mais limpo em relacao
+             a itens visuais. '
+             
+             cell.imageView.image = UIImage(data: message.file!.content)
+             cell.configureCell(message)
+
+            */
             
             return cell
         }
@@ -252,13 +241,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     {
         if let userinfo = notification.userInfo
         {
-            let sender = userinfo["sender"] as! String
             let message = userinfo["message"] as! Message
+            let sender = message.sender
             
             //Verifica se o remetente é o mesmo
             if sender != self.usermodel.id && sender != ChatApplication.sharedInstance.getId() { return }
             
-            self.messages = DAOMessage.sharedInstance.getMessagesFrom(self.usermodel.id)
+            self.messages = DAOMessage.sharedInstance.getMessagesWithContact(ChatApplication.sharedInstance.getId()!, contact: self.usermodel.id)
 
             if let index = self.messages.indexOf(message)
             {
@@ -320,7 +309,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     func sendTextMessage(text: String)
     {
-        ChatApplication.sharedInstance.sendTextMessage(text, toId: self.usermodel.id)
+        ChatApplication.sharedInstance.sendTextMessage(text, toContact: self.usermodel.id)
     }
 
     
@@ -338,7 +327,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     func audioRecorded(audio: NSData)
     {
-        ChatApplication.sharedInstance.sendAudioMessage(nil, toId: self.usermodel.id, audio: audio)
+        ChatApplication.sharedInstance.sendAudioMessage(nil, toContact: self.usermodel.id, audio: audio)
     }
     
     /********************************/

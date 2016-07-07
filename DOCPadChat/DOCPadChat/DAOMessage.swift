@@ -138,16 +138,16 @@ class DAOMessage : NSObject
         }
     }
     
-    func getMessagesFrom(id: String) -> [Message]
-    {
-        let messages = [Message]()
-        
-        do { return try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "Message")) as! [Message] }
-            
-        catch {}
-        
-        return messages
-    }
+//    func getMessagesFrom(id: String) -> [Message]
+//    {
+//        let messages = [Message]()
+//        
+//        do { return try self.managedObjectContext.executeFetchRequest(NSFetchRequest(entityName: "Message")) as! [Message] }
+//            
+//        catch {}
+//        
+//        return messages
+//    }
     
     func getOldMessagesFromChannel(channel: String) -> [Message]
     {
@@ -206,6 +206,94 @@ class DAOMessage : NSObject
         return nil
     }
     
+    func getMessagesWithContent(target: String) -> [Message]
+    {
+        var messages = [Message]()
+        
+        let query = NSFetchRequest(entityName: "Message")
+        
+        let predicate = NSPredicate(format: "target == %@", target)
+        query.predicate = predicate
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(query) as! [Message]
+            
+            for message in results
+            {
+                if message.file != nil
+                {
+                    messages.append(message)
+                }
+            }
+            
+            return messages
+        }
+        catch { return messages }
+    }
+    
+    /**
+     * Efetua a exclusao e retorna o id correspondente às mensagens
+     * que possuem um Arquvio e foram enviadas para o 'target'.
+     */
+    func deleteMessageContentSent(id: String, target: String) -> Int?
+    {
+        let messages = self.getMessagesWithContent(target)
+        
+        for i in 0..<messages.count
+        {
+            if messages[i].file!.id == id
+            {
+                self.managedObjectContext.deleteObject(messages[i])
+                self.save()
+                return i
+            }
+        }
+        
+        return nil
+    }
+    
+    func deleteAllMessageContentsSentTo(target: String)
+    {
+        let query = NSFetchRequest(entityName: "Message")
+        
+        let predicate = NSPredicate(format: "target == %@", target)
+        query.predicate = predicate
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(query) as! [Message]
+            
+            for message in results
+            {
+                if message.file != nil
+                {
+                    self.managedObjectContext.deleteObject(message.file!)
+                    self.save()
+                }
+            }
+        }
+        catch { return }
+    }
+    
+    
+    
+    func getMessagesWithContact(me: String, contact: String) -> [Message]
+    {
+        let query = NSFetchRequest(entityName: "Message")
+        
+        let predicate = NSPredicate(format: "(sender == %@ and target == %@) or (sender == %@ and target == %@)", me, contact, contact, me)
+        
+        query.predicate = predicate
+        
+        do
+        {
+            let results = try self.managedObjectContext.executeFetchRequest(query) as! [Message]
+            
+            return results
+        }
+        catch { return [Message]() }
+    }
     
     func save()
     {

@@ -170,9 +170,9 @@ class ChatNotifications : NSObject
     
     //Messages
     
-    class func messageNew(message: Message, sender: String) -> NSNotification
+    class func messageNew(message: Message) -> NSNotification
     {
-        return NSNotification(name: Event.message_new.rawValue, object: nil, userInfo: ["message": message, "sender": sender])
+        return NSNotification(name: Event.message_new.rawValue, object: nil, userInfo: ["message": message])
     }
     
     class func messageSent(id: String) -> NSNotification

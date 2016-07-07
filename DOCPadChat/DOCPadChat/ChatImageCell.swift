@@ -12,7 +12,7 @@ class ChatImageCell: UICollectionViewCell
 {
     private var view : UIView!
     
-    private var imageView : UIImageView!
+    var imageView : UIImageView!
     
     private var dateLabel : UILabel!
     

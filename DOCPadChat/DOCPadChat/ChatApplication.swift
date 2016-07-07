@@ -196,18 +196,9 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     }
 
 
-    func didReceiveMessage(message: MessageModel)
+    func didReceiveMessage(message: Message)
     {
-        let sender = message.messageSender
-        let text = message.messageBody
-        
-        let id = "\(sender)\(NSDate())"
-        
-        if let message = DAOMessage.sharedInstance.newMessage(id, sender: sender, target: self.id, type: MessageType.Text, sentDate: NSDate(), text: text)
-        {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: sender))
-            self.delegate?.chatApplication(self, newMessage: message)
-        }
+        NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
     }
     
     func didSentMessage(id: String)
@@ -228,30 +219,35 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
 
     
     
-    func sendTextMessage(text: String, toId id: String)
+    func sendTextMessage(text: String, toContact contact: String)
     {
-        let id = "\(self.id)_\(id)_\(NSDate())"
+        let id = "\(self.id)_\(contact)_\(NSDate())"
         
+        //Texto
         let body = DDXMLElement(name: "body", stringValue: text)
         
-        let messageElement = DDXMLElement(name: "message")
-        messageElement.addAttributeWithName("id", stringValue: id)
-        messageElement.addAttributeWithName("type", stringValue: "chat")
-        messageElement.addAttributeWithName("to", stringValue: id)
-        messageElement.addChild(body)
+        //Id
+        let messageId = DDXMLElement(name: "id", stringValue: id)
         
+        //Mensagem
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: contact)
+        
+        //Adiciona cada parte
+        messageElement.addChild(body)
+        messageElement.addChild(messageId)
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
         
-        if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Text, sentDate: NSDate(), text: text)
+        if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Text, sentDate: NSDate(), text: text)
         {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
         }
     }
     
-    func sendImageMessage(text: String?, toId id: String, image: UIImage)
+    func sendImageMessage(text: String?, toContact contact: String, image: UIImage)
     {
-        
-        let id = "\(self.id)_\(id)_\(NSDate())"
+        let id = "\(self.id)_\(contact)_\(NSDate())"
         
         var newText = ""
 
@@ -260,37 +256,88 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             newText = text!
         }
         
+        //Texto
         let body = DDXMLElement(name: "body", stringValue: newText)
         
-        let messageElement = DDXMLElement(name: "message")
-        messageElement.addAttributeWithName("id", stringValue: id)
-        messageElement.addAttributeWithName("type", stringValue: "chat")
-        messageElement.addAttributeWithName("to", stringValue: id)
-        messageElement.addChild(body)
+        //Id
+        let messageId = DDXMLElement(name: "id", stringValue: id)
         
+        //Trasnforma o conteudo em string
         let data = image.highestQualityJPEGNSData
         let string = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
         
-        let attachement = DDXMLElement(name: "attachement")
-        attachement.setStringValue(string as String)
+        //Conteudo
+        let messageContent = DDXMLElement(name: "content")
+        messageContent.addAttributeWithName("type", stringValue: MessageType.Image.rawValue)
+        messageContent.addAttributeWithName("contentData", stringValue: string as String)
+
+        //Mensagem
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: contact)
         
-        messageElement.addChild(attachement)
-        
+        //Adiciona cada parte
+        messageElement.addChild(body)
+        messageElement.addChild(messageId)
+        messageElement.addChild(messageContent)
+
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
 
         if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Image, content: data)
         {
-            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Image, sentDate: NSDate(), text: newText)
+            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Image, sentDate: NSDate(), text: newText)
             {
-                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+                message.addFile(file)
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
             }
         }
     }
     
-    func sendAudioMessage(text: String?, toId id: String, audio: NSData)
+    func reSendImageMessage(message: Message)
     {
+        let id = "\(self.id)_\(message.target)_\(NSDate())"
+
+        if message.file == nil { return }
         
-        let id = "\(self.id)_\(id)_\(NSDate())"
+        //Texto
+        let body = DDXMLElement(name: "body", stringValue: "")
+        
+        //Id
+        let messageId = DDXMLElement(name: "id", stringValue: id)
+        
+        //Trasnforma o conteudo em string
+        let data = message.file!.content
+        let string = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
+        
+        //Conteudo
+        let messageContent = DDXMLElement(name: "content")
+        messageContent.addAttributeWithName("type", stringValue: MessageType.Image.rawValue)
+        messageContent.addAttributeWithName("contentData", stringValue: string as String)
+        
+        //Mensagem
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: message.target)
+        
+        //Adiciona cada parte
+        messageElement.addChild(body)
+        messageElement.addChild(messageId)
+        messageElement.addChild(messageContent)
+        
+        XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+        
+      
+        if let newMessage = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: message.target, type: MessageType.Image, sentDate: NSDate(), text: "")
+        {
+            newMessage.addFile(message.file!)
+            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
+        }
+
+    }
+    
+    func sendAudioMessage(text: String?, toContact contact: String, audio: NSData)
+    {
+        let id = "\(self.id)_\(contact)_\(NSDate())"
         
         var newText = ""
         
@@ -299,32 +346,55 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             newText = text!
         }
         
+        //Texto
         let body = DDXMLElement(name: "body", stringValue: newText)
         
-        let messageElement = DDXMLElement(name: "message")
-        messageElement.addAttributeWithName("id", stringValue: id)
-        messageElement.addAttributeWithName("type", stringValue: "chat")
-        messageElement.addAttributeWithName("to", stringValue: id)
-        messageElement.addChild(body)
+        //Id
+        let messageId = DDXMLElement(name: "id", stringValue: id)
         
+        //Trasnforma o conteudo em string
         let string = audio.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
         
-        let attachement = DDXMLElement(name: "attachement")
-        attachement.setStringValue(string as String)
+        //Conteudo
+        let messageContent = DDXMLElement(name: "content")
+        messageContent.addAttributeWithName("type", stringValue: MessageType.Audio.rawValue)
+        messageContent.addAttributeWithName("contentData", stringValue: string as String)
         
-        messageElement.addChild(attachement)
+        //Mensagem
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: contact)
+        
+        //Adiciona cada parte
+        messageElement.addChild(body)
+        messageElement.addChild(messageId)
+        messageElement.addChild(messageContent)
         
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
         
         if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Audio, content: audio)
         {
-            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: id, type: MessageType.Audio, sentDate: NSDate(), text: newText)
+            if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Audio, sentDate: NSDate(), text: newText)
             {
-                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message, sender: self.id))
+                message.addFile(file)
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
             }
         }
     }
     
+    func deleteAllSentMedia(target: String)
+    {
+        DAOMessage.sharedInstance.deleteAllMessageContentsSentTo(target)
+    }
+    
+    /**
+     * Efetua a exclusao e retorna o id correspondente às mensagens
+     * que possuem um Arquvio e foram enviadas para o 'target'.
+     */
+    func deleteSentMedia(id: String, target: String) -> Int?
+    {
+        return DAOMessage.sharedInstance.deleteMessageContentSent(id, target: target)
+    }
     
     private func newSession(id: Int, nickname: String, profileImage: UIImage?)
     {
@@ -377,12 +447,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
-    private func deleteMessage(message: Message)
-    {
-        if let index = DAOMessage.sharedInstance.deleteMessage(message.id)
-        {
-
-        }
-    }
+    
 }
 

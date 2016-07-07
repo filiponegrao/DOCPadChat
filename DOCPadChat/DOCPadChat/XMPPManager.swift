@@ -28,7 +28,7 @@ protocol XMPPManagerLoginDelegate
 
 protocol XMPPManagerStreamDelegate
 {
-    func didReceiveMessage(message : MessageModel)
+    func didReceiveMessage(message : Message)
     
     func didConnectionTimedOut(error: NSError)
     
@@ -155,20 +155,78 @@ extension XMPPManager : XMPPStreamDelegate
         xmppManagerLoginDelegate?.failedToAuthenticate("Could not authenticate")
     }
     
-    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
-                
-        if message.body() == nil || message.from() == nil
+    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!)
+    {
+        var text = message.body() as? String
+        
+        let sender = message.from().bare() as? String
+        
+        let elementId = message.elementForName("id")
+        
+        let elementContent = message.elementForName("content")
+        
+        var id : String!
+        
+        if sender == nil
         {
             return
         }
         
-        let body = message.body()
-        let sender = message.from().bare()
-        let timeStamp = "\(NSDate().timeIntervalSince1970)"
+        if text == nil
+        {
+            text = ""
+        }
         
-        let messageModel = MessageModel(body: body, sender: sender, timestamp: timeStamp)
+        if elementId == nil
+        {
+            id = "\(sender!)_\(ChatApplication.sharedInstance.getId()!)_\(NSDate())"
+        }
+        else
+        {
+            id = elementId.stringValue()
+        }
         
-        self.xmppManagerStreamDelegate?.didReceiveMessage(messageModel)
+        var file : File?
+        var messageType = MessageType.Text
+        
+        //Tem conteudo
+        if elementContent != nil
+        {
+            let type = elementContent.attributeStringValueForName("type")
+            
+            let content = elementContent.attributeStringValueForName("contentData")
+            
+            if type == MessageType.Image.rawValue
+            {
+                if let data = NSData(base64EncodedString: content!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+                {
+                    file = DAOFile.sharedInstance.newFile(withId: id!, type: FileType.Image, content: data)
+                    messageType = MessageType.Image
+                }
+            }
+            else if type == MessageType.Audio.rawValue
+            {
+                if let data = NSData(base64EncodedString: content!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+                {
+                    file = DAOFile.sharedInstance.newFile(withId: id!, type: FileType.Audio, content: data)
+                    messageType = MessageType.Audio
+                }
+            }
+        }
+        
+        //Cria a mensagem
+        if let message = DAOMessage.sharedInstance.newMessage(id!, sender: sender!, target: ChatApplication.sharedInstance.getId()!, type: messageType, sentDate: NSDate(), text: text!)
+        {
+            if file != nil
+            {
+                message.addFile(file!)
+                self.xmppManagerStreamDelegate?.didReceiveMessage(message)
+            }
+            else
+            {
+                self.xmppManagerStreamDelegate?.didReceiveMessage(message)
+            }
+        }
     }
     
 //    func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {

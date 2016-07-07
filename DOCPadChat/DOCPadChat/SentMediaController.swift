@@ -12,7 +12,25 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
 {
     private var sentView : SentMediaView!
     
+    private var sentMessages : [Message]!
+    
+    private var userModel : UserModel!
+    
     var image = UIImage(named: "gamba") //temp
+    
+    init(userModel : UserModel)
+    {
+        self.userModel = userModel
+        
+        self.sentMessages = DAOMessage.sharedInstance.getMessagesWithContent(self.userModel.id)
+        
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad()
     {
@@ -38,8 +56,9 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     /****** COLLECTION DELEGATE ******/
     /*********************************/
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 21
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.sentMessages.count
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
@@ -55,7 +74,7 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
         
         cell.backgroundColor = UIColor.clearColor()
         
-        cell.image.image = self.image
+        cell.image.image = UIImage(data: self.sentMessages[indexPath.item].file!.content)
         
         return cell
     }
@@ -66,6 +85,6 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     func deleteAll()
     {
-        
+//        deleteAllMessageContentsSentTo
     }
 }

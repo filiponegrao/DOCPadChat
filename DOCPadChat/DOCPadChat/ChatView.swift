@@ -305,10 +305,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     {
         self.picker.dismissViewControllerAnimated(true, completion: nil)
         
-        if let id = self.controller.currentUserModel().id
-        {
-            ChatApplication.sharedInstance.sendImageMessage(nil, toId: id, image: image)
-        }
+        ChatApplication.sharedInstance.sendImageMessage(nil, toContact: self.controller.usermodel.id, image: image)
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController)
