@@ -8,40 +8,27 @@
 
 import UIKit
 
-class ReceivedImageView: UIView, UIScrollViewDelegate
+class ReceivedImageController: UIViewController, UIScrollViewDelegate
 {
-    var controller : ChatController!
+    weak var chatController : ChatController!
     
     var image : UIImage!
     
     var receivedImage : UIImageView!
     
-    var editButton : UIButton!
-    
-    var backButton : UIButton!
-    
     var scrollView : UIScrollView!
-
-    init(image: UIImage, frame: CGRect, requester : ChatController)
+        
+    init(image: UIImage, requester : ChatController)
     {
-        super.init(frame: frame)
+        super.init(nibName: nil, bundle: nil)
         
         self.image = image
-        self.controller = requester
-        
-        self.backgroundColor = UIColor.whiteColor()
-        
-        self.backButton = UIButton(frame: CGRectMake(0, 20, 70, 50))
-        self.backButton.setTitle("Voltar", forState: .Normal)
-        self.backButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        self.backButton.addTarget(self, action: #selector(self.back), forControlEvents: .TouchUpInside)
-        self.addSubview(self.backButton)
-        
-        self.editButton = UIButton(frame: CGRectMake(screenWidth - 70, 20, 70, 50))
-        self.editButton.setTitle("Editar", forState: .Normal)
-        self.editButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        self.editButton.addTarget(self, action: #selector(self.openEdition), forControlEvents: .TouchUpInside)
-        self.addSubview(self.editButton)
+        self.chatController = requester
+    }
+    
+    override func viewDidLoad()
+    {
+        self.view.backgroundColor = UIColor.whiteColor()
         
         self.receivedImage = UIImageView(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         self.receivedImage.image = image
@@ -53,9 +40,10 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
         self.scrollView.contentSize = self.image.size
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
-        self.addSubview(self.scrollView)
+        self.scrollView.contentInset = UIEdgeInsetsMake(((screenHeight-65) - image.size.height)/2 , 0, ((screenHeight-65) - image.size.height)/2, 0)
+        self.view.addSubview(self.scrollView)
         
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReceivedImageView.scrollViewDoubleTapped(_:)))
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReceivedImageController.scrollViewDoubleTapped(_:)))
         doubleTapRecognizer.numberOfTapsRequired = 2
         doubleTapRecognizer.numberOfTouchesRequired = 1
         self.scrollView.addGestureRecognizer(doubleTapRecognizer)
@@ -64,6 +52,9 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
         
         updateMinZoomScale()
         centerScrollViewContents()
+
+        let right = UIBarButtonItem(title: "Editar", style: .Plain, target: self, action: #selector(ReceivedImageController.openEdition))
+        self.navigationItem.rightBarButtonItem = right
     }
     
     /*********************************/
@@ -168,14 +159,12 @@ class ReceivedImageView: UIView, UIScrollViewDelegate
     {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func back()
-    {
-        removeFromSuperview()
-    }
+
     
     func openEdition()
     {
+        let editionController = ImageEditionController(image: self.image)
         
+        self.navigationController?.pushViewController(editionController, animated: true)
     }
 }

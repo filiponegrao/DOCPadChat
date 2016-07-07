@@ -21,9 +21,9 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     private var chatView : ChatView!
     
-    /********************************/
+    var navigation : UINavigationController!
     
-    private var receivedImageView : ReceivedImageView!
+    /********************************/
     
     var leftButton : UIBarButtonItem!
     
@@ -91,6 +91,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.handleOffline(nil)
         
         AudioController.sharedInstance.delegate = self
+                
+
     }
     
     func registerNotifications()
@@ -132,10 +134,21 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.pushViewController(sentMediaController, animated: true)
     }
     
-    func openImage()
-    {
-//        self.receivedImageView = ReceivedImageView(image: self.image!, frame: self.view.frame, requester: self)
-//        self.navigationController!.view.addSubview(self.receivedImageView)
+    func openImage(image: UIImage!)
+    {        
+        let receivedImageController = ReceivedImageController(image: image, requester: self)
+        
+        self.navigationController?.pushViewController(receivedImageController, animated: true)
+
+//        self.navigation.viewControllers = [receivedImageController]
+//        
+//        self.navigation.navigationBar.barTintColor = blueColor;
+//        
+////        self.navigation.presentViewController(receivedImageController, animated: true, completion: nil)
+//        
+//        self.navigationController?.presentViewController(self.navigation, animated: true, completion: nil)
+
+
     }
     
     /********************************/
@@ -182,6 +195,19 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
+        let message = self.messages[indexPath.item]
+        
+        let type = message.type
+
+        if(type == MessageType.Image.rawValue)
+        {
+            let image = UIImage(data: message.file!.content)
+            if(image != nil)
+            {
+                self.openImage(image)
+            }
+        }
+        
         self.view.endEditing(true)
     }
     
@@ -206,17 +232,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
-            /**
-             
-             ' É assim que se pega a imagem.
-             Entretanto é preferivel que essa açao seja feita dentro de
-             "configureCell", pra deixar aqui mais limpo em relacao
-             a itens visuais. '
-             
-             cell.imageView.image = UIImage(data: message.file!.content)
-             cell.configureCell(message)
-
-            */
+            cell.imageView.image = UIImage(data: message.file!.content)
+            cell.configureCell(message)
             
             return cell
         }

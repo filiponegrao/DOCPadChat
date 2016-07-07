@@ -27,12 +27,16 @@ class ChatImageCell: UICollectionViewCell
         self.addSubview(self.view)
         
         self.imageView = UIImageView(frame: CGRectMake(10, 10, self.view.frame.size.width - 20, self.view.frame.size.height - 30))
-        self.imageView.image = UIImage(named: "gamba")
         self.imageView.contentMode = .ScaleAspectFit
         self.imageView.layer.cornerRadius = 8
         self.imageView.clipsToBounds = true
         self.view.addSubview(imageView)
         
+        
+    }
+    
+    func configureCell(message: Message)
+    {
         
     }
     

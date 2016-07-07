@@ -25,30 +25,26 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     var markSelected : Bool!
 
     
-//    init(image: UIImage?)
-//    {
-//        self.image = image
-//        
-//        super.init(nibName: "ImageEditionController", bundle: nil)
-//    }
+    init(image: UIImage?)
+    {
+        self.image = image
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     
-//    required init?(coder aDecoder: NSCoder)
-//    {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
+    required init?(coder aDecoder: NSCoder)
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.whiteColor()
         
-        let image = UIImage(named: "alter02")
-        self.image = image
-        
-        
-        self.imageEdit = ImageEditionView(image: self.image, controller: self)
-        self.imageEdit.frame = CGRectMake(0, 70, screenWidth, screenHeight - 70)
+        let viewFrame = CGRectMake(0, 62, screenWidth, screenHeight - 62)
+        self.imageEdit = ImageEditionView(image: self.image, frame: viewFrame, controller: self)
         self.view.addSubview(self.imageEdit)
         
         //AQUI MÉTODO QUE ESCOLHE ESPESSURA
