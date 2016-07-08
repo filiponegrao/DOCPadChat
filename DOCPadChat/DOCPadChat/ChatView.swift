@@ -268,7 +268,8 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
             
         }) { (success: Bool) in
             
-        }    }
+        }
+    }
     
     /*********************************/
     /*********************************/
