@@ -32,8 +32,20 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
         
         let image = UIImage(data: self.message.file!.content)!
         
-        self.receivedImage = UIImageView(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         self.receivedImage.image = image
+        self.receivedImage.layer.borderColor = blueColor.CGColor
+        self.receivedImage.layer.borderWidth = 3.0
+        
+//        let imageHeight = image.size.height
+        
+//        if(imageHeight < screenWidth)
+//        {
+//            self.scrollView = UIScrollView(frame: CGRectMake(0, 105, screenWidth, screenHeight - 105))
+//        }
+//        else
+//        {
+//            self.scrollView = UIScrollView(frame: CGRectMake(0, 65, screenWidth, screenHeight - 65))
+//        }
         
         self.scrollView = UIScrollView(frame: CGRectMake(0, 65, screenWidth, screenHeight - 65))
         self.scrollView.backgroundColor = UIColor.whiteColor()
@@ -43,6 +55,8 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.contentInset = UIEdgeInsetsMake(((screenHeight-65) - image.size.height)/2 , 0, ((screenHeight-65) - image.size.height)/2, 0)
+        self.scrollView.layer.borderWidth = 3.0
+        self.scrollView.layer.borderColor = blueColor.CGColor
         self.view.addSubview(self.scrollView)
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReceivedImageController.scrollViewDoubleTapped(_:)))
