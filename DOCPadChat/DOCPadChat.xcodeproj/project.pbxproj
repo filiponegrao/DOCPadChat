@@ -41,6 +41,7 @@
 		80A7D9DF1CFE4E5800BE52EB /* DOCPadChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9DE1CFE4E5800BE52EB /* DOCPadChatTests.swift */; };
 		80A7D9EA1CFE4E5800BE52EB /* DOCPadChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */; };
 		80D7317F1D2C917400B0170A /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7317E1D2C917400B0170A /* AudioController.swift */; };
+		80D7318C1D2F31F900B0170A /* ChatServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7318B1D2F31F900B0170A /* ChatServerCell.swift */; };
 		80E6D0491D03686B00ECDBC7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D0471D03686B00ECDBC7 /* Message.swift */; };
 		80E6D04C1D036D1B00ECDBC7 /* DAOMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D04B1D036D1B00ECDBC7 /* DAOMessage.swift */; };
 		80E6D04E1D037D9100ECDBC7 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6D04D1D037D9100ECDBC7 /* Simulation.swift */; };
@@ -118,6 +119,7 @@
 		80A7D9E91CFE4E5800BE52EB /* DOCPadChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCPadChatUITests.swift; sourceTree = "<group>"; };
 		80A7D9EB1CFE4E5800BE52EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80D7317E1D2C917400B0170A /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
+		80D7318B1D2F31F900B0170A /* ChatServerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatServerCell.swift; sourceTree = "<group>"; };
 		80E6D0471D03686B00ECDBC7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		80E6D04B1D036D1B00ECDBC7 /* DAOMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOMessage.swift; sourceTree = "<group>"; };
 		80E6D04D1D037D9100ECDBC7 /* Simulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simulation.swift; sourceTree = "<group>"; };
@@ -272,7 +274,6 @@
 				80A7D9C61CFE4E5800BE52EB /* AppDelegate.swift */,
 				80E6D04D1D037D9100ECDBC7 /* Simulation.swift */,
 				80F2C3871CFFC29B008EDE2B /* Model */,
-				8012ED741D13759600652FE8 /* UserModel.swift */,
 				8008B7CF1CFF6F6900C4FAE4 /* Controller */,
 				8008B7CE1CFF6F6200C4FAE4 /* View */,
 				80A7D9D01CFE4E5800BE52EB /* Assets.xcassets */,
@@ -334,6 +335,7 @@
 		80F2C3871CFFC29B008EDE2B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8012ED741D13759600652FE8 /* UserModel.swift */,
 				80180E5F1D02613A00AA0AC9 /* CHANNEL */,
 				80180E4D1D0237AC00AA0AC9 /* FILE */,
 				80F2C3861CFFC28F008EDE2B /* USER */,
@@ -365,6 +367,7 @@
 			children = (
 				F61DBCE61CFF8BFA0040A287 /* SentMediaCell.swift */,
 				8012ED4D1D109E2A00652FE8 /* ChatTextCell.swift */,
+				80D7318B1D2F31F900B0170A /* ChatServerCell.swift */,
 				F6579F6F1D1CA4230097FA47 /* ChatImageCell.swift */,
 				F67169A81D2CDBD000EBBD91 /* ImageEditionCell.swift */,
 			);
@@ -578,6 +581,7 @@
 				80180E631D02765F00AA0AC9 /* ChatApplication.swift in Sources */,
 				80A7D9C71CFE4E5800BE52EB /* AppDelegate.swift in Sources */,
 				F68683B71D2B5C70007DAE44 /* ImageEditionView.swift in Sources */,
+				80D7318C1D2F31F900B0170A /* ChatServerCell.swift in Sources */,
 				80E6D04E1D037D9100ECDBC7 /* Simulation.swift in Sources */,
 				F6579F701D1CA4230097FA47 /* ChatImageCell.swift in Sources */,
 				8012ED4E1D109E2A00652FE8 /* ChatTextCell.swift in Sources */,

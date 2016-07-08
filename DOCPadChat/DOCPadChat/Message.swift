@@ -25,6 +25,8 @@ public enum MessageType : String
     case Video = "video"
     
     case Image = "image"
+    
+    case Server = "server"
 }
 
 extension Message

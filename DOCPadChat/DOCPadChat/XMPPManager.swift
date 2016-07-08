@@ -165,6 +165,8 @@ extension XMPPManager : XMPPStreamDelegate
         
         let elementContent = message.elementForName("content")
         
+        let elementPrintScreen = message.elementForName("printScreen")
+        
         var id : String!
         
         if sender == nil
@@ -212,6 +214,12 @@ extension XMPPManager : XMPPStreamDelegate
                     messageType = MessageType.Audio
                 }
             }
+        }
+        
+        if elementPrintScreen != nil
+        {
+            messageType = MessageType.Server
+            id = "\(sender!)_\(ChatApplication.sharedInstance.getId()!)_\(NSDate())"
         }
         
         //Cria a mensagem

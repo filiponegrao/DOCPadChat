@@ -12,23 +12,25 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
 {
     weak var chatController : ChatController!
     
-    var image : UIImage!
+    var message : Message!
     
     var receivedImage : UIImageView!
     
     var scrollView : UIScrollView!
         
-    init(image: UIImage, requester : ChatController)
+    init(message: Message, requester : ChatController)
     {
         super.init(nibName: nil, bundle: nil)
         
-        self.image = image
+        self.message = message
         self.chatController = requester
     }
     
     override func viewDidLoad()
     {
         self.view.backgroundColor = UIColor.whiteColor()
+        
+        let image = UIImage(data: self.message.file!.content)!
         
         self.receivedImage = UIImageView(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         self.receivedImage.image = image
@@ -37,7 +39,7 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
         self.scrollView.backgroundColor = UIColor.whiteColor()
         self.scrollView.delegate = self
         self.scrollView.addSubview(self.receivedImage)
-        self.scrollView.contentSize = self.image.size
+        self.scrollView.contentSize = image.size
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.contentInset = UIEdgeInsetsMake(((screenHeight-65) - image.size.height)/2 , 0, ((screenHeight-65) - image.size.height)/2, 0)
@@ -55,6 +57,8 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
 
         let right = UIBarButtonItem(title: "Editar", style: .Plain, target: self, action: #selector(ReceivedImageController.openEdition))
         self.navigationItem.rightBarButtonItem = right
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.didTakeScreenShot), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
     }
     
     /*********************************/
@@ -163,8 +167,20 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
     
     func openEdition()
     {
-        let editionController = ImageEditionController(image: self.image)
+        let image = UIImage(data: self.message.file!.content)
+        
+        let editionController = ImageEditionController(image: image)
         
         self.navigationController?.pushViewController(editionController, animated: true)
+    }
+    
+    func didTakeScreenShot()
+    {
+        if self.message.sender == ChatApplication.sharedInstance.getId()
+        {
+            return
+        }
+        
+        ChatApplication.sharedInstance.sendPrintScreenNotification(self.message.file!.id, sender: self.message.sender)
     }
 }

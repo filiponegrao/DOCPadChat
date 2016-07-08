@@ -293,6 +293,30 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         }
     }
     
+    func sendPrintScreenNotification(image: String, sender: String)
+    {
+        let elementPrintScreen = DDXMLElement(name: "printScreen", stringValue: image)
+        elementPrintScreen.addAttributeWithName("printDate", stringValue: "\(NSDate())")
+        
+        //Texto
+        let body = DDXMLElement(name: "body", stringValue: "")
+        
+        //Id
+        let messageId = DDXMLElement(name: "id", stringValue: image)
+        
+        //Mensagem
+        let messageElement = DDXMLElement(name: "message")
+        messageElement.addAttributeWithName("type", stringValue: "chat")
+        messageElement.addAttributeWithName("to", stringValue: sender)
+        
+        //Adiciona cada parte
+        messageElement.addChild(body)
+        messageElement.addChild(messageId)
+        messageElement.addChild(elementPrintScreen)
+        
+        XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+    }
+    
     func reSendImageMessage(message: Message)
     {
         let id = "\(self.id)_\(message.target)_\(NSDate())"

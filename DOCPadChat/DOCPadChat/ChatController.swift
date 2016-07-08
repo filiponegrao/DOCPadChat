@@ -134,22 +134,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.pushViewController(sentMediaController, animated: true)
     }
     
-    func openImage(image: UIImage!)
-    {        
-        let receivedImageController = ReceivedImageController(image: image, requester: self)
+    func openImage(message: Message)
+    {
+        let receivedImageController = ReceivedImageController(message: message, requester: self)
         
         self.navigationController?.pushViewController(receivedImageController, animated: true)
-
-//        self.navigation.viewControllers = [receivedImageController]
-//        
-//        self.navigation.navigationBar.barTintColor = blueColor;
-//        
-////        self.navigation.presentViewController(receivedImageController, animated: true, completion: nil)
-//        
-//        self.navigationController?.presentViewController(self.navigation, animated: true, completion: nil)
-
-
     }
+    
     
     /********************************/
     /********************************/
@@ -204,7 +195,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
             let image = UIImage(data: message.file!.content)
             if(image != nil)
             {
-                self.openImage(image)
+                self.openImage(message)
             }
         }
         
@@ -243,6 +234,14 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
 
 //            cell.configureCell(message)
 
+            return cell
+        }
+        else if type == MessageType.Server.rawValue
+        {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellServer", forIndexPath: indexPath) as! ChatServerCell
+            
+            cell.configureCell(self.usermodel.name, date: message.sentDate)
+            
             return cell
         }
         
