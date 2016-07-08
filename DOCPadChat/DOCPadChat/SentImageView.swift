@@ -91,9 +91,9 @@ class SentImageView: UIView
     
     func sendPhoto()
     {
-        ChatApplication.sharedInstance.reSendImageMessage(self.message)
-        self.removeFromSuperview()
-
+//        ChatApplication.sharedInstance.reSendImageMessage(self.message)
+//        self.removeFromSuperview()
+        //TA DANDO CRASH
     }
     
     func back()
