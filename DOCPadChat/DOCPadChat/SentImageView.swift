@@ -26,12 +26,15 @@ class SentImageView: UIView
     
     var blurView : UIVisualEffectView!
     
-    init(image: UIImage, requester: SentMediaController)
+    var message : Message!
+    
+    init(image: UIImage, message: Message!, requester: SentMediaController)
     {
         super.init(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         
         self.image = image
         self.viewController = requester
+        self.message = message
         
         self.whiteScreen = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.whiteScreen.backgroundColor = UIColor.whiteColor()
@@ -53,7 +56,7 @@ class SentImageView: UIView
         self.closeButton.setImage(UIImage(named: "close"), forState: .Normal)
         self.closeButton.setTitle("Fechar", forState: .Normal)
         self.closeButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        self.closeButton.addTarget(self, action: "back", forControlEvents: UIControlEvents.TouchUpInside)
+        self.closeButton.addTarget(self, action: #selector(SentImageView.back), forControlEvents: UIControlEvents.TouchUpInside)
         self.closeButton.alpha = 1
         self.addSubview(self.closeButton)
         
@@ -63,7 +66,7 @@ class SentImageView: UIView
         self.sendButton.setTitle("Enviar", forState: .Normal)
         self.sendButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         self.sendButton.contentMode = .ScaleAspectFill
-        self.sendButton.addTarget(self, action: "sendPhoto", forControlEvents: .TouchUpInside)
+        self.sendButton.addTarget(self, action: #selector(SentImageView.sendPhoto), forControlEvents: .TouchUpInside)
         self.addSubview(self.sendButton)
         
         self.deleteButton = UIButton(frame: CGRectMake(screenWidth/2, screenHeight - 50, screenWidth/2, 50))
@@ -71,7 +74,7 @@ class SentImageView: UIView
         self.deleteButton.clipsToBounds = true
         self.deleteButton.setTitle("Apagar", forState: .Normal)
         self.deleteButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        self.deleteButton.addTarget(self, action: "deletePhoto", forControlEvents: .TouchUpInside)
+        self.deleteButton.addTarget(self, action: #selector(SentImageView.deletePhoto), forControlEvents: .TouchUpInside)
         self.addSubview(self.deleteButton)
 
     }
@@ -88,7 +91,9 @@ class SentImageView: UIView
     
     func sendPhoto()
     {
-        //TO DO
+        ChatApplication.sharedInstance.reSendImageMessage(self.message)
+        self.removeFromSuperview()
+
     }
     
     func back()

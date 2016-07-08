@@ -16,14 +16,11 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     private var userModel : UserModel!
     
-    var image = UIImage(named: "gamba") //temp
-    
     init(userModel : UserModel)
     {
         self.userModel = userModel
         
         self.sentMessages = DAOMessage.sharedInstance.getMessagesWithContent(self.userModel.id)
-        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -64,9 +61,15 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let sentImageView = SentImageView(image: self.image!, requester: self)
-        
-        self.navigationController?.view.addSubview(sentImageView)
+        let message = self.sentMessages[indexPath.item]
+
+        let image = UIImage(data: message.file!.content)
+
+        if(image != nil)
+        {
+            let sentImageView = SentImageView(image: image!, message: message, requester: self)
+            self.navigationController?.view.addSubview(sentImageView)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell

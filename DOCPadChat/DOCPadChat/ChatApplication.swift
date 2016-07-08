@@ -287,7 +287,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         {
             if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Image, sentDate: NSDate(), text: newText)
             {
-                message.addFile(file)
+                message.addFile(file, moc: DAOMessage.sharedInstance.managedObjectContext)
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
             }
         }
@@ -329,7 +329,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
       
         if let newMessage = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: message.target, type: MessageType.Image, sentDate: NSDate(), text: "")
         {
-            newMessage.addFile(message.file!)
+            newMessage.addFile(message.file!, moc: DAOMessage.sharedInstance.managedObjectContext)
             NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
         }
 
@@ -376,7 +376,7 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         {
             if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Audio, sentDate: NSDate(), text: newText)
             {
-                message.addFile(file)
+                message.addFile(file, moc: DAOMessage.sharedInstance.managedObjectContext)
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
             }
         }
