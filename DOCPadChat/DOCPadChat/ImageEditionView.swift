@@ -164,6 +164,7 @@ class ImageEditionView: UIView
         //Navigation
         let right = UIBarButtonItem(title: "Enviar", style: .Plain, target: controller, action: #selector(self.controller.sendImage))
         self.controller.navigationItem.rightBarButtonItem = right
+
     }
     
     required init?(coder aDecoder: NSCoder)

@@ -184,7 +184,7 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
     {
         let image = UIImage(data: self.message.file!.content)
         
-        let editionController = ImageEditionController(image: image)
+        let editionController = ImageEditionController(image: image, userModel: self.chatController.usermodel, chatController: self.chatController)
         
         self.navigationController?.pushViewController(editionController, animated: true)
     }

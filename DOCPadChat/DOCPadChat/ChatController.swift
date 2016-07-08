@@ -20,9 +20,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     private var messages: [Message] = [Message]()
     
     private var chatView : ChatView!
-    
-    var navigation : UINavigationController!
-    
+        
     /********************************/
     
     var leftButton : UIBarButtonItem!

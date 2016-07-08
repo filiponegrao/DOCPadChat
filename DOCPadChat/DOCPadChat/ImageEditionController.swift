@@ -12,6 +12,8 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
 {
     private var imageEdit : ImageEditionView!
     
+    weak var chatController : ChatController!
+    
     private var image : UIImage!
     
     var thicknessSelected : Bool!
@@ -24,10 +26,13 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     
     var markSelected : Bool!
 
+    var usermodel : UserModel!
     
-    init(image: UIImage?)
+    init(image: UIImage?, userModel: UserModel!, chatController: ChatController!)
     {
         self.image = image
+        self.usermodel = userModel
+        self.chatController = chatController
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -282,7 +287,9 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     
     func sendImage()
     {
-        
+        ChatApplication.sharedInstance.sendImageMessage(nil, toContact: self.usermodel.id, image: image)
+        self.navigationController?.popViewControllerAnimated(true)
+        self.chatController.navigationController?.popViewControllerAnimated(true)
     }
 
 }
