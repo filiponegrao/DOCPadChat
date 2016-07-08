@@ -351,12 +351,14 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
         
       
-        if let newMessage = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: message.target, type: MessageType.Image, sentDate: NSDate(), text: "")
+        if let file = DAOFile.sharedInstance.newFile(withId: id, type: FileType.Image, content: message.file!.content)
         {
-            newMessage.addFile(message.file!, moc: DAOMessage.sharedInstance.managedObjectContext)
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
+            if let newMessage = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: message.target, type: MessageType.Image, sentDate: NSDate(), text: "")
+            {
+                DAOMessage.sharedInstance.addFileToMessage(newMessage, file: file)
+                NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(newMessage))
+            }
         }
-
     }
     
     func sendAudioMessage(text: String?, toContact contact: String, audio: NSData)

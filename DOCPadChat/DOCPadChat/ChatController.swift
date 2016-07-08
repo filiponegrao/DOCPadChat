@@ -223,8 +223,16 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellImage", forIndexPath: indexPath) as! ChatImageCell
             
-            cell.imageView.image = UIImage(data: message.file!.content)
-            cell.configureCell(message)
+            if let file = message.file
+            {
+                let data = file.content
+                
+                let image = UIImage(data: data)
+                
+                cell.imageView.image = image
+                
+                cell.configureCell(message)
+            }
             
             return cell
         }

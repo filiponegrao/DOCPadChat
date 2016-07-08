@@ -295,6 +295,12 @@ class DAOMessage : NSObject
         catch { return [Message]() }
     }
     
+    func addFileToMessage(message: Message, file: File)
+    {
+        message.file = file
+        self.save()
+    }
+    
     func save()
     {
         do { try self.managedObjectContext.save() }
