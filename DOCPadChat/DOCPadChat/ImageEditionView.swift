@@ -38,23 +38,21 @@ class ImageEditionView: UIView
     
     weak private var controller : ImageEditionController!
     
-    init(image: UIImage, controller: ImageEditionController)
+    init(image: UIImage, frame: CGRect,controller: ImageEditionController)
     {
         self.controller = controller
-        super.init(frame: CGRectMake(0, 70, screenWidth, screenHeight-70))
+        super.init(frame: frame)
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.clearColor()
         
 //        let nav = self.controller.navigationController!.navigationBar
         
         //IMAGEVIEW QUE CONTÉM A IMAGEM QUE SERÁ ENVIADA
-        self.imageView = UIImageView(frame: CGRectMake(0, 0, screenWidth, self.frame.size.height - screenWidth/2 - 15))
+        self.imageView = UIImageView(frame: CGRectMake(0, 0, screenWidth, self.frame.size.height - screenWidth/2 - 20))
         self.imageView.image = image
         self.imageView.contentMode = .ScaleAspectFit
         
         self.imageView.backgroundColor = UIColor.clearColor()
-//        self.imageView.layer.borderWidth = 1
-//        self.imageView.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.addSubview(self.imageView)
         
         //BOTOES DE EDIÇÃO:
@@ -93,7 +91,8 @@ class ImageEditionView: UIView
         
         //view por trás das canetas
         self.chooseColorView = UIView(frame: CGRectMake(0, self.frame.size.height - screenWidth/3, screenWidth, screenWidth/3))
-        self.chooseColorView.backgroundColor = grayColor
+        self.chooseColorView.backgroundColor = blueColor
+        self.chooseColorView.alpha = 0.8 //pra cor ficar parecida com da navigation
         self.addSubview(self.chooseColorView)
         
         //botao espessura lapis

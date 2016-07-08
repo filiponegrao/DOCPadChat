@@ -219,7 +219,7 @@ extension XMPPManager : XMPPStreamDelegate
         {
             if file != nil
             {
-                message.addFile(file!)
+                message.addFile(file!, moc: DAOMessage.sharedInstance.managedObjectContext)
                 self.xmppManagerStreamDelegate?.didReceiveMessage(message)
             }
             else

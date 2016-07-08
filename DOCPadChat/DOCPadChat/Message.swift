@@ -62,14 +62,14 @@ class Message: NSManagedObject
      * Retorna false se ja existir um arquivo linkado a essa mensagem.
      * Para remover o link de arquivo, utilize o método : removeFile().
      */
-    func addFile(file: File) -> Bool
+    func addFile(file: File, moc: NSManagedObjectContext) -> Bool
     {
         if(self.file == nil)
         {
             self.file = file
             do
             {
-                try self.managedObjectContext?.save()
+                try moc.save()
                 return true
             
             } catch { return false }

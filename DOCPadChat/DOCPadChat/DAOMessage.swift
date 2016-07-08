@@ -14,7 +14,7 @@ private let data : DAOMessage = DAOMessage()
 
 class DAOMessage : NSObject
 {
-    private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     class var sharedInstance : DAOMessage {
         
