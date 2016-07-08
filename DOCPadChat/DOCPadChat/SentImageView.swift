@@ -86,14 +86,16 @@ class SentImageView: UIView
     
     func deletePhoto()
     {
-        //TO DO
+        ChatApplication.sharedInstance.deleteSentMedia(viewController.sentMessages[0].id, target: viewController.sentMessages[0].target)
+        self.removeFromSuperview()
+//        self.viewController.sentView.collection.reloadData() //COMENTEI PQ DA CRASH E NAO SEI PORQUE
     }
     
     func sendPhoto()
     {
-//        ChatApplication.sharedInstance.reSendImageMessage(self.message)
-//        self.removeFromSuperview()
-        //TA DANDO CRASH
+        ChatApplication.sharedInstance.reSendImageMessage(self.message)
+        self.removeFromSuperview()
+        self.viewController.navigationController?.popViewControllerAnimated(true)
     }
     
     func back()

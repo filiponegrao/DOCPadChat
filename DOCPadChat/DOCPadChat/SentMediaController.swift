@@ -10,9 +10,9 @@ import UIKit
 
 class SentMediaController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource
 {
-    private var sentView : SentMediaView!
+    var sentView : SentMediaView!
     
-    private var sentMessages : [Message]!
+    var sentMessages : [Message]!
     
     private var userModel : UserModel!
     
@@ -89,6 +89,8 @@ class SentMediaController: UIViewController, UICollectionViewDelegate, UICollect
     
     func deleteAll()
     {
-//        deleteAllMessageContentsSentTo
+        let target = self.sentMessages[0].target
+        ChatApplication.sharedInstance.deleteAllSentMedia(target)
+//        self.sentView.collection.reloadData()  //COMENTEI PQ DA CRASH E NAO SEI PORQUE
     }
 }
