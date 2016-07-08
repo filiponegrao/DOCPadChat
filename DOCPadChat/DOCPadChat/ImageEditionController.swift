@@ -249,31 +249,31 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         
         switch indexPath.item {
         case 0:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xe94d3e)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x151414)
         case 1:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x2f60ad)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xb1afaf)
         case 2:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf7be32)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x007aff)
         case 3:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xa3c2c7)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x6caf47)
         case 4:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xfdfdf8)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x6de0ff)
         case 5:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xed2130)
         case 6:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xff9500)
         case 7:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xfdfdf8)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xff2d86)
         case 8:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xa3c2c7)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf8edb9)
         case 9:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf7be32)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x8659f7)
         case 10:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x2f60ad)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf6f5f9)
         case 11:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xe94d3e)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0x009fb8)
         default:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x221e1f)
+            cell.imageView.backgroundColor = UIColor.init(netHex: 0xd42111)
         }
         
         cell.frame.size = CGSizeMake(screenWidth/6, screenWidth/6)
