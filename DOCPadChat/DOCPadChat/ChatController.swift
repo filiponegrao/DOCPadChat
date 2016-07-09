@@ -89,8 +89,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.handleOffline(nil)
         
         AudioController.sharedInstance.delegate = self
-                
-
     }
     
     func registerNotifications()
@@ -276,7 +274,6 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
                 let indexPath = NSIndexPath.init(forItem: index, inSection: 0)
                 self.chatView.collectionView.insertItemsAtIndexPaths([indexPath])
                 self.chatView.collectionView.scrollToItemAtIndexPath(NSIndexPath.init(forItem: self.messages.count-1, inSection: 0), atScrollPosition: .Bottom, animated: true)
-                self.chatView.collectionView.contentOffset.y += 10
             }
             else
             {

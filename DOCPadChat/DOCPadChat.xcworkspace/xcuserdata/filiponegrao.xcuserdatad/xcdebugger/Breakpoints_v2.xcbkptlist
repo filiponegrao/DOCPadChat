@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DOCPadChat/ChatView.swift"
-            timestampString = "489634222.031958"
+            timestampString = "489707969.323341"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "disableMessages()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,59 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DOCPadChat/ChatController.swift"
-            timestampString = "489637596.34168"
+            timestampString = "489709170.258123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "handleNewMessage(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DOCPadChat.ChatController.handleOffline (Swift.Optional&lt;__ObjC.NSNotification&gt;) -&gt; ()"
-                  moduleName = "DOCPadChat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/filiponegrao/Documents/Arquivos%20Programacao/DOCPadChat/DOCPadChat/DOCPadChat/ChatController.swift"
-                  timestampString = "489453378.209688"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "252"
-                  endingLineNumber = "252"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DOCPadChat.ChatController.handleOffline (Swift.Optional&lt;__ObjC.NSNotification&gt;) -&gt; ()"
-                  moduleName = "DOCPadChat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/filiponegrao/Documents/Arquivos%20Programacao/DOCPadChat/DOCPadChat/DOCPadChat/ChatController.swift"
-                  timestampString = "489453378.209879"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "252"
-                  endingLineNumber = "252"
-                  offsetFromSymbolStart = "340">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DOCPadChat/ChatController.swift"
-            timestampString = "489637596.34168"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DOCPadChat/ChatController.swift"
-            timestampString = "489637581.256725"
+            timestampString = "489709170.258123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>

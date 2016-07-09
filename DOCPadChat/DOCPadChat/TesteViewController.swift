@@ -58,13 +58,13 @@ class TesteViewController: UIViewController
     {
         let ip = "52.67.65.109"
         
-        let username =  "test2" //self.login.text!
+        let username =  "test1" //self.login.text!
         
-        let friend = "test1" // self.friend.text!
+        let friend = "test2" // self.friend.text!
         
         let model = UserModel(id: "\(friend)@\(ip)", name: friend, profileImage: UIImage(named: "channelTemplate")!)
         
-        ChatApplication.sharedInstance.serverConfigure(username, username: username, profileImage: nil)
+        ChatApplication.sharedInstance.serverConfigure("\(username)@\(ip)", username: username, password: "1234", profileImage: nil)
         
         ChatApplication.sharedInstance.startChatWith(self, userModel: model, navigationController: false, animated: true, completion: nil)
     }

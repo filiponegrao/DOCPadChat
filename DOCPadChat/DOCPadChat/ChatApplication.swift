@@ -48,6 +48,8 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     
     private var profileImage : UIImage?
     
+    private var password : String!
+    
     /** Fim das informacoes do usuario corrente */
     
     weak var delegate : ChatApplicationDelegate?
@@ -86,17 +88,21 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         XMPPManager.sharedInstance.xmppManagerStreamDelegate = self
     }
     
-    func serverConfigure(id: String, username: String, profileImage: UIImage?)
+    /**
+     *   Parametros:
+     *
+     * - O id passado deve ser do formato: 'username@servername'. Ex: teste@docpad.com;
+     * - O username uma string. Representa o nome de usuario no qual os contatos
+     *   visualizam;
+     * - Password;
+     * - Imagem de perfil, opcional;
+     */
+    func serverConfigure(jabberId: String, username: String, password: String, profileImage: UIImage?)
     {
-        self.id = id
+        self.id = jabberId
         self.username = username
         self.profileImage = profileImage
-    }
-    
-    func serverConfigure(profileImage: UIImage)
-    {
-        self.profileImage = profileImage
-        
+        self.password = password
     }
     
     func serverConnect()
@@ -106,14 +112,11 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             return
         }
         
-        if(self.username != nil)
-        {
-            NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appConnecting())
-            
-            let address = "\(self.id)@\(self.ip)"
-            print("Logando como: ", address)
-            XMPPManager.sharedInstance.loginToXMPPServer(address, password: "1234")
-        }
+        if self.id == nil || self.password == nil { return }
+        
+        NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.appConnecting())
+        print("Logando como: ", self.id)
+        XMPPManager.sharedInstance.loginToXMPPServer(self.id, password: self.password)
     }
     
     func serverDisconnect()
@@ -122,8 +125,6 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
     }
     
 
-    
-    
     /*********************************/
     /******** XMPP DELEGATES *********/
     /*********************************/
@@ -219,8 +220,11 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
 
     
     
-    func sendTextMessage(text: String, toContact contact: String)
+    func sendTextMessage(text: String, toContact contact: String) -> Bool
     {
+        
+        if XMPPManager.sharedInstance.connectionStatus() != ConnectioStatus.Conectado { return false }
+        
         let id = "\(self.id)_\(contact)_\(NSDate())"
         
         //Texto
@@ -242,11 +246,16 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         if let message = DAOMessage.sharedInstance.newMessage(id, sender: self.id, target: contact, type: MessageType.Text, sentDate: NSDate(), text: text)
         {
             NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
+            return true
         }
+        
+        return false
     }
     
-    func sendImageMessage(text: String?, toContact contact: String, image: UIImage)
+    func sendImageMessage(text: String?, toContact contact: String, image: UIImage) -> Bool
     {
+        if XMPPManager.sharedInstance.connectionStatus() != ConnectioStatus.Conectado { return false }
+
         let id = "\(self.id)_\(contact)_\(NSDate())"
         
         var newText = ""
@@ -289,12 +298,19 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             {
                 message.addFile(file, moc: DAOMessage.sharedInstance.managedObjectContext)
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
+                return true
             }
+            
+            return false
         }
+        
+        return false
     }
     
-    func sendPrintScreenNotification(image: String, sender: String)
+    func sendPrintScreenNotification(image: String, sender: String) -> Bool
     {
+        if XMPPManager.sharedInstance.connectionStatus() != ConnectioStatus.Conectado { return false }
+
         let elementPrintScreen = DDXMLElement(name: "printScreen", stringValue: image)
         elementPrintScreen.addAttributeWithName("printDate", stringValue: "\(NSDate())")
         
@@ -315,13 +331,17 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
         messageElement.addChild(elementPrintScreen)
         
         XMPPManager.sharedInstance.xmppStream?.sendElement(messageElement)
+        
+        return true
     }
     
-    func reSendImageMessage(message: Message)
+    func reSendImageMessage(message: Message) -> Bool
     {
+        if XMPPManager.sharedInstance.connectionStatus() != ConnectioStatus.Conectado { return false }
+
         let id = "\(self.id)_\(message.target)_\(NSDate())"
 
-        if message.file == nil { return }
+        if message.file == nil { return false }
         
         //Texto
         let body = DDXMLElement(name: "body", stringValue: "")
@@ -357,12 +377,19 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             {
                 DAOMessage.sharedInstance.addFileToMessage(newMessage, file: file)
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(newMessage))
+                return true
             }
+            
+            return false
         }
+        
+        return false
     }
     
-    func sendAudioMessage(text: String?, toContact contact: String, audio: NSData)
+    func sendAudioMessage(text: String?, toContact contact: String, audio: NSData) -> Bool
     {
+        if XMPPManager.sharedInstance.connectionStatus() != ConnectioStatus.Conectado { return false }
+
         let id = "\(self.id)_\(contact)_\(NSDate())"
         
         var newText = ""
@@ -404,8 +431,13 @@ class ChatApplication : NSObject, XMPPManagerLoginDelegate, XMPPManagerStreamDel
             {
                 message.addFile(file, moc: DAOMessage.sharedInstance.managedObjectContext)
                 NSNotificationCenter.defaultCenter().postNotification(ChatNotifications.messageNew(message))
+                return true
             }
+            
+            return false
         }
+        
+        return false
     }
     
     func deleteAllSentMedia(target: String)

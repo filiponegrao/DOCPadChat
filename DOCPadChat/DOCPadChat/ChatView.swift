@@ -100,6 +100,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         self.collectionView.keyboardDismissMode = .Interactive
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.scrollEnabled = true
+        self.collectionView.alwaysBounceVertical = true
         self.collectionView.delegate = controller
         self.collectionView.dataSource = controller
         self.collectionView.canCancelContentTouches = false
