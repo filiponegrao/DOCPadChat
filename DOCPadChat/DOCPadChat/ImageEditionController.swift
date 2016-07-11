@@ -28,6 +28,21 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
 
     var usermodel : UserModel!
     
+    //referentes ao traçado
+    var brushWidth : CGFloat = 2.0
+    
+    var lastPoint = CGPoint.zero
+    
+    var swiped = false
+    
+    var mainImageView: UIImageView! //drawing so far
+    var tempImageView: UIImageView! //temporary image view for the line currently drawing
+    
+    //array de cores
+    
+    let colors = [color0, color1, color2, color3, color4, color5, color6, color7, color8, color9, color10, color11]
+
+    
     init(image: UIImage?, userModel: UserModel!, chatController: ChatController!)
     {
         self.image = image
@@ -51,6 +66,15 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         let viewFrame = CGRectMake(0, 62, screenWidth, screenHeight - 62)
         self.imageEdit = ImageEditionView(image: self.image, frame: viewFrame, controller: self)
         self.view.addSubview(self.imageEdit)
+        
+        //referentes ao traçado
+        mainImageView = UIImageView(frame:self.imageEdit.imageView.bounds)
+        
+        self.imageEdit.imageView.addSubview(mainImageView)
+        
+        tempImageView = UIImageView(frame:self.mainImageView.bounds)
+        self.imageEdit.imageView.addSubview(tempImageView)
+
         
         //AQUI MÉTODO QUE ESCOLHE ESPESSURA
         self.thicknessSelected = true //por padrao começa selecionado
@@ -80,6 +104,81 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.imageEdit.collection.dataSource = self
     self.imageEdit.collection.registerClass(ImageEditionCell.self, forCellWithReuseIdentifier: "Cell")
     }
+    
+    /*********************************/
+    // ----- testando traçado -----
+    /*********************************/
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // Sets gesture to false when user touches the screen (but hasn't moved the finger yet)
+        swiped = false
+        if let touch = touches.first {
+            
+            // Saves the touch location (so we know where the drawing starts)
+            lastPoint = touch.locationInView(self.tempImageView)
+        }
+    }
+    
+    func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
+        
+        //draws a line between two points in the temporary view
+        UIGraphicsBeginImageContext(tempImageView.frame.size)
+        let context = UIGraphicsGetCurrentContext()
+        tempImageView.image?.drawInRect(CGRect(x: 0, y: 0, width: tempImageView.frame.width, height: tempImageView.frame.height))
+        
+        //gets the current point and draws a line from lastpoint to currentpoint
+        CGContextMoveToPoint(context, fromPoint.x, fromPoint.y)
+        CGContextAddLineToPoint(context, toPoint.x, toPoint.y)
+        
+        //parameters for brush size and brush color
+        CGContextSetLineCap(context, CGLineCap.Round)
+        CGContextSetLineWidth(context, brushWidth)
+//        CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0)
+        CGContextSetStrokeColorWithColor(context, color3.CGColor)
+
+        CGContextSetBlendMode(context, CGBlendMode.Normal)
+        
+        //actually draws the path
+        CGContextStrokePath(context)
+        
+        //wraps up the drawing context to render the new line into the temporary image view
+        tempImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // sets gesture to true when user moves finger on canvas
+        swiped = true
+        if let touch = touches.first {
+            let currentPoint = touch.locationInView(tempImageView)
+            //calls method to draw line
+            drawLineFrom(lastPoint, toPoint: currentPoint)
+            print("touch")
+            
+            //updates the last point so the next touch starts at the right point
+            lastPoint = currentPoint
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        //checks if the user is in the middle of a swipe
+        if !swiped {
+            //if not, draws a single point at touch location
+            drawLineFrom(lastPoint, toPoint: lastPoint)
+        }
+        
+        // Merge tempImageView into mainImageView
+        UIGraphicsBeginImageContext(mainImageView.frame.size)
+        mainImageView.image?.drawInRect(CGRect(x:0, y:0, width: mainImageView.frame.width, height: mainImageView.frame.height), blendMode: CGBlendMode.Normal, alpha: 1.0)
+        tempImageView.image?.drawInRect(CGRect(x:0, y:0, width: mainImageView.frame.width, height: mainImageView.frame.height), blendMode: CGBlendMode.Normal, alpha: 1.0)
+        mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        tempImageView.image = nil
+    }
+    // fim do traçado
 
     override func didReceiveMemoryWarning()
     {
@@ -149,6 +248,8 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     func cleanAllPaint()
     {
         //IMPLEMENTAR MÉTODO QUE APAGA PINTURA
+        mainImageView.image = nil
+
     }
     
     func refreshSelectedThickness()
@@ -206,6 +307,10 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.brushSelected = false
         self.markSelected = false
         self.refreshSelectedThickness()
+        
+        brushWidth = CGFloat(2.0)
+        print("2.0")
+        self.refreshSelectedThickness()
     }
     
     func brushAction()
@@ -214,6 +319,10 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.pencilSelected = false
         self.markSelected = false
         self.refreshSelectedThickness()
+        
+        brushWidth = CGFloat(4.0)
+        print("4.0")
+        self.refreshSelectedThickness()
     }
     
     func markAction()
@@ -221,6 +330,10 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.markSelected = true
         self.pencilSelected = false
         self.brushSelected = false
+        self.refreshSelectedThickness()
+        
+        brushWidth = CGFloat(8.0)
+        print("8.0")
         self.refreshSelectedThickness()
     }
     
@@ -246,7 +359,19 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! ImageEditionCell
+
+        //finds color index selected and tag
+        var index = indexPath.item
+        if index < 0 || index >= colors.count {
+            index = 0
+        }
         
+//        //sets R,G,B properties to color array elements
+//        (red, green, blue) = colors[index]
+
+        
+        
+        //define cor de exibição das células da collection
         switch indexPath.item {
         case 0:
             cell.imageView.backgroundColor = UIColor.init(netHex: 0x151414)

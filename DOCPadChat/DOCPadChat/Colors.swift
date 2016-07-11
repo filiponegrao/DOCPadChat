@@ -12,6 +12,18 @@ import UIKit
 let blueColor = UIColor.init(netHex: 0x1ABBF5)
 let grayColor = UIColor.init(netHex: 0x9fa3a4)
 
+let color0 = UIColor.init(netHex: 0x151414)
+let color1 = UIColor.init(netHex: 0xb1afaf)
+let color2 = UIColor.init(netHex: 0x007aff)
+let color3 = UIColor.init(netHex: 0x6caf47)
+let color4 = UIColor.init(netHex: 0x6de0ff)
+let color5 = UIColor.init(netHex: 0xed2130)
+let color6 = UIColor.init(netHex: 0xff9500)
+let color7 = UIColor.init(netHex: 0xff2d86)
+let color8 = UIColor.init(netHex: 0xf8edb9)
+let color9 = UIColor.init(netHex: 0x8659f7)
+let color10 = UIColor.init(netHex: 0xf6f5f9)
+let color11 = UIColor.init(netHex: 0x009fb8)
 
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
