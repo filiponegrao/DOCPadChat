@@ -108,6 +108,7 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
         self.collectionView.registerClass(ChatTextCell.self, forCellWithReuseIdentifier: "CellText")
         self.collectionView.registerClass(ChatImageCell.self, forCellWithReuseIdentifier: "CellImage")
         self.collectionView.registerClass(ChatServerCell.self, forCellWithReuseIdentifier: "CellServer")
+        self.collectionView.registerClass(ChatAudioCell.self, forCellWithReuseIdentifier: "CellAudio")
         self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 
         self.addSubview(self.collectionView)

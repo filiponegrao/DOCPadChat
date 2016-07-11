@@ -10,11 +10,18 @@ import Foundation
 import UIKit
 import AVFoundation
 
-@objc protocol AudioDelegate
+@objc protocol PlayerDelegate
 {
-    func audioRecorded(audio: NSData)
+    optional func audioStartPlaying()
     
-    func audioEndPlaying()
+    optional func audioEndPlaying()
+}
+
+@objc protocol RecorderDelegate
+{
+    optional func audioStartRecord()
+    
+    optional func audioRecorded(audio: NSData)
 }
 
 private let data = AudioController()
@@ -27,7 +34,9 @@ class AudioController : NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate
     
     var url : NSURL!
     
-    var delegate : AudioDelegate?
+    weak var playerDelegate : PlayerDelegate?
+    
+    weak var recorderDelegate : RecorderDelegate?
     
     override init()
     {
@@ -37,23 +46,29 @@ class AudioController : NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate
         let str =  documents.stringByAppendingPathComponent("temp.caf")
         self.url = NSURL.fileURLWithPath(str as String)
         
-        let recordSettings : [String: AnyObject] = [AVEncoderAudioQualityKey: AVAudioQuality.Max.rawValue,
-                                                    AVEncoderBitRateKey: 320000,
-                                                    AVNumberOfChannelsKey: 2,
-                                                    AVSampleRateKey: 44100.0]
+        //        AVEncoderAudioQualityKey: @(AVAudioQualityMedium),
+        //        AVFormatIDKey: @(kAudioFormatMPEG4AAC),
+        //        AVEncoderBitRateKey: @(128000),
+        //        AVNumberOfChannelsKey: @(1),
+        //        AVSampleRateKey: @(44100)};
+        
+        let recordSettings : [String: AnyObject] = [AVEncoderAudioQualityKey: AVAudioQuality.Medium.rawValue,
+                                                    AVEncoderBitRateKey: 128000,
+                                                    AVNumberOfChannelsKey: 1,
+                                                    AVSampleRateKey: 44100]
         do
         {
             try self.audioRecorder = AVAudioRecorder(URL:self.url, settings: recordSettings)
             self.audioRecorder.delegate = self
         }
-        catch {}
+        catch { print("nao foi possivel iniciar o audio recorder!") }
         
         do
         {
             try self.audioPlayer = AVAudioPlayer(contentsOfURL: self.url)
             self.audioPlayer?.delegate = self
         }
-        catch {}
+        catch { print("nao foi possivel iniciar o audio player!") }
     }
     
     class var sharedInstance : AudioController
@@ -90,15 +105,75 @@ class AudioController : NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate
         catch {}
     }
     
-    func play()
+    func isPlaying() -> Bool
+    {
+        if let player = self.audioPlayer
+        {
+            return player.playing
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    func play(audio: NSData, startingOnPercent: Float?)
     {
         let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
-        do {
-            print("Player: Tocando...")
+        do
+        {
             try audioSession.setActive(true)
-            self.audioPlayer.play()
+            do
+            {
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+                do
+                {
+                    try self.audioPlayer = AVAudioPlayer(data: audio)
+                    self.audioPlayer?.delegate = self
+                    
+                    if startingOnPercent != nil
+                    {
+                        self.audioPlayer.currentTime = self.audioPlayer.duration * Double(startingOnPercent!)
+                    }
+                    else
+                    {
+                        self.audioPlayer.currentTime = 0
+                    }
+                    
+                    print("Player: Tocando...")
+                    self.audioPlayer.play()
+                    self.playerDelegate?.audioStartPlaying?()
+                }
+                catch{ print("erro ao tentar carregar audio") }
+            }
             
-        } catch { }
+        } catch { print("erro ao tentar ativar a sessao de audio") }
+    }
+    
+    func stop()
+    {
+        if let player = self.audioPlayer
+        {
+            player.stop()
+            self.playerDelegate?.audioEndPlaying?()
+        }
+    }
+    
+    func getAudioDuation(audio: NSData) -> NSTimeInterval?
+    {
+        do { let player = try AVAudioPlayer(data: audio)
+            
+            let duration = player.duration
+            
+            return duration
+            
+        } catch { return nil }
+        
+    }
+    
+    func getCurrentAudioPlayer() -> AVAudioPlayer?
+    {
+        return self.audioPlayer
     }
     
     /*********************************/
@@ -120,17 +195,21 @@ class AudioController : NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate
     //Reproducao
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool)
     {
-        self.delegate?.audioEndPlaying()
+        self.playerDelegate?.audioEndPlaying?()
         print("Player: Terminou!")
     }
     
+    
+    
     //Gravacao
-    func audioRecorderBeginInterruption(recorder: AVAudioRecorder) {
+    func audioRecorderBeginInterruption(recorder: AVAudioRecorder)
+    {
         
     }
     
     //Gravacao
-    func audioRecorderEndInterruption(recorder: AVAudioRecorder) {
+    func audioRecorderEndInterruption(recorder: AVAudioRecorder)
+    {
         
     }
     
@@ -139,8 +218,18 @@ class AudioController : NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate
     {
         if let data = NSData(contentsOfURL: self.url)
         {
-            self.delegate?.audioRecorded(data)
-            self.play()
+            do { let audio = try AVAudioPlayer(data: data)
+                
+                let integer = NSInteger(audio.duration)
+                
+                let seconds = integer % 60
+                
+                if seconds > 0
+                {
+                    self.recorderDelegate?.audioRecorded?(data)
+                }
+                
+            } catch {}
         }
     }
     

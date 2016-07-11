@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AudioDelegate
+class ChatController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, RecorderDelegate
 {
     /******* Chat Variables *********/
 
@@ -88,7 +88,7 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         self.registerNotifications()
         self.handleOffline(nil)
         
-        AudioController.sharedInstance.delegate = self
+        AudioController.sharedInstance.recorderDelegate = self
     }
     
     func registerNotifications()
@@ -158,13 +158,16 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         else if message.type == MessageType.Image.rawValue
         {
             let height = imageCellHeight
-            let width = imageCellWidth
             
-            return CGSizeMake(width, height)
+            return CGSizeMake(screenWidth, height)
         }
         else if message.type == MessageType.Audio.rawValue
         {
             return CGSizeMake(screenWidth, audioCellHeight)
+        }
+        else if message.type == MessageType.Server.rawValue
+        {
+            return CGSizeMake(screenWidth, serverCellHeight)
         }
         
         return CGSizeMake(screenWidth, 60)
@@ -234,9 +237,9 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         }
         else if type == MessageType.Audio.rawValue
         {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellAudio", forIndexPath: indexPath) as! ChatAudioCell
 
-//            cell.configureCell(message)
+            cell.configureCell(message)
 
             return cell
         }

@@ -23,5 +23,7 @@ let audioCellHeight : CGFloat = 50
 let cellMarginH : CGFloat = 10
 let cellMarginV : CGFloat = 2
 
+let serverCellHeight : CGFloat = 70
+
 let dateHeight : CGFloat = 15
 
