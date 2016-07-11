@@ -106,6 +106,13 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.imageEdit.collection.delegate = self
         self.imageEdit.collection.dataSource = self
         self.imageEdit.collection.registerClass(ImageEditionCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        if let navigationBar = self.navigationController?.navigationBar
+        {
+            navigationBar.barTintColor = blueColor;
+            navigationBar.tintColor = UIColor.whiteColor()
+            navigationBar.barStyle = .Default
+        }
     }
     
     /*********************************/

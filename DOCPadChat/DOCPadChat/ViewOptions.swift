@@ -18,10 +18,10 @@ let imageCellWidth : CGFloat = screenWidth/1.8
 let imageCellHeight : CGFloat = imageCellWidth
 
 let audioCellWidth : CGFloat = maxTextCellWidth
-let audioCellHeight : CGFloat = 50
+let audioCellHeight : CGFloat = 60
 
 let cellMarginH : CGFloat = 10
-let cellMarginV : CGFloat = 2
+let cellMarginV : CGFloat = 5
 
 let serverCellHeight : CGFloat = 70
 

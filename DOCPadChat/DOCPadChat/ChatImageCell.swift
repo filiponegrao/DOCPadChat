@@ -18,6 +18,8 @@ class ChatImageCell: UICollectionViewCell
     
     var message : Message!
     
+    var blurView : UIVisualEffectView!
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -49,7 +51,10 @@ class ChatImageCell: UICollectionViewCell
         self.imageView.clipsToBounds = true
         self.view.addSubview(imageView)
         
-        
+        self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Light)) as UIVisualEffectView
+        self.blurView.frame = self.imageView.bounds
+        self.blurView.alpha = 0.97
+        self.imageView.addSubview(self.blurView)
     }
     
     func configureCell(message: Message)
@@ -70,6 +75,7 @@ class ChatImageCell: UICollectionViewCell
             }
             else
             {
+                self.view.backgroundColor = GMColor.grey200Color()
                 self.view.frame.origin.x = cellMarginH
             }
         }

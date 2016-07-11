@@ -21,7 +21,7 @@ class ChatTextCell: UICollectionViewCell
         
         self.textLabel = UITextView(frame: CGRectMake(0, cellMarginV, maxTextCellWidth, self.frame.size.height - 2*cellMarginV))
         self.textLabel.text = "Valar Morgulis"
-        self.textLabel.backgroundColor = GMColor.grey300Color()
+        self.textLabel.backgroundColor = GMColor.grey200Color()
         self.textLabel.layer.cornerRadius = 8
         self.textLabel.clipsToBounds = true
         self.textLabel.font = defaultFont
@@ -35,8 +35,8 @@ class ChatTextCell: UICollectionViewCell
         
         self.dateLabel = UILabel(frame: CGRectMake(0,0,40,20))
         self.dateLabel.text = "28/09"
-        self.dateLabel.font = UIFont(name: "Helvetica", size: 12)
-        self.dateLabel.textColor = GMColor.grey500Color()
+        self.dateLabel.font = UIFont(name: "Helvetica", size: 11)
+        self.dateLabel.textColor = GMColor.grey600Color()
         self.dateLabel.frame.size.height = dateHeight
 //        self.dateLabel.layer.borderWidth = 1
     }
@@ -53,6 +53,7 @@ class ChatTextCell: UICollectionViewCell
                 let dateorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH*2 + self.dateLabel.frame.width)
                 self.dateLabel.frame.origin.x = dateorigin
                 self.dateLabel.frame.origin.y = self.frame.height - dateHeight - cellMarginV
+                self.dateLabel.textColor = GMColor.grey700Color()
                 self.addSubview(self.dateLabel)
                 
                 
@@ -66,7 +67,7 @@ class ChatTextCell: UICollectionViewCell
                 let textorigin = screenWidth - (self.textLabel.frame.size.width + cellMarginH)
                 self.textLabel.frame.origin.x = textorigin
                 self.textLabel.frame.origin.y = cellMarginV
-                self.textLabel.backgroundColor = GMColor.grey400Color()
+                self.textLabel.backgroundColor = GMColor.grey300Color()
 
                 self.addSubview(self.textLabel)
                 
@@ -104,7 +105,7 @@ class ChatTextCell: UICollectionViewCell
                 let textorigin = cellMarginH
                 self.textLabel.frame.origin.x = textorigin
                 self.textLabel.frame.origin.y = cellMarginV
-                self.textLabel.backgroundColor = GMColor.grey50Color()
+                self.textLabel.backgroundColor = GMColor.grey200Color()
                 self.addSubview(self.textLabel)
 
                 if(self.textLabel.frame.width < 40 + cellMarginH)

@@ -38,7 +38,7 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
         self.backgroundColor = UIColor.clearColor()
         
         self.label = UIView(frame: CGRectMake(cellMarginH, cellMarginV, audioCellWidth, self.frame.height - cellMarginV*2))
-        self.label.backgroundColor = GMColor.grey300Color()
+        self.label.backgroundColor = GMColor.grey200Color()
         self.label.layer.cornerRadius = 8
         self.label.clipsToBounds = true
         self.label.layer.borderWidth = 0.3
@@ -61,7 +61,7 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
 
         self.dateLabel = UILabel(frame: CGRectMake(self.label.frame.width - 40 - cellMarginH, self.label.frame.height - 20,40,20))
         self.dateLabel.text = "28/09"
-        self.dateLabel.font = UIFont(name: "Helvetica", size: 12)
+        self.dateLabel.font = UIFont(name: "Helvetica", size: 11)
         self.dateLabel.textColor = GMColor.grey500Color()
         self.label.addSubview(self.dateLabel)
         
@@ -113,12 +113,13 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
             {
                 self.label.frame.origin.x = screenWidth - self.label.frame.width - cellMarginH
                 self.label.backgroundColor = GMColor.grey300Color()
+                self.dateLabel.textColor = GMColor.grey700Color()
                 
             }
             else
             {
                 self.label.frame.origin.x = cellMarginH
-                self.label.backgroundColor = UIColor.whiteColor()
+                self.label.backgroundColor = GMColor.grey200Color()
             }
         }
         

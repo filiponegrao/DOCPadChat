@@ -309,8 +309,15 @@ class ChatView : UIView, ChatMessageBarDelegate, UIImagePickerControllerDelegate
     {
         self.picker.dismissViewControllerAnimated(true, completion: nil)
         
+        
         let editionController = ImageEditionController(image: image, userModel: self.controller.usermodel, chatController: self.controller)
-        self.controller.navigationController?.pushViewController(editionController, animated: true)
+        
+        let navigation = UINavigationController()
+        navigation.viewControllers = [editionController]
+        
+        self.controller.presentViewController(navigation, animated: true) { 
+            
+        }
         
 //        ChatApplication.sharedInstance.sendImageMessage(nil, toContact: self.controller.usermodel.id, image: image)
     }
