@@ -158,9 +158,8 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
         else if message.type == MessageType.Image.rawValue
         {
             let height = imageCellHeight
-            let width = imageCellWidth
             
-            return CGSizeMake(width, height)
+            return CGSizeMake(screenWidth, height)
         }
         else if message.type == MessageType.Audio.rawValue
         {
