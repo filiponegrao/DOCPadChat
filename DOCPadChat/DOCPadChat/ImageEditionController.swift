@@ -41,6 +41,8 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     //array de cores
     
     let colors = [color0, color1, color2, color3, color4, color5, color6, color7, color8, color9, color10, color11]
+    
+    var cor = color0
 
     
     init(image: UIImage?, userModel: UserModel!, chatController: ChatController!)
@@ -133,8 +135,7 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         //parameters for brush size and brush color
         CGContextSetLineCap(context, CGLineCap.Round)
         CGContextSetLineWidth(context, brushWidth)
-//        CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0)
-        CGContextSetStrokeColorWithColor(context, color3.CGColor)
+        CGContextSetStrokeColorWithColor(context, self.cor.CGColor)
 
         CGContextSetBlendMode(context, CGBlendMode.Normal)
         
@@ -348,58 +349,23 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 12
+        return self.colors.count
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        
+        //sets HEX properties to color array elements
+        cor = colors[indexPath.item]
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! ImageEditionCell
-
-        //finds color index selected and tag
-        var index = indexPath.item
-        if index < 0 || index >= colors.count {
-            index = 0
-        }
         
-//        //sets R,G,B properties to color array elements
-//        (red, green, blue) = colors[index]
-
+        let color = self.colors[indexPath.item]
         
-        
-        //define cor de exibição das células da collection
-        switch indexPath.item {
-        case 0:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x151414)
-        case 1:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xb1afaf)
-        case 2:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x007aff)
-        case 3:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x6caf47)
-        case 4:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x6de0ff)
-        case 5:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xed2130)
-        case 6:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xff9500)
-        case 7:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xff2d86)
-        case 8:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf8edb9)
-        case 9:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x8659f7)
-        case 10:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xf6f5f9)
-        case 11:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0x009fb8)
-        default:
-            cell.imageView.backgroundColor = UIColor.init(netHex: 0xd42111)
-        }
+        cell.imageView.backgroundColor = color
+    
         
         cell.frame.size = CGSizeMake(screenWidth/6, screenWidth/6)
         
