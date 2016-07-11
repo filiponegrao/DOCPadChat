@@ -59,7 +59,7 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
         self.slider.maximumValue = 100
         self.label.addSubview(self.slider)
 
-        self.dateLabel = UILabel(frame: CGRectMake(0,0,40,20))
+        self.dateLabel = UILabel(frame: CGRectMake(self.label.frame.width - 40 - cellMarginH, self.label.frame.height - 20,40,20))
         self.dateLabel.text = "28/09"
         self.dateLabel.font = UIFont(name: "Helvetica", size: 12)
         self.dateLabel.textColor = GMColor.grey500Color()
@@ -111,14 +111,12 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
             //Usuario corrente é o sender
             if message.sender == id
             {
-                self.dateLabel.frame.origin = CGPointMake(self.label.frame.width - self.dateLabel.frame.width, self.label.frame.height - 20)
                 self.label.frame.origin.x = screenWidth - self.label.frame.width - cellMarginH
                 self.label.backgroundColor = GMColor.grey300Color()
                 
             }
             else
             {
-                self.dateLabel.frame.origin = CGPointMake(cellMarginH*2, self.label.frame.height - 20)
                 self.label.frame.origin.x = cellMarginH
                 self.label.backgroundColor = UIColor.whiteColor()
             }
