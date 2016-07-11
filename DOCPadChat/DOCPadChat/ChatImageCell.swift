@@ -23,7 +23,7 @@ class ChatImageCell: UICollectionViewCell
         super.init(frame: frame)
         
         self.view = UIImageView(frame: CGRectMake(0, cellMarginV, imageCellWidth - cellMarginH*2, imageCellHeight - cellMarginV*2))
-        self.view.backgroundColor = GMColor.grey300Color()
+        self.view.backgroundColor = GMColor.grey200Color()
         self.view.layer.cornerRadius = 8
         self.view.clipsToBounds = true
         self.view.layer.borderWidth = 0.3
@@ -39,7 +39,7 @@ class ChatImageCell: UICollectionViewCell
         self.dateLabel = UILabel(frame: CGRectMake(self.view.frame.size.width/2  - cellMarginH, self.view.frame.size.height - 20,self.view.frame.size.width/2, 15))
         self.dateLabel.text = "66/66"
         self.dateLabel.font = UIFont(name: "Helvetica", size: 11)
-        self.dateLabel.textColor = GMColor.grey500Color()
+        self.dateLabel.textColor = GMColor.grey600Color()
         self.dateLabel.textAlignment = .Right
         self.view.addSubview(self.dateLabel)
         
@@ -58,10 +58,21 @@ class ChatImageCell: UICollectionViewCell
         
         self.dateLabel.text = UseFulFunctions.getStringDateFromDate(self.message.sentDate)
         
-//        if(let id = ChatApplication.sharedInstance.getId())
-//        {
-//            //se é usuário corrente
-//        }
+        if let id = ChatApplication.sharedInstance.getId()
+        {
+            //se é usuário corrente o sender
+            if(message.sender == id)
+            {
+                self.view.frame.origin.x = screenWidth - self.view.frame.size.width - cellMarginH
+                self.view.backgroundColor = GMColor.grey300Color()
+                self.dateLabel.textColor = GMColor.grey700Color()
+
+            }
+            else
+            {
+                self.view.frame.origin.x = cellMarginH
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder)
