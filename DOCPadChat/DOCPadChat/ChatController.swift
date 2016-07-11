@@ -133,8 +133,13 @@ class ChatController : UIViewController, UICollectionViewDelegate, UICollectionV
     func openImage(message: Message)
     {
         let receivedImageController = ReceivedImageController(message: message, requester: self)
+
+        let navigation = UINavigationController()
+        navigation.viewControllers = [receivedImageController]
         
-        self.navigationController?.pushViewController(receivedImageController, animated: true)
+        self.presentViewController(navigation, animated: true) { 
+            
+        }
     }
     
     
