@@ -20,13 +20,13 @@ class ChatServerCell: UICollectionViewCell
         
         self.textLabel = UITextView(frame: CGRectMake(cellMarginH*4, cellMarginV, self.frame.width - cellMarginH*8, self.frame.size.height - 2*cellMarginV))
         self.textLabel.text = "Fulaninho efetuou uma captura de tela na imagem na qual voce enviou!"
-        self.textLabel.backgroundColor = GMColor.orange200Color()
+        self.textLabel.backgroundColor = GMColor.orange100Color()
         self.textLabel.layer.cornerRadius = 8
         self.textLabel.clipsToBounds = true
         self.textLabel.font = defaultFont
         self.textLabel.textColor = GMColor.grey700Color()
         self.textLabel.userInteractionEnabled = false
-        self.textLabel.contentInset = UIEdgeInsetsMake(10, 0, 5, 0)
+        self.textLabel.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
         self.textLabel.layer.borderWidth = 0.3
         self.textLabel.layer.borderColor = UIColor.grayColor().CGColor
         self.addSubview(self.textLabel)
