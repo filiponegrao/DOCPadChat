@@ -61,7 +61,7 @@ class ChatAudioCell: UICollectionViewCell, PlayerDelegate
 
         self.dateLabel = UILabel(frame: CGRectMake(0,0,40,20))
         self.dateLabel.text = "28/09"
-        self.dateLabel.font = UIFont(name: "Helvetica", size: 14)
+        self.dateLabel.font = UIFont(name: "Helvetica", size: 12)
         self.dateLabel.textColor = GMColor.grey500Color()
         self.label.addSubview(self.dateLabel)
         
