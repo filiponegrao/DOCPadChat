@@ -409,8 +409,13 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         
         // Envia a imagem pro chat
         ChatApplication.sharedInstance.sendImageMessage(nil, toContact: self.usermodel.id, image: finalImage)
-        self.navigationController?.popViewControllerAnimated(true)
-        self.chatController.navigationController?.popViewControllerAnimated(true)
+        
+        self.navigationController?.dismissViewControllerAnimated(true, completion: { 
+            
+        })
+        
+//        self.navigationController?.popViewControllerAnimated(true)
+//        self.chatController.navigationController?.popViewControllerAnimated(true)
     }
 
 }

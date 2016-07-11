@@ -73,7 +73,24 @@ class ReceivedImageController: UIViewController, UIScrollViewDelegate
         let right = UIBarButtonItem(title: "Editar", style: .Plain, target: self, action: #selector(ReceivedImageController.openEdition))
         self.navigationItem.rightBarButtonItem = right
         
+        let left = UIBarButtonItem(title: "Voltar", style: .Plain, target: self, action: #selector(self.back))
+        self.navigationItem.leftBarButtonItem = left
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.didTakeScreenShot), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
+        
+        if let navigationBar = self.navigationController?.navigationBar
+        {
+            navigationBar.barTintColor = blueColor;
+            navigationBar.tintColor = UIColor.whiteColor()
+            navigationBar.barStyle = .Default
+        }
+    }
+    
+    func back()
+    {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: { 
+            
+        })
     }
     
     /*********************************/

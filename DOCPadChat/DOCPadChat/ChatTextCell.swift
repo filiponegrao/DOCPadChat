@@ -121,6 +121,13 @@ class ChatTextCell: UICollectionViewCell
                 self.dateLabel.frame.origin.x = cellMarginH*2
             }
         }
+        
+        self.textLabel.layer.shadowColor = UIColor.blackColor().CGColor
+        self.textLabel.layer.shadowOffset = CGSizeMake(1, 2.0);
+        self.textLabel.layer.shadowRadius = 2.0
+        self.textLabel.layer.shadowOpacity = 0.2
+        self.textLabel.layer.masksToBounds = false
+        self.textLabel.layer.shadowPath = UIBezierPath.init(roundedRect: self.textLabel.bounds, cornerRadius: self.textLabel.layer.cornerRadius).CGPath
     }
     
     class func getHeightForCell(forMessage message: Message) -> CGFloat
