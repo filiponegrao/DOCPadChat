@@ -119,6 +119,9 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
         self.selectImage = UIImageView(frame: CGRectMake(0,0, screenWidth/6, screenWidth/6))
         self.selectImage.image = UIImage(named: "selected")
         self.selectImage.contentMode = .ScaleAspectFit
+        
+        
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     /*********************************/
