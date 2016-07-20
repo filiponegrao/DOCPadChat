@@ -28,6 +28,8 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
 
     var usermodel : UserModel!
     
+    var selectImage : UIImageView!
+    
     // Referentes ao traçado
     var brushWidth : CGFloat = 4.0
     
@@ -113,6 +115,10 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
             navigationBar.tintColor = UIColor.whiteColor()
             navigationBar.barStyle = .Default
         }
+        
+        self.selectImage = UIImageView(frame: CGRectMake(0,0, screenWidth/6, screenWidth/6))
+        self.selectImage.image = UIImage(named: "selected")
+        self.selectImage.contentMode = .ScaleAspectFit
     }
     
     /*********************************/
@@ -373,18 +379,32 @@ class ImageEditionController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         // Sets HEX properties to color array elements
-        cor = colors[indexPath.item]
+        self.cor = colors[indexPath.item]
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        cell!.layer.borderWidth = 3.0
+        cell!.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        cell?.addSubview(self.selectImage)
     }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        cell!.layer.borderWidth = 0
+        cell!.layer.borderColor = UIColor.clearColor().CGColor
+        
+        cell?.willRemoveSubview(self.selectImage)
+    }
+
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! ImageEditionCell
         
         let color = self.colors[indexPath.item]
         
         cell.imageView.backgroundColor = color
-    
     
         cell.frame.size = CGSizeMake(screenWidth/6, screenWidth/6)
         

@@ -19,6 +19,7 @@ class ImageEditionCell: UICollectionViewCell
         self.imageView = UIImageView(frame: CGRectMake(0, 0, screenWidth/6, screenWidth/6))
 //        self.imageView.backgroundColor = UIColor.redColor()
         self.addSubview(self.imageView)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
